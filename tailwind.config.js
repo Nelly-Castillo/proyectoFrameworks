@@ -5,7 +5,11 @@ export default {
       "./src/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-      extend: {},
+      extend: {
+        backgroundImage: {
+          'portadaHome': "url('./src/assets/images/comunartePortada.png')"
+        }
+      },
     },
     plugins: [],
 }
