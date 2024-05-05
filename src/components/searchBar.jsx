@@ -1,4 +1,4 @@
-export default function SearchBar() {
+function SearchBar() {
     return(
         <div className="bg-blue-600 text-white flex flex-row p-1 rounded-lg">
             <input placeholder="Busqueda" className=" bg-blue-600 p-1"></input>
@@ -10,3 +10,4 @@ export default function SearchBar() {
         </div>
     );
 }
+export {SearchBar};
