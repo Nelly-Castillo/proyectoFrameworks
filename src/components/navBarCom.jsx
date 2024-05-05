@@ -1,6 +1,6 @@
-import SearchBar from './searchBar';
+import { SearchBar } from './searchBar.jsx';
 import fotoPerfil2 from '../assets/images/perfil2.jpg';
-export default function NavBarCom() {
+function NavBarCom() {
     return(
         <div className='flex flex-row justify-around p-2'> 
             <button className='flex flex-row items-center text-lg font-semibold p-1'>
@@ -45,3 +45,5 @@ export default function NavBarCom() {
     );
 
 }
+
+export {NavBarCom};

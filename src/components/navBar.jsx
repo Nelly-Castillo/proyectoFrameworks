@@ -1,6 +1,7 @@
-import SearchBar from './searchBar';
+import React from 'react';
+import { SearchBar } from './searchBar.jsx';
 import fotoPerfil1 from '../assets/images/perfil1.jpg';
-export default function NavBar() {
+function NavBar() {
     return(
         <div className='flex flex-row justify-around p-2'> 
             <button className='flex flex-row items-center text-lg font-semibold p-1'>
@@ -33,9 +34,11 @@ export default function NavBar() {
                 </button>
                 <button>
                     <img src={fotoPerfil1} alt='Foto de perfil' className="rounded-full h-10 w-10 object-cover"></img>
+                    
                 </button>
             </div>
         </div>
     );
 
 }
+export {NavBar};
