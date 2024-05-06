@@ -1,15 +1,28 @@
-import './App.css';
+
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { NavBar } from './components/navBar.jsx';
+import { NavBarCom } from './components/navBarCom.jsx';
 import Home from './Home';
+import './App.css';
+
+// function App() {
+//   return (
+//     <Routes>
+//       <Route index element={<Perfil />} />
+//       <Route path="/navbar" element={<NavBar />} />
+//       <Route path="/navbarcom" element={<NavBarCom />} />
+//     </Routes>
+//   );
+// }
 
 function App() {
   return (
-    <div className=' w-screen h-screen'>
-      <div className='bg-teal-600'>
-        <h1>Hola, si funciona tailwind</h1>
-      </div>
-      <Home />
-    </div>
-  )
-}
+    <>
+      <NavBar/>
+      <NavBarCom/>
+      <Home/>
 
-export default App
+    </>
+  );
+}
+export default App;
