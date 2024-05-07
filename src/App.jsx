@@ -3,6 +3,7 @@
 import { NavBar } from './components/navBar.jsx';
 import { NavBarCom } from './components/navBarCom.jsx';
 import { Login } from './components/Login.jsx';
+import { SignUp } from './components/SignUp.jsx'
 import './App.css';
 
 // function App() {
@@ -19,8 +20,9 @@ function App() {
   return (
     <>
       {/* <NavBar/>
-      <NavBarCom/> */}
-      <Login/>
+      <NavBarCom/> 
+      <Login/>*/}
+      <SignUp/>
       {/* <div className='bg-teal-600'>
         <h1>Hola, si funciona tailwind</h1>
       </div> */}
