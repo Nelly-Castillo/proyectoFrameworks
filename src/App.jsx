@@ -2,10 +2,12 @@
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { NavBar } from './components/navBar.jsx';
 import { NavBarCom } from './components/navBarCom.jsx';
+import Home from './Home';
 import { Login } from './components/Login.jsx';
 import { SignUp } from './components/SignUp.jsx';
 import { Obra } from './components/Obra.jsx';
 import './App.css';
+import Carrito from './components/Carrito.jsx';
 
 // function App() {
 //   return (
@@ -20,6 +22,7 @@ import './App.css';
 function App() {
   return (
     <>
+      {/* <Carrito/> <Home/>*/}
       {/* <NavBar/>
       <NavBarCom/> 
       <Login/>
@@ -32,6 +35,3 @@ function App() {
   );
 }
 export default App;
-
-
-// export default {App};
