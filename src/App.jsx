@@ -4,6 +4,7 @@ import { NavBar } from './components/navBar.jsx';
 import { NavBarCom } from './components/navBarCom.jsx';
 import Home from './Home';
 import './App.css';
+import Carrito from './components/Carrito.jsx';
 
 // function App() {
 //   return (
@@ -21,7 +22,7 @@ function App() {
       <NavBar/>
       <NavBarCom/>
       <Home/>
-
+      {/* <Carrito/> */}
     </>
   );
 }
