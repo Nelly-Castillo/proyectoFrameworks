@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
     content: [
       "./index.html",
@@ -17,6 +18,12 @@ export default {
           'VerTrans': 'rgba(155,201,149,0.6)',
           'Blanco': '#FFFFFF',
           'Negro': '#2c2d2d'
+        },
+        backgroundImage: {
+          'portadaHome': "url('./src/assets/images/comunartePortada.png')",
+          'botonDigital': "url('./src/assets/images/digital.jpg')",
+          'botonEsculturas': "url('./src/assets/images/esculturas.jpg')",
+          'botonPinturas': "url('./src/assets/images/pinturas.jpg')"
         }
       },
     },
