@@ -3,6 +3,9 @@
 import { NavBar } from './components/navBar.jsx';
 import { NavBarCom } from './components/navBarCom.jsx';
 import Home from './Home';
+import { Login } from './components/Login.jsx';
+import { SignUp } from './components/SignUp.jsx';
+import { Obra } from './components/Obra.jsx';
 import './App.css';
 import Carrito from './components/Carrito.jsx';
 
@@ -19,10 +22,15 @@ import Carrito from './components/Carrito.jsx';
 function App() {
   return (
     <>
-      <NavBar/>
-      <NavBarCom/>
-      <Home/>
-      {/* <Carrito/> */}
+      {/* <Carrito/> <Home/>*/}
+      {/* <NavBar/>
+      <NavBarCom/> 
+      <Login/>
+      <SignUp/>*/}
+      <Obra/>
+      {/* <div className='bg-teal-600'>
+        <h1>Hola, si funciona tailwind</h1>
+      </div> */}
     </>
   );
 }
