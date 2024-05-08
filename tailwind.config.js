@@ -17,7 +17,6 @@ export default {
           'VerTrans': 'rgba(155,201,149,0.6)',
           'Blanco': '#FFFFFF',
           'Negro': '#2c2d2d'
-
         }
       },
     },
