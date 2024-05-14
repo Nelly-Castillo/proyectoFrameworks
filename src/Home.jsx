@@ -1,8 +1,10 @@
 import React from 'react';
 import iconobrush from './assets/images/brush.svg';
-
-export default function Home() {
+import { NavBar } from './components/navBar';
+const  Home = () => {
     return (
+        <>
+        <NavBar/>
         <div className=' py-10  px-16 flex flex-col gap-10'>
             <div className="bg-portadaHome bg-no-repeat bg-cover bg-center bg-fixed lg:pt-72 2xl:pt-96">
                 <div className='flex flex-row text-white font-bold gap-3 items-center p-10'>
@@ -42,5 +44,9 @@ export default function Home() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
+
+
+export default Home
