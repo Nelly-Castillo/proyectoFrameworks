@@ -22,7 +22,7 @@ function App() {
       <NavBar/>
       <NavBarCom/>
       <Home/>
-      {/* <Carrito/> */}
+      <Carrito/>
     </>
   );
 }
