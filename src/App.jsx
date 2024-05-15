@@ -7,8 +7,9 @@ import { Obra } from './components/Obra.jsx';
 import { Explorar } from "./components/Explorar.jsx";
 import { Chat } from "./components/Chat.jsx";
 import { Crear } from "./Crear.jsx";
+import {Carrito} from "./components/Carrito.jsx";
 import './App.css';
-import Carrito from './components/Carrito.jsx';
+
 
 // function App() {
 //   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/Explorar" element={<Explorar></Explorar>}/>
         <Route path="/Chat" element={<Chat></Chat>}/>
         <Route path="/Crear" element={<Crear></Crear>}/>
+        <Route path="/Carrito" element={<Carrito></Carrito>}/>
       </Routes>
       {/* <Carrito/> <Home/>*/}
       {/* <NavBar/>

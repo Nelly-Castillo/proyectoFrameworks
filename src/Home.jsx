@@ -1,6 +1,7 @@
 import React from 'react';
 import iconobrush from './assets/images/brush.svg';
 import { NavBar } from './components/navBar';
+
 const  Home = () => {
     return (
         <>
@@ -9,7 +10,7 @@ const  Home = () => {
             <div className="bg-portadaHome bg-no-repeat bg-cover bg-center bg-fixed lg:pt-72 2xl:pt-96">
                 <div className='flex flex-row text-white font-bold gap-3 items-center p-10'>
                     <h1 className='text-3xl drop-shadow-sm lg:text-6xl xl:text-8xl'>ComunArte</h1>
-                    <img className='w-8 h-8 lg:w-16 lg:h-16 xl:w-24 xl:h-24' src={iconobrush} alt="Icono" />
+                    <img className=' w-8 h-8 lg:w-16 lg:h-16 xl:w-24 xl:h-24' src={iconobrush} alt="Icono" />
                 </div>
             </div>    
             <div className='flex flex-col'>
