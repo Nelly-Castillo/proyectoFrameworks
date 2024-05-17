@@ -6,7 +6,8 @@ import { SignUp } from './components/SignUp.jsx';
 import { Obra } from './components/Obra.jsx';
 import { Explorar } from "./components/Explorar.jsx";
 import { Chat } from "./components/Chat.jsx";
-import { Crear } from "./Crear.jsx";
+import { Crear } from "./components/Crear.jsx";
+import { Page404 } from "./components/Page404.jsx";
 import './App.css';
 import Carrito from './components/Carrito.jsx';
 
@@ -21,6 +22,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home></Home>} />
+        <Route path="/*" element={<Page404></Page404>} />
         <Route path="/Login" element={<Login></Login>} />
         <Route path="/SignUp" element={<SignUp></SignUp>}/>
         <Route path="/Obra" element={<Obra></Obra>}/>

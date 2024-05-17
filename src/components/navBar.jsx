@@ -4,7 +4,7 @@ import fotoPerfil1 from '../assets/images/perfil1.jpg';
 import { Link } from 'react-router-dom';
 function NavBar() {
     return(
-        <div className='flex flex-row justify-around p-2'> 
+        <div className='flex flex-row justify-around p-2 my-3'> 
             <button className='flex flex-row items-center text-lg font-semibold p-1' >
                 <Link to="/" className='flex flex-row items-center text-lg font-semibold p-1'>
                     <h1 className='pe-1'>
