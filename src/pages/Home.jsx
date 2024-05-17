@@ -1,6 +1,6 @@
 import React from 'react';
-import iconobrush from './assets/images/brush.svg';
-import { NavBar } from './components/navBar';
+import iconobrush from '../assets/images/brush.svg';
+import { NavBar } from '../components/navBar';
 const  Home = () => {
     return (
         <>

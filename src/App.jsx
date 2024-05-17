@@ -1,13 +1,13 @@
 
 import { Routes, Route } from "react-router-dom";
-import Home from './Home';
-import { Login } from './components/Login.jsx';
-import { SignUp } from './components/SignUp.jsx';
+import Home from './pages/Home.jsx';
+import { Login } from './pages/Login.jsx';
+import { SignUp } from './pages/SignUp.jsx';
 import { Obra } from './components/Obra.jsx';
 import { Explorar } from "./components/Explorar.jsx";
-import { Chat } from "./components/Chat.jsx";
-import { Crear } from "./components/Crear.jsx";
-import { Page404 } from "./components/Page404.jsx";
+import { Chat } from "./pages/Chat.jsx";
+import { Crear } from "./pages/Crear.jsx";
+import { Page404 } from "./pages/Page404.jsx";
 import './App.css';
 import Carrito from './components/Carrito.jsx';
 
