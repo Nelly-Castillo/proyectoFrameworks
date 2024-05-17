@@ -16,6 +16,7 @@ export default {
           'NaranjaTrans20': 'rgba(255,165,0,0.2)',
           'VerLima': '#9BC995', 
           'VerTrans': 'rgba(155,201,149,0.6)',
+          'VerTrans30': 'rgba(155,201,149,0.3)',
           'Blanco': '#FFFFFF',
           'Negro': '#2c2d2d'
         },
