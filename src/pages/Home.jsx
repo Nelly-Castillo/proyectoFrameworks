@@ -1,6 +1,6 @@
 import React from 'react';
-import iconobrush from './assets/images/brush.svg';
-import { NavBar } from './components/navBar';
+import iconobrush from '../assets/images/brush.svg';
+import { NavBar } from '../components/navBar';
 const  Home = () => {
     return (
         <>
@@ -15,7 +15,7 @@ const  Home = () => {
             <div className='flex flex-col'>
                 <h1 className=' text-center text-5xl py-8'>Top ventas</h1>
                 <div className='flex flex-row flex-wrap justify-around'>
-                    <div className='place-content-center bg-botonDigital bg-no-repeat bg-cover bg-center w-96 h-96 items-center'>
+                    <div className='place-content-center bg-botonDigital bg-no-repeat bg-cover bg-center w-96 h-96 items-center group'>
                         <div className=' text-center text-2xl text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out'>
                             Ilustraciones
                         </div>

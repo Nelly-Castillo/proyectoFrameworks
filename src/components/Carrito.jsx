@@ -27,9 +27,9 @@ function Carrito() {
   }, [data]);
 
   return (
-    <>
+    <div>
       <NavBar />
-      <div className="px-28 flex flex-col">
+      <div className="px-28 pb-9 flex flex-col">
         <div className="border-b-4 border-Naranja pb-7">
           {data.map((obra, index) => (
             <ItemCarrito
@@ -45,10 +45,10 @@ function Carrito() {
           <div className=" text-4xl font-semibold">${totalCarrito.toFixed(2)}</div>
         </div>
         <Link className="flex self-center" to="/">
-          <button className=" bg-Azul px-12 py-7 text-white w-min font-semibold text-2xl rounded-3xl">Pagar</button>
+          <button className=" mt-11 bg-Azul px-12 py-7 text-white w-min font-semibold text-2xl rounded-3xl">Pagar</button>
         </Link>
       </div>
-    </>
+    </div>
   );
 }
 
