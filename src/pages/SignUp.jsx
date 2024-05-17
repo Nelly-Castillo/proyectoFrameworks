@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import chevronUpDownIcon  from '../assets/images/chevron-compact-down.svg'; 
+import { Link } from 'react-router-dom';
 
 const people = [
     {
@@ -169,9 +170,9 @@ function SignUp() {
                     </form>
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Ya tienes una cuenta?{' '}
-                        <a href="#" className="font-semibold leading-6 text-Naranja hover:text-NaranjaOs">
-                            Iniciar Sesión
-                        </a>
+                        <Link to="/Login" className="font-semibold leading-6 text-Naranja hover:text-NaranjaOs">
+                            Crear cuenta
+                        </Link>
                     </p>
                 </div>
             </div>
