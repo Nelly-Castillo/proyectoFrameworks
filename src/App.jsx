@@ -1,13 +1,14 @@
 
 import { Routes, Route } from "react-router-dom";
-import Home from './Home';
-import { Login } from './components/Login.jsx';
-import { SignUp } from './components/SignUp.jsx';
+import Home from './pages/Home.jsx';
+import { Login } from './pages/Login.jsx';
+import { SignUp } from './pages/SignUp.jsx';
 import { Obra } from './components/Obra.jsx';
 import { Explorar } from "./components/Explorar.jsx";
-import { Chat } from "./components/Chat.jsx";
-import { Crear } from "./Crear.jsx";
-import {Carrito} from "./components/Carrito.jsx";
+import { Chat } from "./pages/Chat.jsx";
+import { Crear } from "./pages/Crear.jsx";
+import { Page404 } from "./pages/Page404.jsx";
+import {Carrito} from "./components/Carrito.jsx"
 import './App.css';
 
 
@@ -22,6 +23,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home></Home>} />
+        <Route path="/*" element={<Page404></Page404>} />
         <Route path="/Login" element={<Login></Login>} />
         <Route path="/SignUp" element={<SignUp></SignUp>}/>
         <Route path="/Obra" element={<Obra></Obra>}/>
