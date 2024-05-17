@@ -1,4 +1,6 @@
-import { NavBarCom } from "./navBarCom";
+import { NavBarCom } from "../components/navBarCom";
+import { Button } from "../components/Button";
+import { Input } from "../components/Input";
 
 
 function Crear () {
@@ -33,44 +35,20 @@ function Crear () {
                     </div>
                 </div>
                 <div className="flex flex-col justify-center w-1/2 pl-10">
-                    <div className="p-2">
-                        <h3 className="pb-2">
-                            Titulo
-                        </h3>
-                        <input type="text" placeholder="Agregar un titulo" className="bg-NaranjaTrans20 p-2 border-2 border-Naranja rounded-md w-1/2" />
-                    </div>
-                    <div className="p-2">
-                        <h3 className="pb-2">
-                            Descripción
-                        </h3>
-                        <input type="text" placeholder="Agrega una descripción " className="bg-NaranjaTrans20 p-2 border-2 border-Naranja rounded-md w-1/2" />
-                    </div>
+                    <Input title="Titulo" placeholder="Agregar un titulo" />
+                    <Input title="Descripción" placeholder="Agrega una descripción" />
                     <div className="p-2">
                         <h3 className="pb-2">
                             Etiquetas
                         </h3>
                     </div>
-                    <div className="p-2">
-                        <h3  className="pb-2">
-                            Precio
-                        </h3>
-                        <input type="text" placeholder="Ingresa el precio" className="bg-NaranjaTrans20 p-2 border-2 border-Naranja rounded-md w-1/2" />
-                    </div>
-                    <div className="p-2">
-                        <h3  className="pb-2">
-                            Pago
-                        </h3>
-                        <input type="text" placeholder="Agregar la informacion de pago" className="bg-NaranjaTrans20 p-2 border-2 border-Naranja rounded-md w-1/2" />
-                    </div>
+                    <Input title="Precio" placeholder="Ingresa el precio" />
+                    <Input title="Pago" placeholder="Agrega informacion de pago" />
                 </div>
             </div>
             <div className="flex justify-around m-5">
-                <button  className="bg-Azul text-white p-4 mx-5 rounded-xl " >
-                    Regresar
-                </button>
-                <button  className="bg-Azul text-white p-4 mx-5 rounded-xl ">
-                    Publicar
-                </button>
+                <Button text="Regresar"/>
+                <Button text="Publicar"/>
             </div>
         </>
     )
