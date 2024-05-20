@@ -8,7 +8,7 @@ import { Explorar } from "./components/Explorar.jsx";
 import { Chat } from "./pages/Chat.jsx";
 import { Crear } from "./pages/Crear.jsx";
 import { Page404 } from "./pages/Page404.jsx";
-import {Carrito} from "./components/Carrito.jsx"
+import {Carrito} from "./components/Carrito.jsx";
 import './App.css';
 
 
