@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from "react";
 import { SearchBar } from './searchBar.jsx';
 import fotoPerfil1 from '../assets/images/perfil1.jpg';
 import { Link } from 'react-router-dom';
+
 function NavBar() {
     return(
         <div className='flex flex-row justify-around p-2 my-3'> 
@@ -33,5 +34,4 @@ function NavBar() {
         </div>
     );
 
-}
-export {NavBar};
+export { NavBar };
