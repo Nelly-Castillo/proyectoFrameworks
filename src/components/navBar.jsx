@@ -18,27 +18,13 @@ function NavBar() {
                 </Link>
             </button>
             <SearchBar/>
-            <div className='flex p-1 content-center'>
-                <button className='pe-3'>
-                    <Link  to="/Explorar">
-                        <svg width="30" height="30" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M24.0215 44.3667C35.2697 44.3667 44.3882 35.2482 44.3882 24C44.3882 12.7518 35.2697 3.63333 24.0215 3.63333C12.7733 3.63333 3.65482 12.7518 3.65482 24C3.65482 35.2482 12.7733 44.3667 24.0215 44.3667ZM24.0215 47.5C37.0002 47.5 47.5215 36.9787 47.5215 24C47.5215 11.0213 37.0002 0.5 24.0215 0.5C11.0428 0.5 0.521484 11.0213 0.521484 24C0.521484 36.9787 11.0428 47.5 24.0215 47.5Z" fill="black"/>
-                            <path d="M20.698 20.6252L36.2073 11.7628L27.3449 27.272L11.8356 36.1344L20.698 20.6252Z" fill="black"/>
-                        </svg>
-                    </Link>
-                </button>
+            <div className='flex p-1 content-center items-center'>
                 <button className='pe-3'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
                         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                     </svg>
                 </button>
-                <button className='pe-3'>
-                    <Link to="/Chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
-                            <path d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
-                        </svg>
-                    </Link>
-                </button>
+                <h3 className='text-xs px-2'>Usuario</h3>
                 <button>
                     <img src={fotoPerfil1} alt='Foto de perfil' className="rounded-full h-10 w-10 object-cover"></img>
                     
