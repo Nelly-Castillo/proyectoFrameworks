@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 function Carrito() {
   const [data, setData] = useState(obrasIniciales.map((obra)=>({...obra, cantidad: 1})));
+
   const [totalCarrito, setTotalCarrito] = useState(
     obrasIniciales.reduce((acu, obra) => acu + obra.precioObra, 0)
   );
@@ -19,11 +20,14 @@ function Carrito() {
 
   function actualizarTotalCarrito(precioObra, cambioCantidad) {
     setTotalCarrito((precTotal) => precTotal + (precioObra * cambioCantidad));
-    console.log(cambioCantidad)
+    const saved = localStorage.getItem("data");
+    console.log(saved);
+    const totalPago = localStorage.setItem("totalCarrito", JSON.stringify(totalCarrito));
+    console.log(totalPago)
   } 
 
   useEffect(() => {
-    localStorage.setItem("items", JSON.stringify(data));
+    localStorage.setItem("data", JSON.stringify(data));
   }, [data]);
 
   return (
