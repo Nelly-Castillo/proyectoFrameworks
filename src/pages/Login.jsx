@@ -2,6 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Login() {
+    const requireArt = () =>{
+        fetch('ruta').then(response => response.json()).then(data => console.log(data));
+    }
+
+    const url = process.env.URL;
+
     return (
         < >
             <div className="flex   bg-Blanco flex-col justify-center py-28">
@@ -20,7 +26,7 @@ function Login() {
                     <form className="space-y-6" action="#" method="POST">
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-AzulOs">
-                                Usuario
+                                {data.username}
                             </label>
                             <div className="mt-2">
                                 <input
