@@ -33,5 +33,5 @@ function NavBar() {
             </div>
         </div>
     );
-
+} 
 export { NavBar };
