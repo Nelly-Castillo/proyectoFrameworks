@@ -1,36 +1,32 @@
-function ModalCal () {
+import { Button } from "./Button";
+import { Rating } from "@material-tailwind/react";
+
+function ModalCal ({ isOpen, onClose }) {
+    if (!isOpen) return null;
     return(
         <>
-            <button data-ripple-light="true" data-dialog-target="dialog" class="select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-            Open Dialog
-            </button>
-            <div data-dialog-backdrop="dialog" data-dialog-backdrop-close="true"
-            class="pointer-events-none fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300">
-            <div data-dialog="dialog"
-                class="relative m-4 w-2/5 min-w-[40%] max-w-[40%] rounded-lg bg-white font-sans text-base font-light leading-relaxed text-blue-gray-500 antialiased shadow-2xl">
-                <div
-                class="flex items-center p-4 font-sans text-2xl antialiased font-semibold leading-snug shrink-0 text-blue-gray-900">
-                Its a simple dialog.
-                </div>
-                <div
-                class="relative p-4 font-sans text-base antialiased font-light leading-relaxed border-t border-b border-t-blue-gray-100 border-b-blue-gray-100 text-blue-gray-500">
-                The key to more success is to have a lot of pillows. Put it this way, it took me
-                twenty five years to get these plants, twenty five years of blood sweat and tears, and
-                I&apos;m never giving up, I&apos;m just getting started. I&apos;m up to something. Fan
-                luv.
-                </div>
-                <div class="flex flex-wrap items-center justify-end p-4 shrink-0 text-blue-gray-500">
-                <button data-ripple-dark="true" data-dialog-close="true"
-                    class="px-6 py-3 mr-1 font-sans text-xs font-bold text-red-500 uppercase transition-all rounded-lg middle none center hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                    Cancel
-                </button>
-                <button data-ripple-light="true" data-dialog-close="true"
-                    class="middle none center rounded-lg bg-gradient-to-tr from-green-600 to-green-400 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                    Confirm
-                </button>
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex flex-col justify-center">
+                <div className="bg-white p-4 rounded-lg shadow-lg w-1/2 self-center">
+                    <div className="flex justify-end m-2">
+                        <button className="" onClick={onClose}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" className="fill-Azul w-6 h-6 hover:fill-AzulOs">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div className="flex flex-col items-center ">
+                        <h2 className="text-2xl font-bold mb-4">Califica tu compra</h2>
+                        <div className="my-10">
+                            <Rating unratedColor="orange" ratedColor="orange" value={4} className=" flex flex-row"/>
+                        </div>
+                        <div>
+                            <Button text="Enviar"/>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>  
         </>
     );
 }
+
+export { ModalCal };
