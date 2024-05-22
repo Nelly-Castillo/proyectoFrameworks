@@ -8,8 +8,9 @@ import { Explorar } from "./components/Explorar.jsx";
 import { Chat } from "./pages/Chat.jsx";
 import { Crear } from "./pages/Crear.jsx";
 import { Page404 } from "./pages/Page404.jsx";
-import {Carrito} from "./components/Carrito.jsx";
+import { Carrito } from "./components/Carrito.jsx";
 import { Compras } from "./pages/Compras.jsx";
+
 import './App.css';
 
 
@@ -31,6 +32,8 @@ function App() {
         <Route path="/Explorar" element={<Explorar></Explorar>}/>
         <Route path="/Chat" element={<Chat></Chat>}/>
         <Route path="/Crear" element={<Crear></Crear>}/>
+        <Route path="/Carrito" element={<Carrito></Carrito>}/>
+        <Route path="/Tus-Compras" element={<Compras></Compras>}/>
       </Routes>
       {/* <Carrito/> <Home/>*/}
       {/* <NavBar/>
