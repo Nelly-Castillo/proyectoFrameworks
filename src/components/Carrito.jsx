@@ -3,6 +3,7 @@ import { NavBar } from "./navBar";
 import ItemCarrito from "./itemCarrito";
 import { obrass as obrasIniciales } from "./obrass";
 import { Link } from "react-router-dom";
+import { Button } from "./Button";
 
 function Carrito() {
   const [data, setData] = useState(obrasIniciales.map((obra)=>({...obra, cantidad: 1})));
@@ -44,12 +45,12 @@ function Carrito() {
             />
           ))}
         </div>
-        <div className="flex flex-row mt-14 justify-between">
-          <div className="text-4xl">Total:</div>
-          <div className=" text-4xl font-semibold">${totalCarrito.toFixed(2)}</div>
+        <div className="flex flex-row mt-10 justify-between">
+          <div className="text-3xl">Total:</div>
+          <div className=" text-3xl font-semibold">${totalCarrito.toFixed(2)}</div>
         </div>
         <Link className="flex self-center" to="/">
-          <button className=" mt-11 bg-Azul px-12 py-7 text-white w-min font-semibold text-2xl rounded-3xl">Pagar</button>
+          <button className=" mt-5 bg-Azul px-10 py-4 text-white text-lg rounded-xl">Pagar</button>
         </Link>
       </div>
     </div>
