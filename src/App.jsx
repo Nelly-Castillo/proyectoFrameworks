@@ -9,6 +9,7 @@ import { Chat } from "./pages/Chat.jsx";
 import { Crear } from "./pages/Crear.jsx";
 import { Page404 } from "./pages/Page404.jsx";
 import {Carrito} from "./components/Carrito.jsx";
+import PerfilVendedor from "./pages/PerfilVendedor.jsx";
 import './App.css';
 
 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/Chat" element={<Chat></Chat>}/>
         <Route path="/Crear" element={<Crear></Crear>}/>
         <Route path="/Carrito" element={<Carrito></Carrito>}/>
+        <Route path="/PerfilVendedor" element={<PerfilVendedor/>}/>
       </Routes>
       {/* <Carrito/> <Home/>*/}
       {/* <NavBar/>
