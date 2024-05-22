@@ -1,12 +1,19 @@
-import { NavBarCom } from "../components/navBarCom";
+import { NavBar } from "../components/navBar";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
+import { useEffect } from "react";
+import { Checkbox, Card, List, ListItem, ListItemPrefix, Typography, } from "@material-tailwind/react";
 
 
 function Crear () {
+    useEffect(()=>{
+        fetch("URLDELISTA").then(res=>res.json()).then(data=>{
+            console.log(data);
+        })
+    },[])
     return (
         <>
-            <NavBarCom/>
+            <NavBar/>
             <div className="flex items-center mx-16">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-image-fill" viewBox="0 0 16 16" className="w-10 h-14 fill-Naranja">
@@ -18,9 +25,9 @@ function Crear () {
                     Crear una publicación
                 </h1>
             </div>
-            <div className="flex  flex-row py-5 px-20 mx-40">
-                <div className="flex justify-center w-1/2 p-7">
-                    <div className="bg-VerTrans30 rounded-lg px-20 py-20">
+            <div className="flex flex-col py-5 px-20 mx-40">
+                <div className="flex justify-center  p-7">
+                    <div className="bg-VerTrans30 rounded-lg px-40 py-10">
                         <div className="flex justify-center pb-5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16" className="fill-Naranja w-28 h-28">
                                 <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
@@ -28,19 +35,83 @@ function Crear () {
                             </svg>
                         </div>
                         <div className="flex justify-center pb-2">
-                            <button  className="bg-Azul text-white p-4 rounded-xl ">
-                                Selecciona del ordenador
-                            </button>
+                            <Button text="Seleccionar del ordenador"/>
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col justify-center w-1/2 pl-10">
+                <div className="flex flex-col justify-center w-full">
                     <Input title="Titulo" placeholder="Agregar un titulo" />
                     <Input title="Descripción" placeholder="Agrega una descripción" />
-                    <div className="p-2">
-                        <h3 className="pb-2">
+                    <div className="p-2 w-full">
+                        <h3 className="pb-2 text-sm">
                             Etiquetas
                         </h3>
+                        <div className="flex">
+                        <Card className="w-full max-w-[24rem]">
+                            <List className="flex-row">
+                                <ListItem className="p-0">
+                                <label
+                                    htmlFor="horizontal-list-react"
+                                    className="flex w-full cursor-pointer items-center px-3 py-2"
+                                >
+                                    <ListItemPrefix className="mr-3">
+                                    <Checkbox
+                                        id="horizontal-list-react"
+                                        ripple={false}
+                                        className="hover:before:opacity-0"
+                                        containerProps={{
+                                        className: "p-0",
+                                        }}
+                                    />
+                                    </ListItemPrefix>
+                                    <Typography color="blue-gray" className="font-medium">
+                                    React.js
+                                    </Typography>
+                                </label>
+                                </ListItem>
+                                <ListItem className="p-0">
+                                <label
+                                    htmlFor="horizontal-list-vue"
+                                    className="flex w-full cursor-pointer items-center px-3 py-2"
+                                >
+                                    <ListItemPrefix className="mr-3">
+                                    <Checkbox
+                                        id="horizontal-list-vue"
+                                        ripple={false}
+                                        className="hover:before:opacity-0"
+                                        containerProps={{
+                                        className: "p-0",
+                                        }}
+                                    />
+                                    </ListItemPrefix>
+                                    <Typography color="blue-gray" className="font-medium">
+                                    Vue.js
+                                    </Typography>
+                                </label>
+                                </ListItem>
+                                <ListItem className="p-0">
+                                <label
+                                    htmlFor="horizontal-list-svelte"
+                                    className="flex w-full cursor-pointer items-center px-3 py-2"
+                                >
+                                    <ListItemPrefix className="mr-3">
+                                    <Checkbox
+                                        id="horizontal-list-svelte"
+                                        ripple={false}
+                                        className="hover:before:opacity-0"
+                                        containerProps={{
+                                        className: "p-0",
+                                        }}
+                                    />
+                                    </ListItemPrefix>
+                                    <Typography color="blue-gray" className="font-medium">
+                                    Svelte.js
+                                    </Typography>
+                                </label>
+                                </ListItem>
+                            </List>
+                        </Card>
+                        </div>
                     </div>
                     <Input title="Precio" placeholder="Ingresa el precio" />
                     <Input title="Pago" placeholder="Agrega informacion de pago" />
