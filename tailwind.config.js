@@ -18,7 +18,8 @@ export default {
           'VerTrans': 'rgba(155,201,149,0.6)',
           'VerTrans30': 'rgba(155,201,149,0.3)',
           'Blanco': '#FFFFFF',
-          'Negro': '#2c2d2d'
+          'Negro': '#2c2d2d',
+          'Red': '#ff4c4c',
         },
         backgroundImage: {
           'portadaHome': "url('./src/assets/images/comunartePortada.png')",
