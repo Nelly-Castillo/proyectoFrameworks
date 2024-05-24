@@ -1,7 +1,10 @@
+import React, {useState} from 'react';
 import { Button } from "./Button";
 import { Rating } from "@material-tailwind/react";
 
 function ModalCal ({ isOpen, onClose }) {
+    const [calif, setCalif] = useState(0);
+
     if (!isOpen) return null;
     return(
         <>
@@ -17,7 +20,7 @@ function ModalCal ({ isOpen, onClose }) {
                     <div className="flex flex-col items-center ">
                         <h2 className="text-2xl font-bold mb-4">Califica tu compra</h2>
                         <div className="my-10">
-                            <Rating unratedColor="orange" ratedColor="orange" value={4} className=" flex flex-row"/>
+                            <Rating unratedColor="orange" ratedColor="orange" onChange={setCalif()} value={calif} className=" flex flex-row"/>
                         </div>
                         <div>
                             <Button text="Enviar"/>

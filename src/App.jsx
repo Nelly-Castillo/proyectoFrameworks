@@ -33,7 +33,8 @@ function App() {
         <Route path="/Chat" element={<Chat></Chat>}/>
         <Route path="/Crear" element={<Crear></Crear>}/>
         <Route path="/Carrito" element={<Carrito></Carrito>}/>
-        <Route path="/Tus-Compras" element={<Compras></Compras>}/>
+        <Route path="/Tus-
+        Compras" element={<Compras></Compras>}/>
       </Routes>
       {/* <Carrito/> <Home/>*/}
       {/* <NavBar/>
