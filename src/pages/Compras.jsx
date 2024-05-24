@@ -14,7 +14,13 @@ function Compras () {
                     Crear una publicación
                 </h1>
             </div>
-            <ItemCompras/>
+            <div className="grid grid-cols-3 gap-3 mx-10">
+                <ItemCompras/>
+                <ItemCompras/>
+                <ItemCompras/>
+                <ItemCompras/>
+                <ItemCompras/>
+            </div>
         </>
     );
 }
