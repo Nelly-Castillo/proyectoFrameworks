@@ -11,7 +11,7 @@ function Compras () {
                     </svg>
                 </div>
                 <h1 className="p-1 mx-4 font-bold text-2xl"> 
-                    Crear una publicación
+                    Tus compras
                 </h1>
             </div>
             <div className="grid grid-cols-3 gap-3 mx-10">
