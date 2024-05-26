@@ -12,6 +12,7 @@ import { Carrito } from "./components/Carrito.jsx";
 import { Compras } from "./pages/Compras.jsx";
 
 import './App.css';
+import { PerfilComprador } from "./pages/PerfilComprador.jsx";
 
 
 // function App() {
@@ -33,8 +34,8 @@ function App() {
         <Route path="/Chat" element={<Chat></Chat>}/>
         <Route path="/Crear" element={<Crear></Crear>}/>
         <Route path="/Carrito" element={<Carrito></Carrito>}/>
-        <Route path="/Tus-
-        Compras" element={<Compras></Compras>}/>
+        <Route path="/Tus-Compras" element={<Compras></Compras>}/>
+        <Route path="/Perfil-Comprador" element={<PerfilComprador></PerfilComprador>}/>
       </Routes>
       {/* <Carrito/> <Home/>*/}
       {/* <NavBar/>

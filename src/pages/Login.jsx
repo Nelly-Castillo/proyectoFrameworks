@@ -8,6 +8,12 @@ function Login() {
 
     const url = process.env.URL;
 
+    const [user_name, setUser_name]= React.useState('');
+    const login = (e) => {
+        e.prevenDefault();
+        console.log(user_name); 
+    };
+
     return (
         < >
             <div className="flex   bg-Blanco flex-col justify-center py-28">
@@ -23,18 +29,20 @@ function Login() {
                     </div>
 
                     <div className="mt-20 md:mx-auto md:w-3/6 md:max-w-md">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form className="space-y-6" action="#" method="POST" onSubmit={login}>
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-AzulOs">
+                            <label htmlFor="user_name" className="block text-sm font-medium leading-6 text-AzulOs">
                                 {data.username}
                             </label>
                             <div className="mt-2">
                                 <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                autoComplete="email"
+                                id="user_name"
+                                value={user_name}
+                                name="user_name"
+                                type="user_name"
+                                autoComplete="user_name"
                                 required
+                                onChange={e => setUser_name (e.target.value)}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-Naranja placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-VerLima sm:text-sm sm:leading-6"
                                 />
                             </div>
