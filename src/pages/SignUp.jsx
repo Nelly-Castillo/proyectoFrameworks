@@ -161,7 +161,7 @@ function SignUp() {
                         </Listbox>
                         <div>
                             <button
-                                type="submit"
+                                type="button"
                                 className="flex w-full justify-center rounded-md bg-Naranja px-3 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-NaranjaOs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Crear cuenta
@@ -171,7 +171,7 @@ function SignUp() {
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Ya tienes una cuenta?{' '}
                         <Link to="/Login" className="font-semibold leading-6 text-Naranja hover:text-NaranjaOs">
-                            Crear cuenta
+                            Iniciar sesion
                         </Link>
                     </p>
                 </div>
