@@ -10,6 +10,8 @@ import ig from "../assets/images/instagram.svg";
 import mail from "../assets/images/Mail.jpg";
 import tiktok from "../assets/images/tiktok.svg";
 import tw from "../assets/images/twitter.svg";
+import { Button } from "../components/Button";
+import { Link } from "react-router-dom";
 
 export function PerfilVendedor() {
   const [profileData, setProfileData] = useState(null);
@@ -118,9 +120,20 @@ export function PerfilVendedor() {
               </div>
             )}
           </div>
-          <button className="bg-Azul text-white p-3 m-3 rounded-2xl text-lg">
-            <div>Mis compras</div>
-          </button>
+          <div className="flex flex-row mt-2.5">
+                <div className="mx-5">
+                  <Link to="/Mis-Compras">
+                    <Button text="Mis compras">
+                    </Button>
+                  </Link>
+                </div>
+                <div className="mx-5">
+                  <Link to="/Crear">
+                    <Button text="Publicar">
+                    </Button>
+                  </Link>
+                </div>
+              </div>
         </div>
         <div className="flex flex-row flex-wrap mx-5 justify-evenly">
           <img className="rounded-md mx-4 mb-5 w-80 h-80 bg-cover" src={pruebaObras} />
