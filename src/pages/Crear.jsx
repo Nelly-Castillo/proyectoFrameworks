@@ -3,6 +3,7 @@ import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { useEffect } from "react";
 import { Checkbox, Card, List, ListItem, ListItemPrefix, Typography, } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 
 function Crear () {
@@ -65,7 +66,7 @@ function Crear () {
                                     />
                                     </ListItemPrefix>
                                     <Typography color="blue-gray" className="font-medium">
-                                    React.js
+                                        Ilustraciones
                                     </Typography>
                                 </label>
                                 </ListItem>
@@ -85,7 +86,7 @@ function Crear () {
                                     />
                                     </ListItemPrefix>
                                     <Typography color="blue-gray" className="font-medium">
-                                    Vue.js
+                                        Pinturas
                                     </Typography>
                                 </label>
                                 </ListItem>
@@ -105,7 +106,7 @@ function Crear () {
                                     />
                                     </ListItemPrefix>
                                     <Typography color="blue-gray" className="font-medium">
-                                    Svelte.js
+                                        Esculturas
                                     </Typography>
                                 </label>
                                 </ListItem>
@@ -118,7 +119,11 @@ function Crear () {
                 </div>
             </div>
             <div className="flex justify-around m-5">
-                <Button text="Regresar"/>
+                <div>
+                    <Link to="/PerfilVendedor">
+                        <Button text="Regresar"/>
+                    </Link>
+                </div>
                 <Button text="Publicar"/>
             </div>
         </>
