@@ -7,12 +7,11 @@ import editar from "../assets/images/editar.svg";
 import iconUsuario from "../assets/images/iconUsuario.svg";
 import iconNombre from "../assets/images/iconNombre.svg";
 import ig from "../assets/images/instagram.svg";
-import mail from "../assets/images/mail.jpg";
+import mail from "../assets/images/Mail.jpg";
 import tiktok from "../assets/images/tiktok.svg";
 import tw from "../assets/images/twitter.svg";
 
 export function PerfilVendedor() {
-  const bucket = 'https://bucketdealesitacomunarte.s3.amazonaws.com/';
   
   async function getProfile() {
     const token = localStorage.getItem('token');
@@ -32,9 +31,6 @@ export function PerfilVendedor() {
     console.log(data);
   }
   
-  
-  
-
   return (
     <div className=" px-6">
       <NavBar />
