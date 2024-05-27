@@ -28,8 +28,9 @@ function NavBar() {
                     </Link>
                 </button>
                 <button>
-                    <img src={fotoPerfil1} alt='Foto de perfil' className="rounded-full h-10 w-10 object-cover"></img>
-                    
+                    <Link to="/PerfilVendedor">
+                        <img src={fotoPerfil1} alt='Foto de perfil' className="rounded-full h-10 w-10 object-cover"></img>
+                    </Link>
                 </button>
             </div>
         </div>

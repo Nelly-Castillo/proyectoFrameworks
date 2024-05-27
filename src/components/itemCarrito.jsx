@@ -4,7 +4,7 @@ import basura from '../assets/images/eliminar.svg';
 import mas from '../assets/images/mas.svg';
 import menos from '../assets/images/menos.svg';
 
-export default function ItemCarrito({ data, onRemove, actualizarTotalCarrito }) {
+export default function ItemCarrito({ data, onRemove, actualizarTotalCarrito, actualizarCantidad }) {
   const [cantidad, setCantidad] = useState(data.cantidad);
   const [totalItem, setTotalItem] = useState(data.precioObra);
 
@@ -13,12 +13,28 @@ export default function ItemCarrito({ data, onRemove, actualizarTotalCarrito }) 
     setTotalItem(nuevoTotal);
   }, [cantidad]);
 
-  function handleIncrease (){
+
+  function handleIncrease() {
     setCantidad((prevCantidad) => {
-      return prevCantidad + 1;
+      const nuevaCantidad = prevCantidad + 1;
+      actualizarCantidad(nuevaCantidad);
+      return nuevaCantidad;
     });
     actualizarTotalCarrito(data.precioObra, 1);
   };
+
+  function handleDecrease() {
+    if (cantidad > 1) {
+      setCantidad((prevCantidad) => {
+        const nuevaCantidad = prevCantidad - 1;
+        actualizarCantidad(nuevaCantidad);
+        return nuevaCantidad;
+      });
+      actualizarTotalCarrito(data.precioObra, -1);
+    }
+  };
+
+
 
   function handleDecrease () {
     if (cantidad > 1) {

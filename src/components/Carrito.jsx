@@ -6,30 +6,49 @@ import { Link } from "react-router-dom";
 import { Button } from "./Button";
 
 function Carrito() {
-  const [data, setData] = useState(obrasIniciales.map((obra)=>({...obra, cantidad: 1})));
+  const [data, setData] = useState(() => {
+    const savedData = localStorage.getItem("carrito");
+    return savedData ? JSON.parse(savedData) : obrasIniciales;
+  });
 
-  const [totalCarrito, setTotalCarrito] = useState(
-    obrasIniciales.reduce((acu, obra) => acu + obra.precioObra, 0)
-  );
+  const [totalCarrito, setTotalCarrito] = useState(()=>{
+    const totalStorage = localStorage.getItem("totalCarrito");
+    return totalStorage ? JSON.parse(totalStorage) : obrasIniciales.reduce((acu, obra) => acu + obra.precioObra, 0)});
 
   function eliminarObra(index) {
     const obraEliminada = data[index];
-    const newObras = data.filter((_, i) => i !== index);
+    const newObras = data.filter((_, i) => i !== index);  
     setData(newObras);
-    setTotalCarrito((precTotal) => precTotal - (obraEliminada.precioObra*obraEliminada.cantidad));
+    setTotalCarrito((precTotal) => precTotal - (obraEliminada.precioObra * obraEliminada.cantidad));
   }
 
   function actualizarTotalCarrito(precioObra, cambioCantidad) {
     setTotalCarrito((precTotal) => precTotal + (precioObra * cambioCantidad));
-    const saved = localStorage.getItem("data");
-    console.log(saved);
-    const totalPago = localStorage.setItem("totalCarrito", JSON.stringify(totalCarrito));
-    console.log(totalPago)
-  } 
+  }
+
+  function actualizarCantidad(index, nuevaCantidad) {
+    const nuevaData = [...data];
+    nuevaData[index].cantidad = nuevaCantidad;
+    setData(nuevaData);
+    actualizarTotalCarrito(nuevaData[index].precioObra, nuevaCantidad - data[index].cantidad);
+  }
 
   useEffect(() => {
-    localStorage.setItem("data", JSON.stringify(data));
+    localStorage.setItem(
+      "carrito",
+      JSON.stringify(data.map((obra) => ({ id: obra.id, nombreObra: obra.nombreObra, descripcionObra: obra.descripcionObra, precioObra: obra.precioObra, cantidad: obra.cantidad })))
+    );
+    localStorage.setItem("totalCarrito", JSON.stringify(totalCarrito));
   }, [data]);
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("carrito");
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      setData(parsedData);
+    }
+    const sumaCarrito = localStorage.getItem("totalCarrito");
+  }, []);
 
   return (
     <div>
@@ -42,15 +61,16 @@ function Carrito() {
               data={obra}
               onRemove={() => eliminarObra(index)}
               actualizarTotalCarrito={actualizarTotalCarrito}
+              actualizarCantidad={(nuevaCantidad) => actualizarCantidad(index, nuevaCantidad)}
             />
           ))}
         </div>
         <div className="flex flex-row mt-10 justify-between">
           <div className="text-3xl">Total:</div>
-          <div className=" text-3xl font-semibold">${totalCarrito.toFixed(2)}</div>
+          <div className="text-3xl font-semibold">${totalCarrito}</div>
         </div>
         <Link className="flex self-center" to="/">
-          <button className=" mt-5 bg-Azul px-10 py-4 text-white text-lg rounded-xl">Pagar</button>
+          <button className="mt-5 bg-Azul px-10 py-4 text-white text-lg rounded-xl">Pagar</button>
         </Link>
       </div>
     </div>
