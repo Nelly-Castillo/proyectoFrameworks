@@ -25,7 +25,7 @@ export default {
           'portadaHome': "url('./src/assets/images/comunartePortada.png')",
           'botonDigital': "url('./src/assets/images/digital.jpg')",
           'botonEsculturas': "url('./src/assets/images/esculturas.jpg')",
-          'botonPinturas': "url('./src/assets/images/pinturas.jpg')"
+          'botonPinturas': "url('./src/assets/images/pinturas.jpg')",
         }
       },
     },
