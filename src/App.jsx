@@ -10,6 +10,7 @@ import { Crear } from "./pages/Crear.jsx";
 import { Page404 } from "./pages/Page404.jsx";
 import { Carrito } from "./components/Carrito.jsx";
 import { Compras } from "./pages/Compras.jsx";
+import {PerfilVendedor} from "./pages/PerfilVendedor.jsx";
 
 import './App.css';
 import { PerfilComprador } from "./pages/PerfilComprador.jsx";
@@ -35,7 +36,7 @@ function App() {
         <Route path="/Crear" element={<Crear></Crear>}/>
         <Route path="/Carrito" element={<Carrito></Carrito>}/>
         <Route path="/Tus-Compras" element={<Compras></Compras>}/>
-        <Route path="/Perfil-Comprador" element={<PerfilComprador></PerfilComprador>}/>
+        <Route path="/PerfilVendedor" element={<PerfilVendedor></PerfilVendedor>}/>
       </Routes>
       {/* <Carrito/> <Home/>*/}
       {/* <NavBar/>
