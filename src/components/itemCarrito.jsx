@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import foto from '../assets/images/esculturas.jpg';
 
-export default function ItemCarrito({ data, onRemove, actualizarTotalCarrito }) {
+export default function ItemCarrito({ data, onRemove, actualizarTotalCarrito, actualizarCantidad }) {
   const [cantidad, setCantidad] = useState(data.cantidad);
   const [totalItem, setTotalItem] = useState(data.precioObra);
 
@@ -10,12 +10,28 @@ export default function ItemCarrito({ data, onRemove, actualizarTotalCarrito }) 
     setTotalItem(nuevoTotal);
   }, [cantidad]);
 
-  function handleIncrease (){
+
+  function handleIncrease() {
     setCantidad((prevCantidad) => {
-      return prevCantidad + 1;
+      const nuevaCantidad = prevCantidad + 1;
+      actualizarCantidad(nuevaCantidad);
+      return nuevaCantidad;
     });
     actualizarTotalCarrito(data.precioObra, 1);
   };
+
+  function handleDecrease() {
+    if (cantidad > 1) {
+      setCantidad((prevCantidad) => {
+        const nuevaCantidad = prevCantidad - 1;
+        actualizarCantidad(nuevaCantidad);
+        return nuevaCantidad;
+      });
+      actualizarTotalCarrito(data.precioObra, -1);
+    }
+  };
+
+
 
   function handleDecrease () {
     if (cantidad > 1) {
