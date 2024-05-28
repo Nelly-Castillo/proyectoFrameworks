@@ -2,7 +2,7 @@ import React from "react";
 
 function Button ({text})  {
     return(
-        <button  className="bg-Azul text-white p-3 m-1 rounded-xl text-sm">
+        <button  className="bg-Azul text-white p-3 m-1 rounded-xl text-sm h-full">
             {text}
         </button>
     );
