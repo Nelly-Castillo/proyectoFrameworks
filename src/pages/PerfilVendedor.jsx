@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavBar } from "../components/navBar";
 import imgPerfil from "../assets/images/perfil1.jpg";
 import star from "../assets/images/starFilled.svg";
@@ -14,104 +14,173 @@ import { Button } from "../components/Button";
 import { Link } from "react-router-dom";
 
 export function PerfilVendedor() {
-  
+  const [profileData, setProfileData] = useState("");
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [obrasPublicadas, setObrasPublicadas] = useState([]);
+  const url = "https://bucketdealesitacomunarte.s3.amazonaws.com/";
+
   async function getProfile() {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem("token");
+
     if (!token) {
-      console.log('Token no proporcionado');
+      console.error("Token no proporcionado");
+      setError("Token no proporcionado");
+      setIsLoading(false);
       return;
     }
-  
-    const response = await fetch('https://proyectoframeworksbackend-production.up.railway.app/user/perfil', {
-      method: 'GET',
-      headers: {
-        'token': token
+
+    try {
+      const response = await fetch("/api/user/perfil", {
+        method: "GET",
+        headers: {
+          token: token,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Error en la solicitud: " + response.statusText);
       }
-    });
-  
-    const data = await response.json();
-    console.log(data);
+      const data = await response.json();
+      setProfileData(data);
+      if (data.message && data.message.works) {
+        setObrasPublicadas(data.message.works.split(","));
+        console.log(data.message.works.split(","));
+      }
+    } catch (error) {
+      console.error("Error al obtener el perfil:", error);
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   }
-  
+
+  useEffect(() => {
+    getProfile();
+  }, [profileData]);
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-full flex self-center justify-center text-4xl text-Azul ">
+        Loading...
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <>
+      {/* <button className="p-1">
+      <img className=" justify-start w-16 h-16" src={editar} />
+    </button> */}
       <NavBar />
       <div className="flex p-2.5 my-8">
         <div>
           <div className="flex flex-row gap-2 items-start">
-            <div className="flex flex-col items-center w-1/3 mx-10">
-              <div className="rounded-md items-center h-72 bg-portadaHome w-full flex flex-col justify-end px-4">
-                <div className="flex flex-row w-full">
-                  <div className="flex items-end">
-                    <button className=" p-1">
-                      <img className=" justify-start w-16 h-16" src={editar} />
-                    </button>
-                  </div>
-                  <div className="relative bg-white h-20 w-20 lg:h-40 lg:w-40 xl:w-52 xl:h-52 rounded-full bottom-0 place-content-center place-items-center flex">
-                    <img className=" rounded-full h-16 w-16 lg:h-36 lg:w-36 xl:w-48 xl:h-48" src={imgPerfil} />
-                  </div>
-                </div>
-              </div> 
-              <div className="flex flex-row py-3 place-items-center">
-                <img className=" h-7 w-7" src={star} />
-                <img className=" h-7 w-7" src={star} />
-                <img className=" h-7 w-7" src={star} />
-                <img className=" h-7 w-7" src={star} />
-                <img className=" h-7 w-7" src={star} />
-              </div>
-              <div className="flex-col gap-1">
-                <div className=" flex flex-row gap-1">
-                    <img className="h-7 w-7 p-2" src={iconUsuario}/>
-                    <div className=" font-bold w-full text-start ">Usuario</div>
-                </div>
-                <div className=" flex flex-row gap-1">
-                    <img className="h-7 w-7 p-2" src={iconNombre}/>
-                    <div className=" font-bold w-full text-start ">Usuario</div>
-                </div>
-                <div className="w-full h-1 bg-Naranja opacity-50 py-1 rounded-full"></div>
-                <div className=" flex flex-row gap-1">
-                    <img className="h-7 w-7 p-2" src={ig}/>
-                    <div className=" font-bold w-full text-start ">Instagram</div>
-                </div>
-                <div className=" flex flex-row gap-1">
-                    <img className="h-7 w-7 p-2" src={mail}/>
-                    <div className=" font-bold w-full text-start ">Email</div>
-                </div>
-                <div className=" flex flex-row gap-1">
-                    <img className="h-7 w-7 p-2" src={tiktok}/>
-                    <div className=" font-bold w-full text-start ">Tiktok</div>
-                </div>
-                <div className=" flex flex-row gap-1">
-                    <img className="h-7 w-7 p-2" src={tw}/>
-                    <div className=" font-bold w-full text-start ">Twitter</div>
+            <div className="flex flex-col items-center w-1/3 mx-3 gap-4">
+              <div className="w-full flex flex-col items-center">
+                <div className="flex h-52  bg-portadaHome w-full rounded-3xl "></div>
+                <div className="flex relative bg-white h-20 w-20 lg:h-36 lg:w-36 rounded-full place-content-center place-items-center -top-20 lg:-top-36">
+                  <img
+                    className=" rounded-full h-16 w-16 lg:h-32 lg:w-32"
+                    src={profileData.message.photo}
+                  />
                 </div>
               </div>
-              <div className="flex flex-row mt-2.5">
-                <div className="mx-5">
-                  <Link to="/Mis-Compras">
-                    <Button text="Mis compras">
-                    </Button>
-                  </Link>
+              <div className="flex items-center flex-col relative -top-20 lg:-top-36">
+                <div className="flex flex-row py-3 place-items-center">
+                  <img className=" h-7 w-7" src={star} />
+                  <img className=" h-7 w-7" src={star} />
+                  <img className=" h-7 w-7" src={star} />
+                  <img className=" h-7 w-7" src={star} />
+                  <img className=" h-7 w-7" src={star} />
                 </div>
-                <div className="mx-5">
-                  <Link to="/Crear">
-                    <Button text="Publicar">
-                    </Button>
-                  </Link>
+                <div className="flex flex-col gap-2 w-full">
+                  <div className="p-2 flex flex-row gap-3">
+                    <img className="h-7 w-7" src={iconUsuario} />
+                    <div className=" font-bold w-full text-start text-lg">
+                      {profileData ? profileData.message.user_name : "..."}
+                    </div>
+                  </div>
+                  <div className="p-2 flex flex-row gap-3">
+                    <img className="h-7 w-7" src={iconNombre} />
+                    <div className=" font-bold w-full text-start text-lg">
+                      {profileData ? profileData.message.full_name : "..."}
+                    </div>
+                  </div>
+                  <div className="w-full h-1 bg-Naranja opacity-50 py-1 rounded-full"></div>
+                  {profileData?.message?.social_media_instagram && (
+                    <div className="p-2 flex flex-row gap-3">
+                      <img className="h-7 w-7" src={ig} />
+                      <div className=" font-bold w-full text-start text-lg">
+                        {profileData.message.social_media_instagram}
+                      </div>
+                    </div>
+                  )}
+                  {profileData?.message?.correo && (
+                    <div className="p-2 flex flex-row gap-3">
+                      <img className="h-7 w-7" src={mail} />
+                      <div className=" font-bold w-full text-start text-lg">
+                        {profileData.message.correo}
+                      </div>
+                    </div>
+                  )}
+                  {profileData?.message?.social_media_tiktok && (
+                    <div className="p-2 flex flex-row gap-3">
+                      <img className="h-7 w-7" src={tiktok} />
+                      <div className=" font-bold w-full text-start text-lg">
+                        {profileData.message.social_media_tiktok}
+                      </div>
+                    </div>
+                  )}
+                  {profileData?.message?.social_media_x && (
+                    <div className="p-2 flex flex-row gap-3">
+                      <img className="h-7 w-7" src={tw} />
+                      <div className=" font-bold w-full text-start text-lg">
+                        {profileData.message.social_media_x}
+                      </div>
+                    </div>
+                  )}
                 </div>
+                <div className="flex flex-row m-2.5 h-16">
+                  <div className="mx-5 h-full w-16">
+                    <Link to="/Mis-Compras">
+                      <Button text="Mis compras"></Button>
+                    </Link>
+                  </div>
+                  <div className="mx-5 h-full w-16">
+                    <Link to="/Crear">
+                      <Button text="Publicar"></Button>
+                    </Link>
+                  </div>
+                </div>
+                <button className=" mt-5 flex justify-center h-full">
+                  <Link to="/Login">
+                    <div className=" underline-offset-4 underline">
+                      Cerrar sesión
+                    </div>
+                  </Link>
+                </button>
               </div>
             </div>
-            <div className=" flex flex-row flex-wrap mx-10 justify-evenly w-full">
-              <img className="rounded-md mx-4 mb-5 w-64 h-64 bg-cover" src={pruebaObras} />
-              <img className="rounded-md mx-4 mb-5 w-64 h-64 bg-cover" src={pruebaObras} />
-              <img className="rounded-md mx-4 mb-5 w-64 h-64 bg-cover" src={pruebaObras} />
-              <img className="rounded-md mx-4 mb-5 w-64 h-64 bg-cover" src={pruebaObras} />
+            <div className=" flex flex-row flex-wrap justify-evenly w-full gap-y-10">
+              {obrasPublicadas
+                ? obrasPublicadas.map(function (obra) {
+                    return (
+                      <button>
+                        <img
+                        className="rounded-md w-64 h-64 bg-cover"
+                        src={`${url}${obra}`}
+                      />
+                      </button>
+                    );
+                  })
+                : null}
             </div>
-          </div>
-          <div className="flex justify-center">
-              <Link to="/Login">
-                  <Button text="Cerrar sesion"></Button>
-              </Link>
           </div>
         </div>
       </div>
