@@ -36,7 +36,7 @@ export function PerfilVendedor() {
   return (
     <>
       <NavBar />
-      <div className="flex p-2.5 my-8">
+      <div className="flex p-2.5 my-8 mb-2.5">
         <div>
           <div className="flex flex-row gap-2 items-start">
             <div className="flex flex-col items-center w-1/3 mx-10">
