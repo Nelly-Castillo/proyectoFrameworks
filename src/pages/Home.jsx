@@ -14,7 +14,7 @@ const  Home = () => {
             </div>    
             <div className='flex flex-col'>
                 <h1 className=' text-center text-5xl pb-8'>Top ventas</h1>
-                <div className='flex flex-row flex-wrap justify-around'>
+                <div className='flex flex-row flex-wrap justify-around py-5 gap-5'>
                     <div className='place-content-center bg-botonDigital bg-no-repeat bg-cover bg-center w-96 h-96 items-center group'>
                         <div className='flex justify-center items-center text-center text-2xl text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out w-96 h-96 hover:bg-Azul'>
                             Ilustraciones
