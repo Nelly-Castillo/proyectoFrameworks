@@ -14,10 +14,10 @@ function Compras () {
                     </svg>
                 </div>
                 <h1 className="p-1 mx-4 font-bold text-2xl"> 
-                    Tus compras
+                    Mis compras
                 </h1>
             </div>
-            <div className="grid grid-cols-3 gap-3 mx-10">
+            <div className="grid grid-cols-3 gap-3 mx-10 mb-2.5">
                 <ItemCompras/>
                 <ItemCompras/>
                 <ItemCompras/>

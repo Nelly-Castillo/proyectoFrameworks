@@ -136,7 +136,7 @@ export function PerfilVendedor() {
     <>
       <NavBar />
       <div className="flex p-2.5 my-8">
-        <div className=" w-screen">
+        <div className="w-screen">
           <div className="flex flex-row gap-2 items-start">
             <div className="flex flex-col items-center w-1/3 gap-4 min-w-60 lg:min-w-72 mx-6">
               <div className="w-full flex flex-col items-center">
