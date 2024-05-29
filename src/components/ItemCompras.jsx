@@ -10,7 +10,7 @@ const ItemCompras = () => {
     };
 
     return (
-        <div className="flex flex-col md:flex-row items-center justify-around p-3 my-2 shadow-lg rounded-md">
+        <div className="flex flex-col md:flex-row items-center justify-around p-3 my-2 shadow-2xl rounded-md">
             <div className="md:w-1/6">
                 <img 
                 src={foto}
