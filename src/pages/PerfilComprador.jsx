@@ -8,7 +8,7 @@ function PerfilComprador () {
     return (
         <>
             <NavBar/>
-            <div className="flex p-2.5 my-8">
+            <div className="flex p-2.5 my-8 mb-2.5">
                 <div>
                     <div className="grid grid-cols-2 gap-2 items-start">
                         <div className="flex flex-col items-center">
