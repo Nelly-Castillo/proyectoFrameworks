@@ -1,5 +1,5 @@
-
-import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from './pages/Home.jsx';
 import { Login } from './pages/Login.jsx';
 import { SignUp } from './pages/SignUp.jsx';
@@ -11,20 +11,17 @@ import { Page404 } from "./pages/Page404.jsx";
 import { Carrito } from "./components/Carrito.jsx";
 import { Compras } from "./pages/Compras.jsx";
 import {PerfilVendedor} from "./pages/PerfilVendedor.jsx";
-
+import {NextUIProvider} from "@nextui-org/react";
 import './App.css';
 import { PerfilComprador } from "./pages/PerfilComprador.jsx";
 
 
-// function App() {
-//   return (
-// 
-//   );
-// }
-
 function App() {
+
+  const token = sessionStorage.getItem("token");
+
   return (
-    <>
+    <NextUIProvider>
       <Routes>
         <Route path="/" element={<Home></Home>} />
         <Route path="/*" element={<Page404></Page404>} />
@@ -36,19 +33,11 @@ function App() {
         <Route path="/Crear" element={<Crear></Crear>}/>
         <Route path="/Carrito" element={<Carrito></Carrito>}/>
         <Route path="/Mis-Compras" element={<Compras></Compras>}/>
-        <Route path="/PerfilVendedor" element={<PerfilVendedor></PerfilVendedor>}/>
-        <Route path="/PerfilComprador" element={<PerfilComprador></PerfilComprador>}/>
+        <Route path="/PerfilVendedor" element={token ? <PerfilVendedor></PerfilVendedor> : <Navigate to="/login" />}/>
+        <Route path="/PerfilComprador" element={token ? <PerfilComprador></PerfilComprador> : <Navigate to="/login" />}/>
+        {/* <Route path="/PerfilComprador" element={token ? <PerfilComprador></PerfilComprador> : <Navigate to="/login"/>}/> */}
       </Routes>
-      {/* <Carrito/> <Home/>*/}
-      {/* <NavBar/>
-      <NavBarCom/> 
-      <Login/>
-      <SignUp/>
-      <Obra/>*/}
-      {/* <div className='bg-teal-600'>
-        <h1>Hola, si funciona tailwind</h1>
-      </div> */}
-    </>
+    </NextUIProvider>
   );
 }
 export default App;

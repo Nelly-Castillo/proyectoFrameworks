@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 function Login() {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [datosInc, setDatosInc] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -17,10 +18,20 @@ function Login() {
 
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    console.log('Login successful:', JSON.parse(xhr.responseText));
-                    navigate("/");
+                if (xhr.status === 200 ) {
+                    const res = JSON.parse(xhr.responseText);
+                    sessionStorage.setItem("token", res.message);
 
+                    if(res.message === "Usuario y/o contraseña incorrectos"){
+                        sessionStorage.clear();
+                        setDatosInc(true);
+                        console.log(res)
+                        return;
+                    }
+
+                    sessionStorage.setItem("perfil", res.status)
+                    navigate("/");
+                    console.log('Login successful:', res.message, res.status);
                 } else {
                     console.error('Error during login:', xhr.responseText);
                 }
@@ -32,7 +43,7 @@ function Login() {
             password: password
         });
 
-        xhr.send(data);
+        xhr.send(data); 
     };
 
     return (
@@ -64,8 +75,9 @@ function Login() {
                                     required
                                     value={userName}
                                     onChange={(e) => setUserName(e.target.value)}
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-Naranja placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-VerLima sm:text-sm sm:leading-6"
+                                    className={` px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-Naranja placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-VerLima sm:text-sm sm:leading-6 ${datosInc ? "ring-red-600" : ""}`}
                                 />
+                                
                             </div>
                         </div>
                         <div>
@@ -83,10 +95,11 @@ function Login() {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-Naranja placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-VerLima sm:text-sm sm:leading-6"
+                                    className={` px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-Naranja placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-VerLima sm:text-sm sm:leading-6 ${datosInc ? "ring-red-600" : ""}`}
                                 />
                             </div>
                         </div>
+                        { datosInc && <div className=' text-red-600 text-sm '> Usuario y/o contraseña incorrectos</div>}
                         <div>
                                 <button
                                     type="button"
