@@ -1,9 +1,12 @@
 import { NavBar } from "../components/navBar";
+import { NavBarNotAuth } from "../components/navBarNotAuth";
 import ItemCompras from "../components/ItemCompras";
+
 function Compras () {
+    const token = sessionStorage.getItem("token");
     return (
         <>
-            <NavBar/>
+            {token ? <NavBar/> : <NavBarNotAuth/>}
             <div className="flex items-center mx-16 justify-start">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-image-fill" viewBox="0 0 16 16" className="w-10 h-14 fill-Naranja">
