@@ -40,13 +40,13 @@ function Carrito() {
     localStorage.setItem("totalCarrito", JSON.stringify(totalCarrito));
   }, [data]);
 
+  // Este es para cuando vuelve a iniciar, jala lo de local storage
   useEffect(() => {
     const savedData = localStorage.getItem("carrito");
     if (savedData) {
       const parsedData = JSON.parse(savedData);
       setData(parsedData);
     }
-    const sumaCarrito = localStorage.getItem("totalCarrito");
   }, []);
 
   return (
