@@ -1,10 +1,13 @@
 import React from 'react';
 import iconobrush from '../assets/images/brush.svg';
 import { NavBar } from '../components/navBar';
+import { NavBarNotAuth } from '../components/navBarNotAuth';
+
 const  Home = () => {
+    const token = sessionStorage.getItem("token");
     return (
         <>
-        <NavBar/>
+        {token ? <NavBar/> : <NavBarNotAuth/>}
         <div className=' py-10  px-16 flex flex-col gap-10'>
             <div className="bg-portadaHome bg-no-repeat bg-cover bg-center bg-fixed lg:pt-72 2xl:pt-96">
                 <div className='flex flex-row text-white font-bold gap-3 items-center p-10'>
