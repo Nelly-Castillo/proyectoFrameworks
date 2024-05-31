@@ -10,6 +10,7 @@ export default {
         colors: {
           'AzulOs': '#2A324B',
           'Azul': '#007FFF',
+          'AzulCl': '#4897ff',
           'NaranjaOs': '#B87E14',
           'Naranja': '#FFA500',
           'NaranjaTrans50': 'rgba(255,165,0,0.5)',
