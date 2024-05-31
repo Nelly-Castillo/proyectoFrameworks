@@ -34,6 +34,7 @@ function Login() {
                     console.log('Login successful:', res.message, res.status);
                 } else {
                     console.error('Error during login:', xhr.responseText);
+                    
                 }
             }
         };
