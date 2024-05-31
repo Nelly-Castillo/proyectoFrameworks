@@ -26,7 +26,6 @@ function NavBar() {
             "Content-Type": "application/json",
           },
         });
-        console.log(response)
         if (!response.ok) {
           throw new Error("Error en la solicitud: " + response.statusText);
         }
