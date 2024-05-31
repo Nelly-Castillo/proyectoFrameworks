@@ -8,7 +8,7 @@ const  Home = () => {
     return (
         <>
         {token ? <NavBar/> : <NavBarNotAuth/>}
-        <div className=' py-10  px-16 flex flex-col gap-10'>
+        <div className=' py-5  px-16 flex flex-col gap-10'>
             <div className="bg-portadaHome bg-no-repeat bg-cover bg-center bg-fixed lg:pt-72 2xl:pt-96">
                 <div className='flex flex-row text-white font-bold gap-3 items-center p-10'>
                     <h1 className='text-3xl drop-shadow-sm lg:text-6xl xl:text-8xl'>ComunArte</h1>

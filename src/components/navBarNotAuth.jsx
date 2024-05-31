@@ -43,7 +43,7 @@ function NavBarNotAuth() {
           </Link>
         </button>
         <button>
-          <Link to="/Login" className=" underline underline-offset-4 text-lg text-center hover:shadow-md hover:text-blue-800">
+          <Link to="/Login" className="bg-Naranja text-white p-3 m-1 rounded-xl text-sm h-full hover:bg-NaranjaOs">
             Iniciar sesión
           </Link>
         </button>
