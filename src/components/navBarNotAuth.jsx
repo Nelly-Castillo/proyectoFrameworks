@@ -2,51 +2,8 @@ import React, { useEffect, useState } from "react";
 import { SearchBar } from "./searchBar.jsx";
 import { Link } from "react-router-dom";
 
-function NavBar() {
-  const [profileData, setProfileData] = useState(null);
-  const [error, setError] = useState(null);
+function NavBarNotAuth() {
 
-  useEffect(() => {
-    const getInfo = async () => {
-      const token = sessionStorage.getItem("token");
-
-      if (!token) {
-        console.error("Token no proporcionado");
-        setError("Token no proporcionado");
-        return;
-      }
-
-      // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhbGUyIiwic3RhdHVzIjoiVmVuZGVkb3IiLCJpYXQiOjE3MTY5ODk2MzJ9.RV5L9Mx9pCFpmV5kBLHOz63k7jVG-haed4dqEEUmFIE
-
-      try {
-        const response = await fetch("/api/user/perfil", {
-          method: "GET",
-          headers: {
-            token: token,
-            "Content-Type": "application/json",
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Error en la solicitud: " + response.statusText);
-        }
-        const data = await response.json();
-        setProfileData(data);
-      } catch (error) {
-        console.error("Error al obtener el perfil:", error);
-        setError(error.message);
-      }
-    };
-
-    getInfo();
-  }, []);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!profileData) {
-    return <div> ... </div>;
-  }
   return (
     <div className="flex flex-row justify-around p-2 my-3">
       <button className="flex flex-row items-center text-lg font-semibold p-1">
@@ -72,7 +29,7 @@ function NavBar() {
       <SearchBar />
       <div className="flex p-1 content-center items-center">
         <button className="pe-5">
-          <Link to="/Carrito">
+          <Link to="/Login">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="30"
@@ -86,16 +43,12 @@ function NavBar() {
           </Link>
         </button>
         <button>
-          <Link to={sessionStorage.getItem("perfil") === "Vendedor" ? "/PerfilVendedor" : "/PerfilComprador"}>
-            <img
-              src={profileData.message.photo}
-              alt="Foto de perfil"
-              className="rounded-full h-10 w-10 object-cover"
-            />
+          <Link to="/Login" className="bg-Naranja text-white p-3 m-1 rounded-xl text-sm h-full hover:bg-NaranjaOs">
+            Iniciar sesión
           </Link>
         </button>
       </div>
     </div>
   );
 }
-export { NavBar };
+export { NavBarNotAuth };
