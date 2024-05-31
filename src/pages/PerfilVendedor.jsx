@@ -259,16 +259,6 @@ export function PerfilVendedor() {
                     </Link>
                   </div>
                 </div>
-                <button
-                  className=" mt-5 flex justify-center h-full"
-                  onClick={() => sessionStorage.clear()}
-                >
-                  <Link to="/">
-                    <div className=" underline-offset-4 underline">
-                      Cerrar sesión
-                    </div>
-                  </Link>
-                </button>
               </div>
             </div>
             <div className="flex justify-center items-center w-full w-v">
@@ -294,6 +284,13 @@ export function PerfilVendedor() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="flex justify-center mb-8 pb-2.5 h-full">
+        <Link to="/Login">
+            <Button text="Cerrar sesion"
+              onClick={() => sessionStorage.clear()}
+            ></Button>
+        </Link>
       </div>
     </>
   );
