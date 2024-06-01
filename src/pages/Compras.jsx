@@ -1,9 +1,18 @@
 import { NavBar } from "../components/navBar";
 import { NavBarNotAuth } from "../components/navBarNotAuth";
 import ItemCompras from "../components/ItemCompras";
+import { useNavigate } from "react-router-dom";
 
 function Compras () {
-    const token = sessionStorage.getItem("token");
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+    
+        if(!token) navigate('/login')
+        
+    }, []);
+    
     return (
         <>
             {token ? <NavBar/> : <NavBarNotAuth/>}

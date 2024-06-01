@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { NavBar } from "../components/navBar";
-import star from "../assets/images/starFilled.svg";
 import editar from "../assets/images/editar.svg";
 import iconUsuario from "../assets/images/iconUsuario.svg";
 import iconNombre from "../assets/images/iconNombre.svg";
@@ -10,11 +9,13 @@ import tiktok from "../assets/images/tiktok.svg";
 import tw from "../assets/images/twitter.svg";
 import guardar from "../assets/images/guardar.svg";
 import { Button } from "../components/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
 import { useForm } from 'react-hook-form';
 
 export function PerfilVendedor() {
+  const navigate = useNavigate();
+
   const [profileData, setProfileData] = useState("");
   const [errorPerfil, setErrorPerfil] = useState(null);
   const [errorWorks, setErrorWorks] = useState(null);
@@ -22,7 +23,16 @@ export function PerfilVendedor() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadWorks, setLoadWorks] = useState(true);
   const [obrasPublicadas, setObrasPublicadas] = useState(null);
-  const token = sessionStorage.getItem("token");
+
+
+  useEffect(() => {
+
+    const token = sessionStorage.getItem("token");
+    if(!token) navigate('/login')
+    
+  }, [token, navigate]);
+
+
   const {
     register,
     handleSubmit,
@@ -118,7 +128,6 @@ export function PerfilVendedor() {
   function editProfile() {
     return edicion ? setEdicion(false) : setEdicion(true);
   }
-
   return (
     <>
       <NavBar />
