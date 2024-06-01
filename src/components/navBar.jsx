@@ -86,7 +86,7 @@ function NavBar() {
           </Link>
         </button>
         <button>
-          <Link to={sessionStorage.getItem("perfil") === "Vendedor" ? "/PerfilVendedor" : "/PerfilComprador"}>
+          <Link to={sessionStorage.getItem("perfil") === "Vendedor" ? "/PerfilVendedor" : "/perfilcomprador"}>
             <img
               src={profileData.message.photo}
               alt="Foto de perfil"

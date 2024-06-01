@@ -1,10 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ItemCompras from "../components/ItemCompras";
 import { NavBar } from "../components/navBar";
 import { Button } from "../components/Button";
 import fotoPerfil1 from '../assets/images/perfil1.jpg';
+import { useEffect } from "react";
 
 function PerfilComprador () {
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+    
+        if(!token) navigate('/login')
+        
+    }, []);
+    
     return (
         <>
             <NavBar/>
