@@ -24,10 +24,10 @@ export function PerfilVendedor() {
   const [loadWorks, setLoadWorks] = useState(true);
   const [obrasPublicadas, setObrasPublicadas] = useState(null);
 
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
 
-    const token = sessionStorage.getItem("token");
     if(!token) navigate('/login')
     
   }, [token, navigate]);
@@ -60,6 +60,7 @@ export function PerfilVendedor() {
       }
 
       const data = await response.json();
+      // debugger;
       setProfileData(data);
     } catch (errorPerfil) {
       console.error("Error al obtener el perfil:", errorPerfil);
