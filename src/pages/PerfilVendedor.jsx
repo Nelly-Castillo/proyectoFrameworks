@@ -12,6 +12,7 @@ import { Button } from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
 import { useForm } from 'react-hook-form';
+import fotoDefault from '../assets/images/person-circle.svg';
 
 export function PerfilVendedor() {
   const navigate = useNavigate();
@@ -129,6 +130,16 @@ export function PerfilVendedor() {
   function editProfile() {
     return edicion ? setEdicion(false) : setEdicion(true);
   }
+
+  const determineProfilePhoto = () => {
+    //debugger;
+    if (profileData.message.photo) {
+        return profileData.message.photo;
+    } else {
+        return fotoDefault;
+    }
+};
+
   return (
     <>
       <NavBar />
@@ -155,7 +166,7 @@ export function PerfilVendedor() {
                 <div className="flex relative bg-white h-20 w-20 lg:h-36 lg:w-36 rounded-full place-content-center place-items-center -top-20 lg:-top-36">
                   <img
                     className=" rounded-full h-16 w-16 lg:h-32 lg:w-32"
-                    src={profileData.message.photo}
+                    src={determineProfilePhoto()}
                   />
                 </div>
               </div>
