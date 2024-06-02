@@ -32,6 +32,7 @@ function PerfilComprador() {
                     }
 
                     const data = await response.json();
+                    //debugger;
                     setUserData(data);
                 } catch (error) {
                     console.error("Error al obtener los datos del usuario:", error);
@@ -47,7 +48,7 @@ function PerfilComprador() {
     }, [navigate]);
 
     const determineProfilePhoto = () => {
-        debugger;
+        //debugger;
         if (userData.message.photo) {
             return userData.message.photo;
         } else {
@@ -99,7 +100,7 @@ function PerfilComprador() {
                         <div className="flex flex-col justify-end px-10">
                             <div className="flex items-center mx-16 justify-start">
                                 <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="bg-Naranja" className="bi bi-file-image-fill  fill-Naranja" viewBox="0 0 16 16" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="bg-Naranja" className="bi bi-file-image-fill  fill-Naranja w-10 h-14" viewBox="0 0 16 16" >
                                         <path d="M5.071 1.243a.5.5 0 0 1 .858.514L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 6h1.717zM3.5 10.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0z" />
                                     </svg>
                                 </div>
@@ -113,7 +114,7 @@ function PerfilComprador() {
                             <div className="flex justify-center">
                                 <button>
                                     <Link to="/Mis-Compras">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-double-down" viewBox="0 0 16 16" >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-double-down fill-Azul w-8 h-8" viewBox="0 0 16 16" >
                                             <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
                                             <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
                                         </svg>

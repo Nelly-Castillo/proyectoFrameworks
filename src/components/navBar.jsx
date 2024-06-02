@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { SearchBar } from "./searchBar.jsx";
 import { Link } from "react-router-dom";
+import fotoDefault from '../assets/images/person-circle.svg';
 
 function NavBar() {
   const [profileData, setProfileData] = useState(null);
@@ -43,6 +44,15 @@ function NavBar() {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+  const determineProfilePhoto = () => {
+    //debugger;
+    if (profileData.message.photo) {
+        return profileData.message.photo;
+    } else {
+        return fotoDefault;
+    }
+};
 
   if (!profileData) {
     return <div> ... </div>;
@@ -88,7 +98,7 @@ function NavBar() {
         <button>
           <Link to={sessionStorage.getItem("perfil") === "Vendedor" ? "/PerfilVendedor" : "/perfilcomprador"}>
             <img
-              src={profileData.message.photo}
+              src={determineProfilePhoto()}
               alt="Foto de perfil"
               className="rounded-full h-10 w-10 object-cover"
             />
