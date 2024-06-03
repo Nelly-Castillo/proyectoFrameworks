@@ -11,7 +11,9 @@ import guardar from "../assets/images/guardar.svg";
 import { Button } from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
+
 import { useForm } from "react-hook-form";
+
 import fotoDefault from '../assets/images/person-circle.svg';
 
 export function PerfilVendedor() {
@@ -25,6 +27,7 @@ export function PerfilVendedor() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadWorks, setLoadWorks] = useState(true);
   const [obrasPublicadas, setObrasPublicadas] = useState(null);
+
   const token = sessionStorage.getItem("token");
 
   useEffect(() => {
@@ -39,7 +42,6 @@ export function PerfilVendedor() {
     formState: { errors },
     getValues,
   } = useForm();
-
   async function getProfile() {
     try {
       const response = await fetch("/api/user/perfil", {
@@ -57,6 +59,7 @@ export function PerfilVendedor() {
       }
 
       const data = await response.json();
+      // debugger;
       setProfileData(data);
     } catch (errorPerfil) {
       console.error("Error al obtener el perfil:", errorPerfil);
@@ -162,7 +165,7 @@ export function PerfilVendedor() {
     }
   }
 
-  
+
   const determineProfilePhoto = () => {
     //debugger;
     if (profileData.message.photo) {
@@ -176,7 +179,6 @@ export function PerfilVendedor() {
     const rawData = getValues();
     onSubmit(rawData);
   }
-
   return (
     <>
       <NavBar />
@@ -296,16 +298,6 @@ export function PerfilVendedor() {
                     </Link>
                   </div>
                 </div>
-                <button
-                  className=" mt-5 flex justify-center h-full"
-                  onClick={() => sessionStorage.clear()}
-                >
-                  <Link to="/">
-                    <div className=" underline-offset-4 underline">
-                      Cerrar sesión
-                    </div>
-                  </Link>
-                </button>
               </div>
             </div>
             <div className="flex justify-center items-center w-full w-v">
