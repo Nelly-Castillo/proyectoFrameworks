@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { NavBar } from "../components/navBar";
-import star from "../assets/images/starFilled.svg";
 import editar from "../assets/images/editar.svg";
 import iconUsuario from "../assets/images/iconUsuario.svg";
 import iconNombre from "../assets/images/iconNombre.svg";
@@ -10,11 +9,14 @@ import tiktok from "../assets/images/tiktok.svg";
 import tw from "../assets/images/twitter.svg";
 import guardar from "../assets/images/guardar.svg";
 import { Button } from "../components/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
 import { useForm } from 'react-hook-form';
+import fotoDefault from '../assets/images/person-circle.svg';
 
 export function PerfilVendedor() {
+  const navigate = useNavigate();
+
   const [profileData, setProfileData] = useState("");
   const [errorPerfil, setErrorPerfil] = useState(null);
   const [errorWorks, setErrorWorks] = useState(null);
@@ -22,7 +24,16 @@ export function PerfilVendedor() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadWorks, setLoadWorks] = useState(true);
   const [obrasPublicadas, setObrasPublicadas] = useState(null);
+
   const token = sessionStorage.getItem("token");
+
+  useEffect(() => {
+
+    if(!token) navigate('/login')
+    
+  }, [token, navigate]);
+
+
   const {
     register,
     handleSubmit,
@@ -50,6 +61,7 @@ export function PerfilVendedor() {
       }
 
       const data = await response.json();
+      // debugger;
       setProfileData(data);
     } catch (errorPerfil) {
       console.error("Error al obtener el perfil:", errorPerfil);
@@ -119,6 +131,15 @@ export function PerfilVendedor() {
     return edicion ? setEdicion(false) : setEdicion(true);
   }
 
+  const determineProfilePhoto = () => {
+    //debugger;
+    if (profileData.message.photo) {
+        return profileData.message.photo;
+    } else {
+        return fotoDefault;
+    }
+};
+
   return (
     <>
       <NavBar />
@@ -145,7 +166,7 @@ export function PerfilVendedor() {
                 <div className="flex relative bg-white h-20 w-20 lg:h-36 lg:w-36 rounded-full place-content-center place-items-center -top-20 lg:-top-36">
                   <img
                     className=" rounded-full h-16 w-16 lg:h-32 lg:w-32"
-                    src={profileData.message.photo}
+                    src={determineProfilePhoto()}
                   />
                 </div>
               </div>
