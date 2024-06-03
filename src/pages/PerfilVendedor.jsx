@@ -31,18 +31,6 @@ export function PerfilVendedor() {
   } = useForm();
 
   async function getProfile() {
-    const token = sessionStorage.getItem("token");
-
-    if (!token) {
-      console.error("Token no proporcionado");
-      setError("Token no proporcionado");
-      setIsLoading(false);
-      console.error("Token no proporcionado");
-      setError("Token no proporcionado");
-      setIsLoading(false);
-      return;
-    }
-
     try {
       const response = await fetch("/api/user/perfil", {
         method: "GET",
