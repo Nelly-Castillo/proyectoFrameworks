@@ -125,7 +125,7 @@ export function PerfilVendedor() {
     return data;
   }
 
-  async function onSubmit (data) {
+  async function onSubmit(data) {
     const cleanedData = removeEmptyFields(data);
     try {
       const response = await fetch("/api/user/perfil-artist", {
@@ -150,7 +150,7 @@ export function PerfilVendedor() {
     } catch (error) {
       console.error("Error al actualizar el perfil:", error);
     }
-  };
+  }
 
   function enviarDatos() {
     const rawData = getValues();
@@ -191,24 +191,20 @@ export function PerfilVendedor() {
               <div className="flex items-center flex-col relative -top-20 lg:-top-36">
                 <div className="flex flex-row py-3 place-items-center"></div>
                 <div className="flex flex-col gap-2 w-full">
-                  <div
-                    className="p-2 flex flex-row gap-3"
-                  >
-                    <img className="h-7 w-7" src={iconUsuario} />
+                  <div className="p-2 flex flex-row gap-3">
+                    <img className="flex self-center justify-center h-7 w-7" src={iconUsuario} />
                     <input
-                      className=" font-bold w-full text-start text-lg"
+                      className=" font-medium w-full text-start text-lg p-1 placeholder:text-black"    
                       readOnly
                       placeholder={
                         profileData ? profileData.message.user_name : "..."
                       }
                     />
                   </div>
-                  <div
-                    className="p-2 flex flex-row gap-3"
-                  >
-                    <img className="h-7 w-7" src={iconNombre} />
+                  <div className="p-2 flex flex-row gap-3">
+                    <img className="flex self-center justify-center h-7 w-7" src={iconNombre} />
                     <input
-                      className=" font-bold w-full text-start text-lg"
+                      className=" font-medium w-full text-start text-lg p-1 placeholder:text-black"
                       readOnly
                       placeholder={
                         profileData ? profileData.message.full_name : "..."
@@ -220,25 +216,21 @@ export function PerfilVendedor() {
                     {(profileData?.message?.social_media_instagram ||
                       edicion) && (
                       <div className="p-2 flex flex-row gap-3">
-                        <img className="h-7 w-7" src={ig} />
+                        <img className="flex self-center justify-center h-7 w-7" src={ig} />
                         <input
-                          className=" font-bold w-full text-start text-lg"
+                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${edicion ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500": "outline-none"}`}
                           readOnly={!edicion}
-                          placeholder={
-                            profileData.message.social_media_instagram
-                          }
+                          placeholder={profileData.message.social_media_instagram}
                           name="social_media_instagram"
                           {...register("social_media_instagram")}
                         />
                       </div>
                     )}
                     {(profileData?.message?.correo || edicion) && (
-                      <div
-                        className="p-2 flex flex-row gap-3"
-                      >
-                        <img className="h-7 w-7" src={mail} />
+                      <div className="p-2 flex flex-row gap-3">
+                        <img className="flex self-center justify-center h-7 w-7" src={mail} />
                         <input
-                          className=" font-bold w-full text-start text-lg"
+                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${edicion ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500": "outline-none"}`}
                           readOnly={!edicion}
                           placeholder={profileData.message.correo}
                           name="correo"
@@ -247,12 +239,10 @@ export function PerfilVendedor() {
                       </div>
                     )}
                     {(profileData?.message?.social_media_tiktok || edicion) && (
-                      <div
-                        className="p-2 flex flex-row gap-3"
-                      >
-                        <img className="h-7 w-7" src={tiktok} />
+                      <div className="p-2 flex flex-row gap-3">
+                        <img className="flex self-center justify-center h-7 w-7" src={tiktok} />
                         <input
-                          className=" font-bold w-full text-start text-lg"
+                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${edicion ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500": "outline-none"}`}
                           readOnly={!edicion}
                           placeholder={profileData.message.social_media_tiktok}
                           name="social_media_tiktok"
@@ -261,12 +251,10 @@ export function PerfilVendedor() {
                       </div>
                     )}
                     {(profileData?.message?.social_media_x || edicion) && (
-                      <div
-                        className="p-2 flex flex-row gap-3"
-                      >
-                        <img className="h-7 w-7" src={tw} />
+                      <div className="p-2 flex flex-row gap-3">
+                        <img className="flex self-center justify-center h-7 w-7" src={tw} />
                         <input
-                          className=" font-bold w-full text-start text-lg"
+                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${edicion ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500": "outline-none"}`}
                           readOnly={!edicion}
                           placeholder={profileData.message.social_media_x}
                           name="social_media_x"
