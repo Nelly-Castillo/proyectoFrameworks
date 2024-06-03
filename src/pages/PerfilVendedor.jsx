@@ -13,7 +13,7 @@ import guardar from "../assets/images/guardar.svg";
 import { Button } from "../components/Button";
 import { Link } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 
 export function PerfilVendedor() {
   const [profileData, setProfileData] = useState("");
@@ -28,11 +28,8 @@ export function PerfilVendedor() {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm();
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
 
   async function getProfile() {
     const token = sessionStorage.getItem("token");
@@ -132,6 +129,47 @@ export function PerfilVendedor() {
     return edicion ? setEdicion(false) : setEdicion(true);
   }
 
+  function removeEmptyFields(data) {
+    Object.keys(data).forEach((key) => {
+      if (data[key] === "" || data[key] == null || data[key].length === 0) {
+        delete data[key];
+      }
+    });
+    return data;
+  }
+
+  async function onSubmit (data) {
+    const cleanedData = removeEmptyFields(data);
+    try {
+      const response = await fetch("/api/user/perfil-artist", {
+        method: "PUT",
+        headers: {
+          token: token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cleanedData),
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          "Error en la actualización del perfil: " + response.statusText
+        );
+      }
+
+      const result = await response.json();
+      console.log("Perfil actualizado:", result);
+      await getProfile();
+      setEdicion(false);
+    } catch (error) {
+      console.error("Error al actualizar el perfil:", error);
+    }
+  };
+
+  function enviarDatos() {
+    const rawData = getValues();
+    onSubmit(rawData);
+  }
+
   return (
     <>
       <NavBar />
@@ -150,6 +188,7 @@ export function PerfilVendedor() {
                   </button>
                   <button
                     type="submit"
+                    onClick={enviarDatos}
                     className={`p-1 ${edicion === true ? "" : "hidden"}`}
                   >
                     <img className=" justify-start w-14 h-14" src={guardar} />
@@ -165,99 +204,89 @@ export function PerfilVendedor() {
               <div className="flex items-center flex-col relative -top-20 lg:-top-36">
                 <div className="flex flex-row py-3 place-items-center"></div>
                 <div className="flex flex-col gap-2 w-full">
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <div
-                      className={`p-2 flex flex-row gap-3 ${edicion ? "" : ""}`}
-                    >
-                      <img className="h-7 w-7" src={iconUsuario} />
-                      <input
-                        className=" font-bold w-full text-start text-lg"
-                        readOnly={!edicion}
-                        placeholder={
-                          profileData ? profileData.message.user_name : "..."
-                        }
-                        name="user_name" 
-                        {...register("user_name")}
-                      />
-                    </div>
-                    <div
-                      className={`p-2 flex flex-row gap-3 ${edicion ? "" : ""}`}
-                    >
-                      <img className="h-7 w-7" src={iconNombre} />
-                      <input
-                        className=" font-bold w-full text-start text-lg"
-                        readOnly={!edicion}
-                        placeholder={
-                          profileData ? profileData.message.full_name : "..."
-                        }
-                        name="full_name" 
-                        {...register("full_name")}
-                      />
-                    </div>
-                    <div className="w-full h-1 bg-Naranja opacity-50 py-1 rounded-full"></div>
-                    {profileData?.message?.social_media_instagram ||
-                      (edicion && (
-                        <div
-                          className={`p-2 flex flex-row gap-3 ${
-                            edicion ? "" : ""
-                          }`}
-                        >
-                          <img className="h-7 w-7" src={ig} />
-                          <input
-                            className=" font-bold w-full text-start text-lg"
-                            readOnly={!edicion}
-                            placeholder={
-                              profileData.message.social_media_instagram
-                            }
-                            name="insta" 
-                            {...register("insta")}
-                          />
-                        </div>
-                      ))}
-                    {profileData?.message?.correo ||
-                      (edicion && (
-                        <div
-                          className={`p-2 flex flex-row gap-3 ${
-                            edicion ? "" : ""
-                          }`}
-                        >
-                          <img className="h-7 w-7" src={mail} />
-                          <input
-                            className=" font-bold w-full text-start text-lg"
-                            readOnly={!edicion}
-                            placeholder={profileData.message.correo}
-                          />
-                        </div>
-                      ))}
+                  <div
+                    className="p-2 flex flex-row gap-3"
+                  >
+                    <img className="h-7 w-7" src={iconUsuario} />
+                    <input
+                      className=" font-bold w-full text-start text-lg"
+                      readOnly
+                      placeholder={
+                        profileData ? profileData.message.user_name : "..."
+                      }
+                    />
+                  </div>
+                  <div
+                    className="p-2 flex flex-row gap-3"
+                  >
+                    <img className="h-7 w-7" src={iconNombre} />
+                    <input
+                      className=" font-bold w-full text-start text-lg"
+                      readOnly
+                      placeholder={
+                        profileData ? profileData.message.full_name : "..."
+                      }
+                    />
+                  </div>
+                  <div className="w-full h-1 bg-Naranja opacity-50 py-1 rounded-full"></div>
+                  <form>
+                    {(profileData?.message?.social_media_instagram ||
+                      edicion) && (
+                      <div className="p-2 flex flex-row gap-3">
+                        <img className="h-7 w-7" src={ig} />
+                        <input
+                          className=" font-bold w-full text-start text-lg"
+                          readOnly={!edicion}
+                          placeholder={
+                            profileData.message.social_media_instagram
+                          }
+                          name="social_media_instagram"
+                          {...register("social_media_instagram")}
+                        />
+                      </div>
+                    )}
+                    {(profileData?.message?.correo || edicion) && (
+                      <div
+                        className="p-2 flex flex-row gap-3"
+                      >
+                        <img className="h-7 w-7" src={mail} />
+                        <input
+                          className=" font-bold w-full text-start text-lg"
+                          readOnly={!edicion}
+                          placeholder={profileData.message.correo}
+                          name="correo"
+                          {...register("correo")}
+                        />
+                      </div>
+                    )}
                     {(profileData?.message?.social_media_tiktok || edicion) && (
                       <div
-                        className={`p-2 flex flex-row gap-3 ${
-                          edicion ? "" : ""
-                        }`}
+                        className="p-2 flex flex-row gap-3"
                       >
                         <img className="h-7 w-7" src={tiktok} />
                         <input
                           className=" font-bold w-full text-start text-lg"
                           readOnly={!edicion}
                           placeholder={profileData.message.social_media_tiktok}
+                          name="social_media_tiktok"
+                          {...register("social_media_tiktok")}
                         />
                       </div>
                     )}
-                    {profileData?.message?.social_media_x ||
-                      (edicion && (
-                        <div
-                          className={`p-2 flex flex-row gap-3 ${
-                            edicion ? "" : ""
-                          }`}
-                        >
-                          <img className="h-7 w-7" src={tw} />
-                          <input
-                            className=" font-bold w-full text-start text-lg"
-                            readOnly={!edicion}
-                            placeholder={profileData.message.social_media_x}
-                          />
-                        </div>
-                      ))}
+                    {(profileData?.message?.social_media_x || edicion) && (
+                      <div
+                        className="p-2 flex flex-row gap-3"
+                      >
+                        <img className="h-7 w-7" src={tw} />
+                        <input
+                          className=" font-bold w-full text-start text-lg"
+                          readOnly={!edicion}
+                          placeholder={profileData.message.social_media_x}
+                          name="social_media_x"
+                          {...register("social_media_x")}
+                        />
+                      </div>
+                    )}
                   </form>
                 </div>
                 <div className="flex flex-row m-2.5 h-16">

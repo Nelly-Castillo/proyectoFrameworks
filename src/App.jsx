@@ -33,8 +33,8 @@ function App() {
         <Route path="/Crear" element={<Crear></Crear>}/>
         <Route path="/Carrito" element={<Carrito></Carrito>}/>
         <Route path="/Mis-Compras" element={<Compras></Compras>}/>
-        <Route path="/PerfilVendedor" element={token ? <PerfilVendedor></PerfilVendedor> : <Navigate to="/login" />}/>
-        <Route path="/PerfilComprador" element={token ? <PerfilComprador></PerfilComprador> : <Navigate to="/login" />}/>
+        <Route path="/PerfilVendedor" element={token ? <PerfilVendedor></PerfilVendedor> : <Navigate to="/login"/>}/>
+        <Route path="/PerfilComprador" element={token ? <PerfilComprador></PerfilComprador> : <Navigate to="/login"/>}/>
         {/* <Route path="/PerfilComprador" element={token ? <PerfilComprador></PerfilComprador> : <Navigate to="/login"/>}/> */}
       </Routes>
     </NextUIProvider>
