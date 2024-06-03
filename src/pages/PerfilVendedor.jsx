@@ -179,7 +179,6 @@ export function PerfilVendedor() {
 
   return (
     <>
-    <>
       <NavBar />
       <div className="flex p-2.5 my-8">
         <div className="w-screen">
