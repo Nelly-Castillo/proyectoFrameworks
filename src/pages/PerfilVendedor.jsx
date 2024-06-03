@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import React, { useState, useEffect } from "react";
 import { NavBar } from "../components/navBar";
 import star from "../assets/images/starFilled.svg";
 import editar from "../assets/images/editar.svg";
