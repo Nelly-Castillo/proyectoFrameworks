@@ -3,6 +3,9 @@ import { NavBar } from "../components/navBar";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import eliminar from '../assets/images/eliminar.svg';
+
 import {
   Checkbox,
   Card,
@@ -14,6 +17,13 @@ import {
 import { Link } from "react-router-dom";
 
 function Crear() {
+  const token = sessionStorage.getItem("token");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) navigate("/login");
+  }, [token, navigate]);
+
   useEffect(() => {
     fetch("URLDELISTA")
       .then((res) => res.json())
@@ -22,19 +32,23 @@ function Crear() {
       });
   }, []);
 
-  const [files, setFiles] = useState(null);
+  const [files, setFiles] = useState([]);
 
   const subirArchivos = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+    const selectedFiles = Array.from(event.target.files);
+    const readers = selectedFiles.map((file) => {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          resolve(reader.result);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
 
-    reader.onloadend = () => {
-      setFiles(reader.result);
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
+    Promise.all(readers).then((fileContents) => {
+      setFiles((prevFiles) => [...prevFiles, ...fileContents]);
+    });
   };
 
   return (
@@ -56,33 +70,46 @@ function Crear() {
           </svg>
         </div>
         <h1 className="p-1 mx-4 font-bold text-2xl">Crear una publicación</h1>
-        {files && (
-          <div className="mt-4">
-            <img src={files} alt="Uploaded" className="max-w-xs max-h-xs" />
-          </div>
-        )}
       </div>
       <div className="flex flex-col py-5 px-20 mx-40">
         <div className="flex justify-center  p-7">
           <div className="bg-VerTrans30 rounded-lg px-40 py-10">
-            <div className="flex justify-center pb-5">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-upload"
-                viewBox="0 0 16 16"
-                className="fill-Naranja w-28 h-28"
-              >
-                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
-                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
-              </svg>
-            </div>
+            {files.length > 0 ? (
+              <div className="w-96 flex flex-wrap justify-around mb-4">
+                {files.map((file, index) => (
+                  <>
+                  <img className=" w-2 h-2" src={eliminar} />
+                  <img
+                    key={index}
+                    src={file}
+                    alt={`Uploaded ${index}`}
+                    className="w-28 h-36 bg-cover m-2"
+                  />
+                  </>
+                ))}
+              </div>
+            ) : (
+              <div className="flex justify-center pb-5">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-upload"
+                  viewBox="0 0 16 16"
+                  className="fill-Naranja w-28 h-28"
+                >
+                  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                  <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
+                </svg>
+              </div>
+            )}
+
             <div className="flex justify-center pb-2">
               <input
                 className=" w-px h-px opacity-0 overflow-hidden position-absolute z-n1"
                 type="file"
+                accept="image/*" 
                 name="upload"
                 id="upload"
                 multiple
