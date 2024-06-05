@@ -12,6 +12,7 @@ function PerfilComprador() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [showButtons, setShowButtons] = useState(false);
     let [profilePhoto, setProfilePhoto] = useState(fotoDefault);
 
     const token = sessionStorage.getItem("token");
@@ -32,7 +33,7 @@ function PerfilComprador() {
             const data = await response.json();
             //debugger;
             setUserData(data);
-            debugger;
+            //debugger;
             setProfilePhoto(data.message.photo); 
         } catch (error) {
             console.error("Error al obtener los datos del usuario:", error);
@@ -53,7 +54,6 @@ function PerfilComprador() {
     }, [navigate]);
 
     const handleFileChange = (event) => {
-
         setSelectedFile(event.target.files[0]);
         console.log(event.target.files[0])
     };
@@ -88,6 +88,11 @@ function PerfilComprador() {
         }
     };
 
+    const handleButtonClick = () => {
+        setShowButtons(!showButtons);
+        handleFileUpload();
+    };
+
     // const determineProfilePhoto = () => {
     //      //debugger;
     //     if (userData.message.photo) {
@@ -119,7 +124,7 @@ function PerfilComprador() {
                             <div>
                                 <div className="pb-4">
                                     <img 
-                                        src={profilePhoto} 
+                                        src={profilePhoto != null ? profilePhoto : fotoDefault} 
                                         alt='Foto de perfil' 
                                         className="
                                             rounded-full 
@@ -128,30 +133,40 @@ function PerfilComprador() {
                                             object-cover"
                                     ></img>
                                 </div>
-                                <div className="z-10 absolute -mt-20 p-1 left-48">
+                                <div className="z-10 absolute -mt-14 mx-5 p-1 left-48 w-80 flex justify-around">
                                     <button 
-                                        className="bg-NaranjaTrans p-3.5 rounded-full"
-                                        onClick={() => document.getElementById('fileInput').click()}>
+                                        onClick={() => setShowButtons(!showButtons)}
+                                        className="bg-NaranjaTrans p-3.5 rounded-full">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-pencil fill-Blanco" viewBox="0 0 16 16">
                                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
                                         </svg>
                                     </button>
-                                    <input 
-                                        type="file" 
-                                        id="fileInput" 
-                                        style={{ display: 'none' }} 
-                                        onChange={handleFileChange} 
-                                    />
-                                </div>
-                                <div className="z-10 absolute -mt-20 p-1 left-1/2">
-                                    <button 
-                                        className="bg-NaranjaTrans p-3.5 rounded-full"
-                                        onClick={handleFileUpload}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-floppy-fill fill-Blanco" viewBox="0 0 16 16">
-                                            <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5z"/>
-                                            <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z"/>
-                                        </svg>
-                                    </button>
+                                    {showButtons && (
+                                        <>
+                                            <button 
+                                                className="bg-NaranjaTrans p-3.5 rounded-full"
+                                                onClick={() => document.getElementById('fileInput').click()}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-camera-fill fill-Blanco" viewBox="0 0 16 16">
+                                                    <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                                    <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0"/>
+                                                </svg>
+                                            </button>
+                                            <input 
+                                                type="file" 
+                                                id="fileInput" 
+                                                style={{ display: 'none' }} 
+                                                onChange={handleFileChange} 
+                                            />
+                                            <button 
+                                                className="bg-NaranjaTrans p-3.5 rounded-full"
+                                                onClick={handleButtonClick}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-floppy-fill fill-Blanco" viewBox="0 0 16 16">
+                                                    <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5z"/>
+                                                    <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z"/>
+                                                </svg>
+                                            </button>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                             <div className="p-5 w-1/2">

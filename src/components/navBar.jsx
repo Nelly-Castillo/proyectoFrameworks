@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { SearchBar } from "./searchBar.jsx";
 import { Link } from "react-router-dom";
+import fotoDefault from '../assets/images/person-circle.svg';
 
 function NavBar(props) {
   const [error, setError] = useState(null);
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+  console.log(props.image);
   return (
     <div className="flex flex-row justify-around p-2 my-3">
       <button className="flex flex-row items-center text-lg font-semibold p-1">
@@ -48,7 +51,8 @@ function NavBar(props) {
         <button>
           <Link to={sessionStorage.getItem("perfil") === "Vendedor" ? "/PerfilVendedor" : "/perfilcomprador"}>
             <img
-              src={props.image}
+              src={props.image !== null ? props.image : fotoDefault}
+              // src="https://i.pinimg.com/736x/c3/44/c9/c344c9b9fabe6446b1ea37b01126a0f7.jpg"
               alt="Foto de perfil"
               className="rounded-full h-10 w-10 object-cover"
             />
