@@ -4,60 +4,105 @@ import { NavBar } from "../components/navBar";
 import { Button } from "../components/Button";
 import fotoDefault from '../assets/images/person-circle.svg';
 import { useEffect, useState } from "react";
+import { Spinner } from "@nextui-org/react";
 
 function PerfilComprador() {
     const navigate = useNavigate();
     const [userData, setUserData] = useState({ user_name: "", full_name: "" });
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [selectedFile, setSelectedFile] = useState(null);
+    let [profilePhoto, setProfilePhoto] = useState(fotoDefault);
+
+    const token = sessionStorage.getItem("token");
+    const fetchUserData = async () => {
+        try {
+            const response = await fetch("/api/user/perfil", {
+                method: "GET",
+                headers: {
+                    token: token,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Error en la solicitud de datos del usuario: " + response.statusText);
+            }
+
+            const data = await response.json();
+            //debugger;
+            setUserData(data);
+            debugger;
+            setProfilePhoto(data.message.photo); 
+        } catch (error) {
+            console.error("Error al obtener los datos del usuario:", error);
+            setError(error.message);
+            navigate('/login');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const token = sessionStorage.getItem("token");
 
         if (!token) {
             navigate('/login');
         } else {
-            const fetchUserData = async () => {
-                try {
-                    const response = await fetch("/api/user/perfil", {
-                        method: "GET",
-                        headers: {
-                            token: token,
-                            "Content-Type": "application/json"
-                        }
-                    });
-
-                    if (!response.ok) {
-                        throw new Error("Error en la solicitud de datos del usuario: " + response.statusText);
-                    }
-
-                    const data = await response.json();
-                    //debugger;
-                    setUserData(data);
-                } catch (error) {
-                    console.error("Error al obtener los datos del usuario:", error);
-                    setError(error.message);
-                    navigate('/login');
-                } finally {
-                    setLoading(false);
-                }
-            };
-
             fetchUserData();
         }
     }, [navigate]);
 
-    const determineProfilePhoto = () => {
-        //debugger;
-        if (userData.message.photo) {
-            return userData.message.photo;
-        } else {
-            return fotoDefault;
+    const handleFileChange = (event) => {
+
+        setSelectedFile(event.target.files[0]);
+        console.log(event.target.files[0])
+    };
+
+    const handleFileUpload = async () => {
+        if (selectedFile && token) {
+            const formData = new FormData();
+            formData.append('perfil', selectedFile);
+
+            try {
+                const response = await fetch("/api/user/perfil-buyer", {
+                    method: "PUT",
+                    headers: {
+                        token: token,
+                        
+                    },
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error("Error en la subida de la foto de perfil: " + response.statusText);
+                }
+
+                const data = await response.json();
+                setProfilePhoto(data.photo); 
+                fetchUserData();
+                //debugger;
+            } catch (error) {
+                console.error("Error al subir la foto de perfil:", error);
+                setError(error.message);
+            }
         }
     };
 
+    // const determineProfilePhoto = () => {
+    //      //debugger;
+    //     if (userData.message.photo) {
+    //             return userData.message.photo;
+    //     } else {
+    //         return fotoDefault;
+    //     }
+    // };
+
     if (loading) {
-        return <div>Cargando...</div>;
+        return (
+            <div className="w-full h-full flex self-center justify-center text-4xl text-VerLima mt-60 ">
+                <Spinner size="lg" />
+            </div>
+        );
     }
 
     if (error) {
@@ -66,15 +111,15 @@ function PerfilComprador() {
 
     return (
         <>
-            <NavBar />
+            <NavBar image={profilePhoto} />
             <div className="flex p-2.5 my-8 mb-2.5">
                 <div className="relative">
                     <div className="grid grid-cols-2 gap-2 items-start">
                         <div className="flex flex-col items-center">
                             <div>
-                                <div className="pb-8">
+                                <div className="pb-4">
                                     <img 
-                                        src={determineProfilePhoto()} 
+                                        src={profilePhoto} 
                                         alt='Foto de perfil' 
                                         className="
                                             rounded-full 
@@ -83,10 +128,28 @@ function PerfilComprador() {
                                             object-cover"
                                     ></img>
                                 </div>
-                                <div className="z-10 absolute -mt-12 p-1 left-4">
-                                    <button className="bg-NaranjaTrans p-3.5 rounded-full">
+                                <div className="z-10 absolute -mt-20 p-1 left-48">
+                                    <button 
+                                        className="bg-NaranjaTrans p-3.5 rounded-full"
+                                        onClick={() => document.getElementById('fileInput').click()}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-pencil fill-Blanco" viewBox="0 0 16 16">
                                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                                        </svg>
+                                    </button>
+                                    <input 
+                                        type="file" 
+                                        id="fileInput" 
+                                        style={{ display: 'none' }} 
+                                        onChange={handleFileChange} 
+                                    />
+                                </div>
+                                <div className="z-10 absolute -mt-20 p-1 left-1/2">
+                                    <button 
+                                        className="bg-NaranjaTrans p-3.5 rounded-full"
+                                        onClick={handleFileUpload}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-floppy-fill fill-Blanco" viewBox="0 0 16 16">
+                                            <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5z"/>
+                                            <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z"/>
                                         </svg>
                                     </button>
                                 </div>
