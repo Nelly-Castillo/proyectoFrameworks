@@ -322,6 +322,12 @@ export function PerfilVendedor() {
               </div>
             </div>
           </div>
+          <div className="flex justify-center">
+              <Link to="/Login">
+                  <Button text="Cerrar sesion"
+                  onClick={() => sessionStorage.clear()}></Button>
+              </Link>
+          </div>
         </div>
       </div>
     </>
