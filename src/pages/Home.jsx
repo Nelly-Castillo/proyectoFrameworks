@@ -2,12 +2,58 @@ import React from 'react';
 import iconobrush from '../assets/images/brush.svg';
 import { NavBar } from '../components/navBar';
 import { NavBarNotAuth } from '../components/navBarNotAuth';
+import { useEffect,useState } from "react";
+import { useNavigate } from "react-router-dom";
+import fotoDefault from '../assets/images/person-circle.svg';
+
+
 
 const  Home = () => {
+    const navigate = useNavigate();
+    const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
     const token = sessionStorage.getItem("token");
+    const getInfo = async () => {
+
+        if (!token) {
+        console.error("Token no proporcionado");
+        setError("Token no proporcionado");
+        return;
+        }
+
+        // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhbGUyIiwic3RhdHVzIjoiVmVuZGVkb3IiLCJpYXQiOjE3MTY5ODk2MzJ9.RV5L9Mx9pCFpmV5kBLHOz63k7jVG-haed4dqEEUmFIE
+
+        try {
+            const response = await fetch("/api/user/perfil", {
+                method: "GET",
+                headers: {
+                token: token,
+                "Content-Type": "application/json",
+                },
+            });
+            if (!response.ok) {
+                throw new Error("Error en la solicitud: " + response.statusText);
+            }
+            const data = await response.json();
+            debugger
+            setProfilePhoto(data.message.photo)
+        } catch (error) {
+        console.error("Error al obtener el perfil:", error);
+        setError(error.message);
+        }
+};
+    useEffect(() => {
+    
+        if (!token) {
+            navigate('/login');
+        } else {
+            getInfo();
+        }
+    }, [navigate]);
+
+    
     return (
         <>
-        {token ? <NavBar/> : <NavBarNotAuth/>}
+        {token ? <NavBar image={profilePhoto} /> : <NavBarNotAuth/>}
         <div className=' py-5  px-16 flex flex-col gap-10'>
             <div className="bg-portadaHome bg-no-repeat bg-cover bg-center bg-fixed lg:pt-72 2xl:pt-96">
                 <div className='flex flex-row text-white font-bold gap-3 items-center p-10'>

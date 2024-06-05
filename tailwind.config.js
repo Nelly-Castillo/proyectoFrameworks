@@ -1,8 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-<<<<<<< dev-rusty
 const { nextui } = require("@nextui-org/react");
-=======
->>>>>>> dev
 
 export default {
     content: [
@@ -18,6 +15,7 @@ export default {
           'AzulCl': '#4897ff',
           'NaranjaOs': '#B87E14',
           'Naranja': '#FFA500',
+          'NaranjaTrans': 'rgba(255,165,0,0.6)',
           'NaranjaTrans50': 'rgba(255,165,0,0.5)',
           'NaranjaTrans20': 'rgba(255,165,0,0.2)',
           'VerLima': '#9BC995', 
@@ -25,6 +23,7 @@ export default {
           'VerTrans30': 'rgba(155,201,149,0.3)',
           'Blanco': '#FFFFFF',
           'Negro': '#2c2d2d',
+          'Gris': '#8c8c8c',
           'VerdeCl': '#85C17E',
           'VerdeOs': '#2E7D32',
           'Red': '#ff4c4c',
@@ -38,10 +37,6 @@ export default {
         }
       },
     },
-<<<<<<< dev-rusty
     darkMode: "class",
     plugins: [nextui()],
-=======
-    plugins: [],
->>>>>>> dev
 }
