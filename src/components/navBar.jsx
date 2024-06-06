@@ -1,61 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { SearchBar } from "./searchBar.jsx";
 import { Link } from "react-router-dom";
-import fotoDefault from '../assets/images/person-circle.svg';
 
-function NavBar() {
-  const [profileData, setProfileData] = useState(null);
+function NavBar(props) {
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const getInfo = async () => {
-      const token = sessionStorage.getItem("token");
-
-      if (!token) {
-        console.error("Token no proporcionado");
-        setError("Token no proporcionado");
-        return;
-      }
-
-      // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhbGUyIiwic3RhdHVzIjoiVmVuZGVkb3IiLCJpYXQiOjE3MTY5ODk2MzJ9.RV5L9Mx9pCFpmV5kBLHOz63k7jVG-haed4dqEEUmFIE
-
-      try {
-        const response = await fetch("/api/user/perfil", {
-          method: "GET",
-          headers: {
-            token: token,
-            "Content-Type": "application/json",
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Error en la solicitud: " + response.statusText);
-        }
-        const data = await response.json();
-        setProfileData(data);
-      } catch (error) {
-        console.error("Error al obtener el perfil:", error);
-        setError(error.message);
-      }
-    };
-
-    getInfo();
-  }, []);
-
   if (error) {
     return <div>Error: {error}</div>;
-  }
-
-  const determineProfilePhoto = () => {
-    //debugger;
-    if (profileData.message.photo) {
-        return profileData.message.photo;
-    } else {
-        return fotoDefault;
-    }
-};
-
-  if (!profileData) {
-    return <div> ... </div>;
   }
   return (
     <div className="flex flex-row justify-around p-2 my-3">
@@ -98,7 +48,7 @@ function NavBar() {
         <button>
           <Link to={sessionStorage.getItem("perfil") === "Vendedor" ? "/PerfilVendedor" : "/perfilcomprador"}>
             <img
-              src={determineProfilePhoto()}
+              src={props.image}
               alt="Foto de perfil"
               className="rounded-full h-10 w-10 object-cover"
             />

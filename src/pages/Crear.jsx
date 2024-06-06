@@ -5,15 +5,7 @@ import { Input } from "../components/Input";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import eliminar from '../assets/images/eliminar.svg';
-
-import {
-  Checkbox,
-  Card,
-  List,
-  ListItem,
-  ListItemPrefix,
-  Typography,
-} from "@material-tailwind/react";
+import { Checkbox, Card, List, ListItem, ListItemPrefix, Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
 function Crear() {
