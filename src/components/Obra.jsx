@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavBar } from './navBar';
+import { useParams } from 'react-router-dom';
 
 function Obra() {
     const [product, setProduct] = useState(null);
@@ -7,7 +8,7 @@ function Obra() {
     const [error, setError] = useState(null);
 
     const token = sessionStorage.getItem("token");
-    const id_work = sessionStorage.getItem("id_work");
+    const {id_work} = useParams()
 
     useEffect(() => {
         const fetchProduct = async () => {
