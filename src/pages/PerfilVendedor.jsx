@@ -14,12 +14,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import fotoDefault from "../assets/images/person-circle.svg";
-import { useContext } from "react";
-import { obraContext } from "../components/ObraProvider";
+
 
 export function PerfilVendedor() {
   const navigate = useNavigate();
-  const {setIdObra} = useContext(obraContext);
+
   const [profileData, setProfileData] = useState("");
   const [errorPerfil, setErrorPerfil] = useState(null);
   const [errorWorks, setErrorWorks] = useState(null);
@@ -203,10 +202,9 @@ export function PerfilVendedor() {
   }
 
   function obraParaEditar(idWork){
-    setIdObra(idWork)
-    console.log("idwork:", idWork)
+    localStorage.setItem("idObra", idWork)
+    console.log(idWork)
   }
-
 
   return (
     <>
@@ -370,7 +368,7 @@ export function PerfilVendedor() {
                     </Link>
                   </div>
                   <div className="mx-5 h-full w-16">
-                    <Link to="/Crear" onClick={()=>ocupoPublicarAlgo}>
+                    <Link to="/Crear">
                       <Button text="Publicar"></Button>
                     </Link>
                   </div>
@@ -387,7 +385,7 @@ export function PerfilVendedor() {
                 {obrasPublicadas ? (
                   obrasPublicadas.slice(0, 12).map(function (obra) {
                     return (
-                      <a href={`/editar/${obra.id_work}`}>
+                      <Link to="/Crear">
                         <button key={obra.id_work} onClick={()=>obraParaEditar(obra.id_work)}>
                           <img
                             className="rounded-md w-20 md:w-36 lg:w-52 xl:w-64 xl:h-64 bg-cover"
@@ -395,7 +393,7 @@ export function PerfilVendedor() {
                             alt={obra.title}
                           />
                         </button>
-                      </a>
+                      </Link>
                     );
                   })
                 ) : (

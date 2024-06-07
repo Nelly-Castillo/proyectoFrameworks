@@ -22,9 +22,9 @@ function Crear() {
   const [cantidad, setCantidad] = useState(1);
   const [tags, setTags] = useState([]);
   const [images, setImages] = useState([]);
+
   const [existe, setExiste] = useState(false);
   const formData = new FormData();
-
 
   useEffect(() => {
     if (!token) navigate("/login");
@@ -101,6 +101,9 @@ function Crear() {
       }
 
       if (!response.ok) {
+        if (response.status === 400) {
+          window.alert("No puedes subir publicaciones si no tienes agregas un correo y/o una cuenta de PayPal");
+        }
         throw new Error(
           "Error en la solicitud de post: " + response.statusText
         );
@@ -108,7 +111,6 @@ function Crear() {
 
       const result = await response.json();
       console.log("Post creado:", result);
-      navigate('/PerfilVendedor')
     } catch (error) {
       console.error("Error:", error);
     }
@@ -279,7 +281,7 @@ function Crear() {
             >
               <Checkbox value="2D">2D</Checkbox>
               <Checkbox value="3D">3D</Checkbox>
-              <Checkbox value="Lineart">Lineart</Checkbox>
+              <Checkbox value="Lineart">Cartoon</Checkbox>
               <Checkbox value="Cartoon">Cartoon</Checkbox>
               <Checkbox value="Concept Art">Concept Art</Checkbox>
               <Checkbox value="Character Design">Character Design</Checkbox>
@@ -292,12 +294,14 @@ function Crear() {
         </div>
       </div>
       <div className="flex justify-center pt-5 pb-10">
+        <Link to="/PerfilVendedor">
           <button
             onClick={handleSubmit(publicar)}
             className="bg-Azul text-white p-3 m-1 rounded-xl text-sm h-full"
           >
             Publicar
           </button>
+        </Link>
       </div>
     </>
   );

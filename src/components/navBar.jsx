@@ -8,6 +8,7 @@ function NavBar(props) {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
   console.log(props.image);
   return (
     <div className="flex flex-row justify-around p-2 my-3">

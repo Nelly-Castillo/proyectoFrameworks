@@ -7,6 +7,10 @@ import { useNavigate } from "react-router-dom";
 import fotoDefault from '../assets/images/person-circle.svg';
 import { Spinner } from "@nextui-org/react";
 
+
+
+
+
 const  Home = () => {
     const navigate = useNavigate();
     const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
@@ -17,6 +21,7 @@ const  Home = () => {
     const handleImageClick = (id_work) => {
         navigate(`/obra/${id_work}`);
     };
+
 
     const getPosts = async () => {
         try {
