@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { NavBar } from './navBar';
 import { useParams } from 'react-router-dom';
+import fotoDefault from '../assets/images/person-circle.svg';
 
 function InformeVenta() {
     const [data, setData] = useState({ purchaseDetails: null, totalAmount: null, error: null });
     const { id_purchase } = useParams();
+    const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
     const token = sessionStorage.getItem("token");
 
     useEffect(() => {
@@ -34,7 +36,29 @@ function InformeVenta() {
         };
 
         fetchPurchaseDetails();
+        getInfo();
     }, [id_purchase, token]);
+
+    const getInfo = async () => {
+        try {
+            const response = await fetch("/api/user/perfil", {
+                method: "GET",
+                headers: {
+                token: token,
+                "Content-Type": "application/json",
+                },
+            });
+            if (!response.ok) {
+                throw new Error("Error en la solicitud: " + response.statusText);
+            }
+            const data = await response.json();
+            //debugger
+            setProfilePhoto(data.message.photo)
+        } catch (error) {
+        console.error("Error al obtener el perfil:", error);
+        setError(error.message);
+        }
+};
 
     if (data.error) {
         return <div className="text-center text-gray-500 py-6">Error: {data.error}</div>;
@@ -48,12 +72,12 @@ function InformeVenta() {
 
     return (
         <>
-            <NavBar />
+            <NavBar image={profilePhoto} />
             <div className="bg-white py-6 px-4 lg:px-8">
                 <div className=" max-w-7xl mx-auto space-y-8">
                 <div className="grid grid-cols-3 gap-2 md:gap-4 xl:gap-7 justify-start">
                     {data.purchaseDetails.map((purchase, index) => (
-                        <div key={index} className="flex flex-col bg-white p-6 border border-gray-200 rounded-lg shadow-sm mb-8 w-auto text-center items-center justify-center">
+                        <div key={index} className="flex flex-col bg-white p-6 border border-NaranjaTrans50 rounded-lg shadow-sm mb-8 w-auto text-center items-center justify-center">
                             <a href={`/Obra/${purchase.id_work}`} className="text-center">
                                 <img src={purchase.mainImageUrl} alt={purchase.title} className="w-auto mb-4 rounded-lg text-center" />
                             </a>
@@ -68,7 +92,7 @@ function InformeVenta() {
                                     {purchase.labels.map((label, index) => (
                                         <span
                                         key={index}
-                                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+                                        className="inline-block bg-NaranjaTrans20 rounded-full px-3 py-1 text-sm font-semibold text-slate-950 mr-2"
 >
                                         {label}
                                     </span>
@@ -78,7 +102,7 @@ function InformeVenta() {
                         </div>
                     ))}
                     </div>
-                    <div className="border-t border-gray-200 pt-4 mt-6 text-center">
+                    <div className="border-t border-NaranjaTrans50 pt-4 mt-6 text-center">
                         <h3 className="text-2xl font-medium text-gray-900">Total de la compra</h3>
                         <p className="text-3xl font-bold text-gray-900 mt-2">${data.totalAmount}</p>
                     </div>

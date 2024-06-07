@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { NavBar } from './navBar';
 import { useParams } from 'react-router-dom';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import fotoDefault from '../assets/images/person-circle.svg';
+import { Spinner } from "@nextui-org/react";
 
 function Obra() {
+    const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -116,10 +120,36 @@ function Obra() {
             }
         };
         fetchProduct();
+        getInfo();
     }, []);
 
+    const getInfo = async () => {
+        try {
+            const response = await fetch("/api/user/perfil", {
+                method: "GET",
+                headers: {
+                token: token,
+                "Content-Type": "application/json",
+                },
+            });
+            if (!response.ok) {
+                throw new Error("Error en la solicitud: " + response.statusText);
+            }
+            const data = await response.json();
+            //debugger
+            setProfilePhoto(data.message.photo)
+        } catch (error) {
+        console.error("Error al obtener el perfil:", error);
+        setError(error.message);
+        }
+};
+
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="w-full h-full flex self-center justify-center text-4xl text-Azul ">
+                <Spinner size="lg" />
+            </div>
+        );
     }
 
     if (error) {
@@ -128,7 +158,7 @@ function Obra() {
 
     return (
         <>
-            <NavBar />
+            <NavBar image={profilePhoto} />
             <div className="bg-white py-6">
                 <div className="mx-auto mt-6 max-w-4xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-[2fr,1fr] lg:gap-8 lg:px-8">
                     <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
@@ -143,7 +173,7 @@ function Obra() {
                         ))}
                     </div>
 
-                    <div className="lg:col-span-1 lg:border-l lg:border-gray-200 lg:pl-8">
+                    <div className="lg:col-span-1 lg:border-l lg:border-NaranjaTrans20 lg:pl-8">
                         <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product.title}</h1>
                         <div className="mt-4">
                             <h2 className="sr-only">Información</h2>
@@ -152,9 +182,11 @@ function Obra() {
 
                         <form className="mt-10">
                             <button
-                                // type="submit"
+
                                 onClick={agregarObra}
-                                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                               
+                                className="flex w-full items-center justify-center rounded-md border border-transparent bg-Naranja px-8 py-3 text-base font-medium text-white hover:bg-NaranjaO focus:outline-none focus:ring-2 focus:ring-NaranjaOs focus:ring-offset-2"
+
                             >
                                 Agregar al carrito
                             </button>
@@ -191,7 +223,7 @@ function Obra() {
                                     {product.labels.map((label, index) => (
                                         <span
                                             key={index}
-                                            className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+                                            className="inline-block bg-NaranjaTrans20 rounded-full px-3 py-1 text-sm font-semibold text-zinc-500 mr-2"
                                         >
                                             {label}
                                         </span>

@@ -9,6 +9,7 @@ export function Compras() {
   const navigate = useNavigate();
   const [errorSales, setErrorSales] = useState(null);
   const [loadSales, setLoadSales] = useState(true);
+  const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
   const [sales, setSales] = useState(null);
   const token = sessionStorage.getItem("token");
 
@@ -40,6 +41,23 @@ export function Compras() {
     } finally {
       setLoadSales(false);
     }
+    try {
+      const response = await fetch("/api/user/perfil", {
+          method: "GET",
+          headers: {
+          token: token,
+          "Content-Type": "application/json",
+          },
+      });
+      if (!response.ok) {
+          throw new Error("Error en la solicitud: " + response.statusText);
+      }
+      const data = await response.json();
+      setProfilePhoto(data.message.photo)
+  } catch (error) {
+  console.error("Error al obtener el perfil:", error);
+  setError(error.message);
+  }
   };
 
   useEffect(() => {
@@ -70,7 +88,7 @@ export function Compras() {
 
   return  (
     <>
-      <NavBar />
+      {token ? <NavBar image={profilePhoto} /> : <NavBarNotAuth/>}
         <div className="flex p-2.5 my-8">
             <div className="w-screen">
                 <div className="flex flex-col justify-center items-center w-full w-v">
