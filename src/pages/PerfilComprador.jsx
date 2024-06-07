@@ -246,16 +246,25 @@ export function PerfilComprador() {
             </div>
             <div className="flex flex-col justify-center items-center w-full w-v">
                 <h2>Mis compras</h2>
-                {sales.slice(0, 5).map((sale) => (
-                    <ItemCompras
-                        id_purchase={sale.id_purchase}
-                        title={sale.title}
-                        artist={sale.artist}
-                        description={sale.description}
-                        total={sale.total}
-                        foto={sale.mainImageUrl}
-                    />
-                ))}
+                {sales && sales.length > 0 ? (
+                        <div className="grid grid-cols-2 gap-2 md:gap-4 xl:gap-7 justify-start">
+                            {sales.slice(0, 6).map((sale) => (
+                                <ItemCompras
+                                    id_purchase={sale.id_purchase}
+                                    title={sale.title}
+                                    artist={sale.artist}
+                                    description={sale.description}
+                                    total={sale.total}
+                                    foto={sale.mainImageUrl}
+                                />
+                            ))}
+                        </div>
+                        ) : (
+                        <div className="text-center text-gray-500">
+                            <h2>No has realizado ninguna compra</h2>
+                            <p>Vuelve más tarde para ver tus compras aquí.</p>
+                        </div>
+                    )}
                 <div className="flex justify-center">
                     <button>
                         <Link to="/Mis-Compras">
