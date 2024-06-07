@@ -6,6 +6,7 @@ import iconNombre from "../assets/images/iconNombre.svg";
 import ig from "../assets/images/instagram.svg";
 import mail from "../assets/images/Mail.jpg";
 import tiktok from "../assets/images/tiktok.svg";
+import paypal from "../assets/images/paypal.svg";
 import tw from "../assets/images/twitter.svg";
 import guardar from "../assets/images/guardar.svg";
 import { Button } from "../components/Button";
@@ -41,6 +42,7 @@ export function PerfilVendedor() {
     handleSubmit,
     formState: { errors },
     getValues,
+    reset,
   } = useForm();
   async function getProfile() {
     try {
@@ -140,6 +142,28 @@ export function PerfilVendedor() {
 
   async function onSubmit(data) {
     const cleanedData = removeEmptyFields(data);
+    //console.log(cleanedData);
+    if (cleanedData.correo) {
+      const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        const isValid = regexEmail.test(cleanedData.correo)
+
+        if (!isValid) {
+          alert("El correo es inválido")
+          return
+        }
+    }
+    if (cleanedData.cuenta_paypal) {
+      const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        const isValid = regexEmail.test(cleanedData.cuenta_paypal)
+
+        if (!isValid) {
+          alert("El correo de PayPal es inválido")
+          return
+        }
+    }
+
     try {
       const response = await fetch("/api/user/perfil-artist", {
         method: "PUT",
@@ -155,6 +179,8 @@ export function PerfilVendedor() {
           "Error en la actualización del perfil: " + response.statusText
         );
       }
+
+      reset();
 
       const result = await response.json();
       console.log("Perfil actualizado:", result);
@@ -257,6 +283,18 @@ export function PerfilVendedor() {
                           placeholder={profileData.message.correo}
                           name="correo"
                           {...register("correo")}
+                        />
+                      </div>
+                    )}
+                    {(profileData?.message?.cuenta_paypal || edicion) && (
+                      <div className="p-2 flex flex-row gap-3">
+                        <img className="flex self-center justify-center h-7 w-7" src={paypal} />
+                        <input
+                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${edicion ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500": "outline-none"}`}
+                          readOnly={!edicion}
+                          placeholder={profileData.message.cuenta_paypal}
+                          name="cuenta_paypal"
+                          {...register("cuenta_paypal")}
                         />
                       </div>
                     )}
