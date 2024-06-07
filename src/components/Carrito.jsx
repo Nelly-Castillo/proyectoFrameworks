@@ -1,18 +1,93 @@
 import React, { useState, useEffect } from "react";
 import { NavBar } from "./navBar";
 import ItemCarrito from "./itemCarrito";
-import { obrass as obrasIniciales } from "./obrass";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import fotoDefault from '../assets/images/person-circle.svg';
+import { Spinner } from "@nextui-org/react";
 
 function Carrito() {
+
+  const token = sessionStorage.getItem("token");
+  const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(() => {
     const savedData = localStorage.getItem("carrito");
-    return savedData ? JSON.parse(savedData) : obrasIniciales;
+    
+    return JSON.parse(savedData) || [];
   });
 
-  const [totalCarrito, setTotalCarrito] = useState(()=>{
-    const totalStorage = localStorage.getItem("totalCarrito");
-    return totalStorage ? JSON.parse(totalStorage) : obrasIniciales.reduce((acu, obra) => acu + obra.precioObra, 0)});
+  const [totalCarrito, setTotalCarrito] = useState(
+    // ()=>{
+    // const totalStorage = localStorage.getItem("totalCarrito");
+    // return totalStorage ? JSON.parse(totalStorage) : obrasIniciales.reduce((acu, obra) => acu + obra.precioObra, 0)}
+    0
+  );
+
+  async function handlePay(e) {
+    e.preventDefault();
+
+    const formatedData = {
+      purchases: data.map((product) => (
+        {
+          id_work: product.id,
+          quantity: product.cantidad,
+          total: product.precioObra * product.cantidad
+        }
+      )),
+      total_ammount: totalCarrito
+    }
+
+    console.log(formatedData);
+
+    try {
+      const response = await fetch("http://localhost:3000/sales/purchase", {
+        method: "POST",
+        headers: {
+          token: token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formatedData)
+      })
+
+      if (!response.ok) {
+        alert("Error al realizar la orden")
+      }
+
+      const body = await response.json()
+
+      console.log(body);
+
+      alert("Compra realizada con exito")
+      
+    } catch (error) {
+      console.log(error);
+      alert("Error al realizar la orden")
+    }
+  }
+
+  const getInfo = async () => {
+
+    try {
+        const response = await fetch("/api/user/perfil", {
+            method: "GET",
+            headers: {
+            token: token,
+            "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error("Error en la solicitud: " + response.statusText);
+        }
+        const data = await response.json();
+        setProfilePhoto(data.message.photo)
+    } catch (error) {
+    console.error("Error al obtener el perfil:", error);
+    setError(error.message);
+    }finally {
+        setIsLoading(false);
+    }
+};
 
   function eliminarObra(index) {
     const obraEliminada = data[index];
@@ -29,15 +104,30 @@ function Carrito() {
     const nuevaData = [...data];
     nuevaData[index].cantidad = nuevaCantidad;
     setData(nuevaData);
-    actualizarTotalCarrito(nuevaData[index].precioObra, nuevaCantidad - data[index].cantidad);
+    // actualizarTotalCarrito(nuevaData[index].precioObra, nuevaCantidad - data[index].cantidad);
+  }
+
+  function agregarObra(obra) {
+    const nuevaData = [...data];
+    nuevaData.push(obra);
+    setData(nuevaData);
   }
 
   useEffect(() => {
     localStorage.setItem(
       "carrito",
-      JSON.stringify(data.map((obra) => ({ id: obra.id, nombreObra: obra.nombreObra, descripcionObra: obra.descripcionObra, precioObra: obra.precioObra, cantidad: obra.cantidad })))
+      JSON.stringify(data.map((obra) => ({ id: obra.id, nombreObra: obra.nombreObra, descripcionObra: obra.descripcionObra, precioObra: obra.precioObra, cantidad: obra.cantidad, image: obra.image })))
     );
-    localStorage.setItem("totalCarrito", JSON.stringify(totalCarrito));
+    // localStorage.setItem("totalCarrito", JSON.stringify(totalCarrito));
+    let total = 0
+    data.forEach(product => {
+      total += product.precioObra * product.cantidad
+    });
+
+    setTotalCarrito(total)
+    getInfo();
+    // setTotalCarrito(data.map((product) => product.precioObra * product))
+
   }, [data]);
 
   // Este es para cuando vuelve a iniciar, jala lo de local storage
@@ -49,14 +139,19 @@ function Carrito() {
     }
   }, []);
 
+  useEffect(() => {
+    console.log(data);
+  }, [data])
+  
+
   return (
     <div>
-      <NavBar />
+      <NavBar image={profilePhoto} />
       <div className="px-28 pb-9 flex flex-col">
         <div className="border-b-4 border-Naranja pb-7">
           {data.map((obra, index) => (
             <ItemCarrito
-              key={index}
+              key={obra.id_work}
               data={obra}
               onRemove={() => eliminarObra(index)}
               actualizarTotalCarrito={actualizarTotalCarrito}
@@ -68,9 +163,9 @@ function Carrito() {
           <div className="text-3xl">Total:</div>
           <div className="text-3xl font-semibold">${totalCarrito}</div>
         </div>
-        <Link className="flex self-center" to="/">
-          <button className="mt-5 bg-Azul px-10 py-4 text-white text-lg rounded-xl">Pagar</button>
-        </Link>
+        <div className="flex self-center">
+          <button onClick={handlePay} className="mt-5 bg-Azul px-10 py-4 text-white text-lg rounded-xl">Pagar</button>
+        </div>
       </div>
     </div>
   );
