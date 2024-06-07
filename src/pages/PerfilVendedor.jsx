@@ -335,6 +335,11 @@ export function PerfilVendedor() {
                       <Button text="Publicar"></Button>
                     </Link>
                   </div>
+                  <div className="mx-5 h-full w-16">
+                    <Link to="/Mis-Ventas">
+                      <Button text="Mis Ventas"></Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
