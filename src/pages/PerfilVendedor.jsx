@@ -199,10 +199,10 @@ export function PerfilVendedor() {
     onSubmit(rawData);
   }
 
-  function obraParaEditar(idWork){
-    setIdObra(idWork)
-    console.log("idwork:", idWork)
-  }
+  // function obraParaEditar(idWork){
+  //   setIdObra(idWork)
+  //   console.log("idwork:", idWork)
+  // }
 
 
   return (
@@ -384,8 +384,8 @@ export function PerfilVendedor() {
                 {obrasPublicadas ? (
                   obrasPublicadas.slice(0, 12).map(function (obra) {
                     return (
-                      <a href={`/editar/${obra.id_work}`}>
-                        <button key={obra.id_work} onClick={()=>obraParaEditar(obra.id_work)}>
+                      <a href={`Editar/${obra.id_work}`}>
+                        <button key={obra.id_work}>
                           <img
                             className="rounded-md w-20 md:w-36 lg:w-52 xl:w-64 xl:h-64 bg-cover"
                             src={obra.mainImageUrl}

@@ -19,7 +19,6 @@ function Editar() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [infoObra, setInfoObra] = useState([]);
-  const { idObra } = useContext(obraContext);
 
   useEffect(() => {
     if (!token) {
@@ -101,7 +100,7 @@ function Editar() {
           "Error en la solicitud de post: " + response.statusText
         );
       const result = await response.json();
-      console.log("Post editado:", result);
+      alert("Post Editado")
     } catch (error) {
       console.error("Error:", error);
     }
