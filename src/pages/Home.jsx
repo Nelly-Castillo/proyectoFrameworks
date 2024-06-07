@@ -5,6 +5,7 @@ import { NavBarNotAuth } from '../components/navBarNotAuth';
 import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import fotoDefault from '../assets/images/person-circle.svg';
+import { Spinner } from "@nextui-org/react";
 
 
 
@@ -14,6 +15,7 @@ const  Home = () => {
     const navigate = useNavigate();
     const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
     const [randomPosts, setRandomPosts] = useState([])
+    const [isLoading, setIsLoading] = useState(true);
     const token = sessionStorage.getItem("token");
 
     const handleImageClick = (id_work) => {
@@ -64,6 +66,8 @@ const  Home = () => {
         } catch (error) {
         console.error("Error al obtener el perfil:", error);
         setError(error.message);
+        }finally {
+            setIsLoading(false);
         }
 };
     useEffect(() => {
@@ -77,6 +81,13 @@ const  Home = () => {
         }
     }, [navigate]);
 
+    if (isLoading) {
+        return (
+            <div className="w-full h-full flex self-center justify-center text-4xl text-Azul ">
+                <Spinner size="lg" />
+            </div>
+        );
+    }
     
     return (
         <>
