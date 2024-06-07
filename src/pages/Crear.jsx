@@ -101,6 +101,9 @@ function Crear() {
       }
 
       if (!response.ok) {
+        if (response.status === 400) {
+          window.alert("No puedes subir publicaciones si no tienes agregas un correo y/o una cuenta de PayPal");
+        }
         throw new Error(
           "Error en la solicitud de post: " + response.statusText
         );
