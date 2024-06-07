@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { NavBar } from "./navBar";
 import ItemCarrito from "./itemCarrito";
-import { obrass as obrasIniciales } from "./obrass";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import fotoDefault from '../assets/images/person-circle.svg';
+import { Spinner } from "@nextui-org/react";
 
 function Carrito() {
 
   const token = sessionStorage.getItem("token");
+  const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(() => {
     const savedData = localStorage.getItem("carrito");
-    // return savedData ? JSON.parse(savedData) : obrasIniciales;
+    
     return JSON.parse(savedData) || [];
   });
 
@@ -62,6 +66,29 @@ function Carrito() {
     }
   }
 
+  const getInfo = async () => {
+
+    try {
+        const response = await fetch("/api/user/perfil", {
+            method: "GET",
+            headers: {
+            token: token,
+            "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error("Error en la solicitud: " + response.statusText);
+        }
+        const data = await response.json();
+        setProfilePhoto(data.message.photo)
+    } catch (error) {
+    console.error("Error al obtener el perfil:", error);
+    setError(error.message);
+    }finally {
+        setIsLoading(false);
+    }
+};
+
   function eliminarObra(index) {
     const obraEliminada = data[index];
     const newObras = data.filter((_, i) => i !== index);  
@@ -98,7 +125,7 @@ function Carrito() {
     });
 
     setTotalCarrito(total)
-    
+    getInfo();
     // setTotalCarrito(data.map((product) => product.precioObra * product))
 
   }, [data]);
@@ -119,7 +146,7 @@ function Carrito() {
 
   return (
     <div>
-      <NavBar />
+      <NavBar image={profilePhoto} />
       <div className="px-28 pb-9 flex flex-col">
         <div className="border-b-4 border-Naranja pb-7">
           {data.map((obra, index) => (

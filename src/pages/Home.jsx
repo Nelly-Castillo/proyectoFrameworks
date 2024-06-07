@@ -83,11 +83,11 @@ const  Home = () => {
 
     if (isLoading) {
         return (
-          <div className="w-full h-full flex self-center justify-center text-4xl text-Azul ">
-            <Spinner size="lg" />
-          </div>
+            <div className="w-full h-full flex self-center justify-center text-4xl text-Azul ">
+                <Spinner size="lg" />
+            </div>
         );
-      }
+    }
     
     return (
         <>
