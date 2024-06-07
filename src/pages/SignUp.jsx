@@ -211,7 +211,7 @@ function SignUp() {
                                 type="submit"
                                 className="flex w-full justify-center rounded-md bg-Naranja px-3 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-NaranjaOs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                <Link to="/Login" className="font-semibold leading-6 text-Naranja hover:text-NaranjaOs">
+                                <Link to="/Login" className="font-semibold leading-6 text-Blanco">
                                     Crear cuenta
                                 </Link>
                             </button>
