@@ -99,7 +99,7 @@ function Obra() {
                         <form className="mt-10">
                             <button
                                 type="submit"
-                                className="flex w-full items-center justify-center rounded-md border border-transparent bg-Naranja px-8 py-3 text-base font-medium text-white hover:bg-NaranjaO focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                className="flex w-full items-center justify-center rounded-md border border-transparent bg-Naranja px-8 py-3 text-base font-medium text-white hover:bg-NaranjaO focus:outline-none focus:ring-2 focus:ring-NaranjaOs focus:ring-offset-2"
                             >
                                 Agregar al carrito
                             </button>
