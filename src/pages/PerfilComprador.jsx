@@ -70,6 +70,25 @@ function PerfilComprador() {
             debugger;
         
             try {
+
+
+                // console.log("Esto es lo que recibo de email: " + email);
+                if (email !== undefined) {
+                    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                    const isValid = regexEmail.test(email)
+
+                    if (!isValid) {
+                        alert("El correo es invalido")
+                        return
+                    }
+                }
+                
+
+
+
+                
+
                 const response = await fetch("/api/user/perfil-buyer", {
                     method: "PUT",
                     headers: {
@@ -189,6 +208,7 @@ function PerfilComprador() {
                                 <div className="w-full text-center mt-4">
                                     <label htmlFor="email">Correo electrónico:</label>
                                     <input 
+                                        disabled={!showButtons}
                                         type="email" 
                                         id="email" 
                                         value={email} 
