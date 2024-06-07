@@ -12,7 +12,7 @@ function Obra() {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`/api/publications/${id_work}`, {
+                const response = await fetch(`/api/publications/${22}`, {
                     method: "GET",
                     headers: {
                         token: token,
