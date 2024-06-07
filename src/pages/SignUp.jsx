@@ -20,6 +20,45 @@ function classNames(...classes) {
 
 function SignUp() {
     const [selected, setSelected] = useState(people[0]);
+    const [userName, setUserName] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [password, setPassword] = useState('');
+    const [passwordCon, setPasswordCon] = useState('');
+
+    const handleSubmit = async () => {
+        if (password !== passwordCon) {
+            alert("Las contraseñas no coinciden");
+            return;
+        }
+
+        const user = {
+            user_name: userName,
+            full_name: fullName,
+            password: password,
+            status: selected.name
+        };
+
+        try {
+            const response = await fetch("/api/user/signin", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            });
+
+            if (response.ok) {
+                alert("Cuenta creada con éxito");
+                // Puedes redirigir al usuario o realizar otras acciones aquí
+            } else {
+                const errorData = await response.json();
+                alert(`Error: ${errorData.message}`);
+            }
+        } catch (error) {
+            alert(`Error: ${error.message}`);
+        }
+    };
+
     return (
         <>
             <div className="flex bg-Blanco flex-col justify-center py-30">
@@ -34,33 +73,37 @@ function SignUp() {
                     </h2>
                 </div>
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
                         <div>
                             <label htmlFor="user" className="block text-sm font-medium leading-6 text-AzulOs">
                                 Usuario
                             </label>
                             <div className="mt-2">
                                 <input
-                                    id="user"
-                                    name="user"
+                                    id="user_name"
+                                    name="user_name"
                                     type="text"
-                                    autoComplete="user"
+                                    autoComplete="user_name"
                                     required
+                                    value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-Naranja placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-VerLima sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
                         <div>
-                            <label htmlFor="username" className="block text-sm font-medium leading-6 text-AzulOs">
+                            <label htmlFor="full_name" className="block text-sm font-medium leading-6 text-AzulOs">
                                 Nombre Completo 
                             </label>
                             <div className="mt-2">
                                 <input
-                                    id="username"
-                                    name="username"
+                                    id="full_name"
+                                    name="full_name"
                                     type="text"
-                                    autoComplete="username"
+                                    autoComplete="full_name"
                                     required
+                                    value={fullName}
+                                    onChange={(e) => setFullName(e.target.value)}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-Naranja placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-VerLima sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -73,9 +116,11 @@ function SignUp() {
                                 <input
                                     id="password"
                                     name="password"
-                                    type="text"
+                                    type="password"
                                     autoComplete="password"
                                     required
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-Naranja placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-VerLima sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -88,15 +133,17 @@ function SignUp() {
                                 <input
                                     id="passwordCon"
                                     name="passwordCon"
-                                    type="text"
+                                    type="password"
                                     autoComplete="passwordCon"
                                     required
+                                    value={passwordCon}
+                                    onChange={(e) => setPasswordCon(e.target.value)}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-Naranja placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-VerLima sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
                         <div className="flex items-center justify-between">
-                            <label htmlFor="state" className="block text-sm font-medium leading-6 text-gray-900">
+                            <label htmlFor="status" className="block text-sm font-medium leading-6 text-gray-900">
                                 Estado
                             </label>
                         </div>
@@ -161,10 +208,12 @@ function SignUp() {
                         </Listbox>
                         <div>
                             <button
-                                type="button"
+                                type="submit"
                                 className="flex w-full justify-center rounded-md bg-Naranja px-3 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-NaranjaOs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                Crear cuenta
+                                <Link to="/Login" className="font-semibold leading-6 text-Naranja hover:text-NaranjaOs">
+                                    Crear cuenta
+                                </Link>
                             </button>
                         </div>
                     </form>
