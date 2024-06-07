@@ -89,7 +89,7 @@ function Obra() {
                         ))}
                     </div>
 
-                    <div className="lg:col-span-1 lg:border-l lg:border-gray-200 lg:pl-8">
+                    <div className="lg:col-span-1 lg:border-l lg:border-NaranjaTrans20 lg:pl-8">
                         <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product.title}</h1>
                         <div className="mt-4">
                             <h2 className="sr-only">Información</h2>
