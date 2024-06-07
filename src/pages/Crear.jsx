@@ -18,14 +18,19 @@ function Crear() {
     setValue,
   } = useForm();
 
+
   const [cantidad, setCantidad] = useState(1);
   const [tags, setTags] = useState([]);
   const [images, setImages] = useState([]);
+
+  const [existe, setExiste] = useState(false);
   const formData = new FormData();
 
   useEffect(() => {
     if (!token) navigate("/login");
   }, [token, navigate]);
+
+  // https://proyectoframeworksbackend-production.up.railway.app/publications/edit-publication/:id
 
   useEffect(() => {
     const usanding = Array.from(tags);
@@ -58,6 +63,7 @@ function Crear() {
       setCantidad((prevCantidad) => prevCantidad - 1);
     }
   }
+
 
   const publicar = async (data) => {
     formData.delete("images"); // Clear previous images
@@ -171,6 +177,7 @@ function Crear() {
                 id="upload"
                 multiple
                 onChange={subirArchivos}
+                // setValue={existe ?  }
               />
               <label
                 htmlFor="upload"

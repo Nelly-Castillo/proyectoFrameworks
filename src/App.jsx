@@ -5,7 +5,6 @@ import { Login } from './pages/Login.jsx';
 import { SignUp } from './pages/SignUp.jsx';
 import { Obra } from './components/Obra.jsx';
 import { Explorar } from "./components/Explorar.jsx";
-import { Chat } from "./pages/Chat.jsx";
 import { Crear } from "./pages/Crear.jsx";
 import { Page404 } from "./pages/Page404.jsx";
 import { Carrito } from "./components/Carrito.jsx";
@@ -29,7 +28,6 @@ function App() {
         <Route path="/SignUp" element={<SignUp></SignUp>}/>
         <Route path="/Obra" element={<Obra></Obra>}/>
         <Route path="/Explorar" element={<Explorar></Explorar>}/>
-        <Route path="/Chat" element={<Chat></Chat>}/>
         <Route path="/Crear" element={<Crear></Crear>}/>
         <Route path="/Carrito" element={<Carrito></Carrito>}/>
         <Route path="/Mis-Compras" element={<Compras></Compras>}/>
