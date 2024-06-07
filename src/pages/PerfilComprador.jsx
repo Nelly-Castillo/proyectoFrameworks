@@ -37,6 +37,11 @@ export function PerfilComprador() {
     reset,
   } = useForm();
 
+  function limpiarStorage(){
+    sessionStorage.clear()
+    localStorage.clear()
+  }
+
   const getProfile = async () => {
     try {
       const response = await fetch("/api/user/perfil", {
@@ -301,7 +306,7 @@ export function PerfilComprador() {
         </div>
           <div className="flex justify-center">
             <Link to="/Login">
-              <Button text="Cerrar sesion" onClick={() => sessionStorage.clear()}></Button>
+              <Button text="Cerrar sesion" action={()=>limpiarStorage()}></Button>
             </Link>
           </div>
         </div>
