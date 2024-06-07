@@ -9,7 +9,7 @@ function NavBar(props) {
     return <div>Error: {error}</div>;
   }
 
-  console.log(props.image);
+  // console.log(props.image);
   return (
     <div className="flex flex-row justify-around p-2 my-3">
       <button className="flex flex-row items-center text-lg font-semibold p-1">
