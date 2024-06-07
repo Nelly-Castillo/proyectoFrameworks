@@ -12,6 +12,7 @@ export function Compras() {
   const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
   const [sales, setSales] = useState(null);
   const token = sessionStorage.getItem("token");
+  const { id_purchase } = useParams();
 
   useEffect(() => {
     if (!token) navigate('/login');
@@ -20,7 +21,7 @@ export function Compras() {
 
   const mySales = async () => {
     try {
-      const response = await fetch("/api/sales/history-purchases", {
+      const response = await fetch(`/api/sales/history-purchases/${id_purchase}`, {
         method: "GET",
         headers: {
           token: token,
