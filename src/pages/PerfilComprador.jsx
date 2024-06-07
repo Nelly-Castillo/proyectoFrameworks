@@ -14,6 +14,7 @@ function PerfilComprador() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [showButtons, setShowButtons] = useState(false);
     let [profilePhoto, setProfilePhoto] = useState(fotoDefault);
+    const [email, setEmail] =useState("")
 
     const token = sessionStorage.getItem("token");
     const fetchUserData = async () => {
@@ -51,18 +52,23 @@ function PerfilComprador() {
         } else {
             fetchUserData();
         }
-    }, [navigate]);
+    }, [navigate, token]);
 
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
-        console.log(event.target.files[0])
+    };
+
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
     };
 
     const handleFileUpload = async () => {
-        if (selectedFile && token) {
+        if ((selectedFile || email )&& token) {
             const formData = new FormData();
             formData.append('perfil', selectedFile);
-
+            formData.append('correo', email);
+            debugger;
+        
             try {
                 const response = await fetch("/api/user/perfil-buyer", {
                     method: "PUT",
@@ -79,8 +85,10 @@ function PerfilComprador() {
 
                 const data = await response.json();
                 setProfilePhoto(data.photo); 
-                fetchUserData();
+                debugger
+                fetchUserData(data.message.correo);
                 //debugger;
+                setEmail()
             } catch (error) {
                 console.error("Error al subir la foto de perfil:", error);
                 setError(error.message);
@@ -93,14 +101,6 @@ function PerfilComprador() {
         handleFileUpload();
     };
 
-    // const determineProfilePhoto = () => {
-    //      //debugger;
-    //     if (userData.message.photo) {
-    //             return userData.message.photo;
-    //     } else {
-    //         return fotoDefault;
-    //     }
-    // };
 
     if (loading) {
         return (
@@ -124,7 +124,7 @@ function PerfilComprador() {
                             <div>
                                 <div className="pb-4">
                                     <img 
-                                        src={profilePhoto != null ? profilePhoto : fotoDefault} 
+                                        src={profilePhoto || fotoDefault} 
                                         alt='Foto de perfil' 
                                         className="
                                             rounded-full 
@@ -185,6 +185,16 @@ function PerfilComprador() {
                                     <div className="mt-2 text-Gris">
                                         <p>{userData.message.full_name}</p>
                                     </div>
+                                </div>
+                                <div className="w-full text-center mt-4">
+                                    <label htmlFor="email">Correo electrónico:</label>
+                                    <input 
+                                        type="email" 
+                                        id="email" 
+                                        value={email} 
+                                        onChange={handleEmailChange} 
+                                        className="block w-full mt-1 p-2 border border-gray-300 rounded-md"
+                                    />
                                 </div>
                             </div>
                         </div>
