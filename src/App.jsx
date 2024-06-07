@@ -12,7 +12,6 @@ import { Compras } from "./pages/Compras.jsx";
 import { VentaArtista } from './components/VentaArtista.jsx';
 import {PerfilVendedor} from "./pages/PerfilVendedor.jsx";
 import {VerArtista} from "./pages/VerArtista.jsx";
-import {VerComprador} from "./pages/VerComprador.jsx";
 import {NextUIProvider} from "@nextui-org/react";
 import './App.css';
 import { PerfilComprador } from "./pages/PerfilComprador.jsx";
@@ -38,7 +37,6 @@ function App() {
         <Route path="/Mis-Ventas" element={<VentaArtista></VentaArtista>}/>
         <Route path="/Sales/:id_purchase" element={<InformeVenta></InformeVenta>}/>
         <Route path="/artist/:user_name" element={<VerArtista></VerArtista>}/>
-        <Route path="/comprador/:user_name" element={<VerComprador></VerComprador>}/>
         <Route path="/perfilvendedor" element={<PerfilVendedor></PerfilVendedor>}/>
         <Route path="/perfilcomprador" element={<PerfilComprador></PerfilComprador> }/>
         <Route path="/editar/:id_work" element={<Editar></Editar>}/>
