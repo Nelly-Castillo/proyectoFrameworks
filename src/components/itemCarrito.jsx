@@ -46,7 +46,8 @@ export default function ItemCarrito({ data, onRemove, actualizarTotalCarrito, ac
   return (
     <div className='flex w-full flex-row justify-between p-5 shadow-lg rounded-md'>
       <div className='flex flex-row gap-11 '>
-        <img className="rounded-2xl h-44 w-60" src={foto} alt="obra" />
+        <img className="rounded-2xl h-44 w-60 object-cover" src={data.image} alt="obra" />
+
         <div className='flex h-full flex-col gap-1'>
           <div className='font-semibold'>{data.nombreObra}</div>
           <div>{data.descripcionObra}</div>

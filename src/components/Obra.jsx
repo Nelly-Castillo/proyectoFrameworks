@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { NavBar } from './navBar';
 import { useParams } from 'react-router-dom';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import fotoDefault from '../assets/images/person-circle.svg';
 import { Spinner } from "@nextui-org/react";
 
@@ -10,8 +13,88 @@ function Obra() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [data, setData] = useState(() => {
+        const savedData = localStorage.getItem("carrito");
+        if (savedData) {
+            try {
+                return JSON.parse(savedData);
+            } catch (e) {
+                console.error("Error parsing saved data:", e);
+                return [];
+            }
+        }
+        return [];
+    });
+
     const token = sessionStorage.getItem("token");
     const {id_work} = useParams()
+
+    // function agregarObra(e) {
+    //     e.preventDefault()
+    //     const nuevaData = [...data];
+    //     nuevaData.push(product);
+    //     console.log("NuevaData:" + nuevaData[0].id_work);
+    //     setData(nuevaData);
+    // }
+
+    function agregarObra(e) {
+        e.preventDefault();
+        if (!product) return;
+    
+        const newObra = {
+            id: product.id_work,
+            nombreObra: product.title,
+            descripcionObra: product.description,
+            precioObra: product.price,
+            image: product.images[0],
+            cantidad: 1, // Assuming a default quantity of 1
+        };
+    
+        // Check if the product already exists in the data array
+        const productIndex = data.findIndex((obra) => obra.id === newObra.id);
+    
+        let nuevaData;
+        if (productIndex !== -1) {
+            // Product exists, update the cantidad
+            nuevaData = data.map((obra, index) => 
+                index === productIndex ? { ...obra, cantidad: obra.cantidad + 1 } : obra
+            );
+        } else {
+            // Product does not exist, add new product
+            nuevaData = [...data, newObra];
+        }
+    
+        setData(nuevaData);
+        toast.success("Producto agregado con exito")
+    }
+    
+
+    // useEffect(() => {
+
+    //     console.log("updating data: " + data);
+    //     localStorage.setItem(
+    //       "carrito",
+    //       JSON.stringify(data.map((obra) => ({ id: obra.id_work, nombreObra: obra.title, descripcionObra: obra.description, precioObra: obra.price, cantidad: obra.cantidad })))
+    //     );
+    //     // localStorage.setItem("totalCarrito", JSON.stringify(totalCarrito));
+    //   }, [data]);
+    useEffect(() => {
+        // Update localStorage whenever data changes
+        try {
+            localStorage.setItem("carrito", JSON.stringify(data));
+        } catch (e) {
+            console.error("Error setting localStorage:", e);
+        }
+    }, [data]);
+    
+      // Este es para cuando vuelve a iniciar, jala lo de local storage
+    //   useEffect(() => {
+    //     const savedData = localStorage.getItem("carrito");
+    //     if (savedData) {
+    //       const parsedData = JSON.parse(savedData);
+    //       setData(parsedData);
+    //     }
+    //   }, []);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -29,6 +112,7 @@ function Obra() {
                 }
                 const data = await response.json();
                 setProduct(data.message[0]);
+                console.log(data.message[0]);
                 setLoading(false);
             } catch (error) {
                 setError(error);
@@ -98,11 +182,26 @@ function Obra() {
 
                         <form className="mt-10">
                             <button
-                                type="submit"
+
+                                onClick={agregarObra}
+                               
                                 className="flex w-full items-center justify-center rounded-md border border-transparent bg-Naranja px-8 py-3 text-base font-medium text-white hover:bg-NaranjaO focus:outline-none focus:ring-2 focus:ring-NaranjaOs focus:ring-offset-2"
+
                             >
                                 Agregar al carrito
                             </button>
+                            <ToastContainer
+                                position="bottom-right"
+                                autoClose={3000}
+                                hideProgressBar
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="light"
+                                />
                         </form>
 
                         <div className="py-10">

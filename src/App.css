@@ -28,4 +28,8 @@
   .gallery-item:hover {
     transform: scale(1.05);
   }
+
+  .gallery-profile-container {
+    height: 77vh;
+  }
   
