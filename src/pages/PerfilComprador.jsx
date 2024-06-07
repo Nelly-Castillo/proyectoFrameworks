@@ -12,10 +12,12 @@ import { Spinner } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import fotoDefault from '../assets/images/person-circle.svg';
 
+
 export function PerfilComprador() {
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState("");
   const [errorPerfil, setErrorPerfil] = useState(null);
+  const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
   const [errorSales, setErrorSales] = useState(null);
   const [edicion, setEdicion] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -85,9 +87,30 @@ export function PerfilComprador() {
       setLoadSales(false);
     }
   };
+  const getInfo = async () => {
+    try {
+        const response = await fetch("/api/user/perfil", {
+            method: "GET",
+            headers: {
+            token: token,
+            "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error("Error en la solicitud: " + response.statusText);
+        }
+        const data = await response.json();
+        //debugger
+        setProfilePhoto(data.message.photo)
+    } catch (error) {
+    console.error("Error al obtener el perfil:", error);
+    setError(error.message);
+    }
+};
 
   useEffect(() => {
     getProfile();
+    getInfo();
   }, []);
 
   useEffect(() => {
@@ -175,7 +198,7 @@ export function PerfilComprador() {
 
   return (
     <>
-      <NavBar />
+      <NavBar image={profilePhoto} />
       <div className="flex p-2.5 my-8">
         <div className="w-screen">
           <div className="flex flex-row gap-2 items-start">
