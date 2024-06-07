@@ -8,7 +8,7 @@ function SearchBar() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const handleButtonClick = () => {
+    const handleButtonClick = () => { // Añadido para depuración
         // Verificar si ya existen valores en LocalStorage con la clave 'filtros'
         console.log(Array.from(values));
 
