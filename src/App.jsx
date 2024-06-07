@@ -16,12 +16,10 @@ import {VerComprador} from "./pages/VerComprador.jsx";
 import {NextUIProvider} from "@nextui-org/react";
 import './App.css';
 import { PerfilComprador } from "./pages/PerfilComprador.jsx";
-
+import { Editar } from "./pages/Editar.jsx";
+import { ObraProvider } from "./components/ObraProvider.jsx";
 
 function App() {
-
-  // const token = await sessionStorage.getItem("token");
-
   return (
     <NextUIProvider>
       <Routes>
@@ -43,6 +41,7 @@ function App() {
         <Route path="/comprador/:user_name" element={<VerComprador></VerComprador>}/>
         <Route path="/perfilvendedor" element={<PerfilVendedor></PerfilVendedor>}/>
         <Route path="/perfilcomprador" element={<PerfilComprador></PerfilComprador> }/>
+        <Route path="/editar/:id_work" element={<Editar></Editar>}/>
         {/* <Route path="/PerfilComprador" element={token ? <PerfilComprador></PerfilComprador> : <Navigate to="/login"/>}/> */}
       </Routes>
     </NextUIProvider>
