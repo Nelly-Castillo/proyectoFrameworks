@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavBar } from "../components/navBar";
 import editar from "../assets/images/editar.svg";
 import iconUsuario from "../assets/images/iconUsuario.svg";
+import ItemCompras from "../components/ItemCompras";
 import iconNombre from "../assets/images/iconNombre.svg";
 import mail from "../assets/images/Mail.jpg";
 import guardar from "../assets/images/guardar.svg";
@@ -241,35 +242,32 @@ export function PerfilComprador() {
                     )}
                   </form>
                 </div>
-                <div className="flex flex-row m-2.5 h-16">
-                  <div className="mx-5 h-full w-16">
-                    <Link to="/Mis-Compras">
-                      <Button text="Mis compras"></Button>
-                    </Link>
-                  </div>
-                  <div className="mx-5 h-full w-16">
-                  </div>
+              </div>
+            </div>
+            <div className="flex flex-col justify-center items-center w-full w-v">
+                <h2>Mis compras</h2>
+                {sales.slice(0, 5).map((sale) => (
+                    <ItemCompras
+                        id_purchase={sale.id_purchase}
+                        title={sale.title}
+                        artist={sale.artist}
+                        description={sale.description}
+                        total={sale.total}
+                        foto={sale.mainImageUrl}
+                    />
+                ))}
+                <div className="flex justify-center">
+                    <button>
+                        <Link to="/Mis-Compras">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-double-down fill-Azul w-8 h-8" viewBox="0 0 16 16" >
+                                <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                            </svg>
+                        </Link>
+                    </button>
                 </div>
-              </div>
             </div>
-            <div className="flex justify-center items-center w-full">
-              <div className="grid grid-cols-3 gap-2 md:gap-4 xl:gap-7 justify-start">
-                {sales ? (
-                  sales.map((sale) => (
-                    <div key={sale.id_purchase}>
-                      <img
-                        className="rounded-md w-20 md:w-36 lg:w-52 xl:w-64 xl:h-64 bg-cover"
-                        src={sale.mainImageUrl}
-                        alt={sale.title}
-                      />
-                    </div>
-                  ))
-                ) : (
-                  <div className="font-thin text-xl">No hay compras aún</div>
-                )}
-              </div>
-            </div>
-          </div>
+        </div>
           <div className="flex justify-center">
             <Link to="/Login">
               <Button text="Cerrar sesion" onClick={() => sessionStorage.clear()}></Button>
