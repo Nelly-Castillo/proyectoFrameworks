@@ -14,12 +14,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import fotoDefault from "../assets/images/person-circle.svg";
-import { useContext } from "react";
-import { obraContext } from "../components/ObraProvider";
 
 export function PerfilVendedor() {
   const navigate = useNavigate();
-  const {setIdObra} = useContext(obraContext);
   const [profileData, setProfileData] = useState("");
   const [errorPerfil, setErrorPerfil] = useState(null);
   const [errorWorks, setErrorWorks] = useState(null);
