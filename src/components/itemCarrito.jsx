@@ -5,6 +5,7 @@ export default function ItemCarrito({ data, onRemove, actualizarTotalCarrito, ac
   const [cantidad, setCantidad] = useState(data.cantidad);
   const [totalItem, setTotalItem] = useState(data.precioObra);
 
+
   useEffect(() => {
     const nuevoTotal = cantidad * data.precioObra;
     setTotalItem(nuevoTotal);
