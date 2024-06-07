@@ -12,6 +12,8 @@ import { Page404 } from "./pages/Page404.jsx";
 import { Carrito } from "./components/Carrito.jsx";
 import { Compras } from "./pages/Compras.jsx";
 import {PerfilVendedor} from "./pages/PerfilVendedor.jsx";
+import {VerArtista} from "./pages/VerArtista.jsx";
+import {VerComprador} from "./pages/VerComprador.jsx";
 import {NextUIProvider} from "@nextui-org/react";
 import './App.css';
 import { PerfilComprador } from "./pages/PerfilComprador.jsx";
@@ -35,6 +37,8 @@ function App() {
         <Route path="/Carrito" element={<Carrito></Carrito>}/>
         <Route path="/Mis-Compras" element={<Compras></Compras>}/>
         <Route path="/Sales/:id_purchase" element={<InformeVenta></InformeVenta>}/>
+        <Route path="/artist/:user_name" element={<VerArtista></VerArtista>}/>
+        <Route path="/comprador/:user_name" element={<VerComprador></VerComprador>}/>
         <Route path="/perfilvendedor" element={<PerfilVendedor></PerfilVendedor>}/>
         <Route path="/perfilcomprador" element={<PerfilComprador></PerfilComprador> }/>
         {/* <Route path="/PerfilComprador" element={token ? <PerfilComprador></PerfilComprador> : <Navigate to="/login"/>}/> */}
