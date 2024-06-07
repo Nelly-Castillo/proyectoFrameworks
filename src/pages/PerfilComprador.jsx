@@ -248,7 +248,7 @@ export function PerfilComprador() {
                 <h1>Mis compras</h1>
                 {sales && sales.length > 0 ? (
                         <div className="grid grid-cols-2 gap-2 md:gap-4 xl:gap-7 justify-start">
-                            {sales.slice(0, 6).map((sale) => (
+                            {sales.slice(0, 2).map((sale) => (
                                 <ItemCompras
                                     id_purchase={sale.id_purchase}
                                     title={sale.title}
