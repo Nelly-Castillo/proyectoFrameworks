@@ -9,6 +9,7 @@ export function Compras() {
   const navigate = useNavigate();
   const [errorSales, setErrorSales] = useState(null);
   const [loadSales, setLoadSales] = useState(true);
+  const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
   const [sales, setSales] = useState(null);
   const token = sessionStorage.getItem("token");
 
@@ -19,7 +20,7 @@ export function Compras() {
 
   const mySales = async () => {
     try {
-      const response = await fetch("/api/sales/history-purchases", {
+      const response = await fetch("/api/sales/history-purchases/", {
         method: "GET",
         headers: {
           token: token,
@@ -40,6 +41,23 @@ export function Compras() {
     } finally {
       setLoadSales(false);
     }
+    try {
+      const response = await fetch("/api/user/perfil", {
+          method: "GET",
+          headers: {
+          token: token,
+          "Content-Type": "application/json",
+          },
+      });
+      if (!response.ok) {
+          throw new Error("Error en la solicitud: " + response.statusText);
+      }
+      const data = await response.json();
+      setProfilePhoto(data.message.photo)
+  } catch (error) {
+  console.error("Error al obtener el perfil:", error);
+  setError(error.message);
+  }
   };
 
   useEffect(() => {
@@ -70,11 +88,11 @@ export function Compras() {
 
   return  (
     <>
-      <NavBar />
+      {token ? <NavBar image={profilePhoto} /> : <NavBarNotAuth/>}
         <div className="flex p-2.5 my-8">
             <div className="w-screen">
                 <div className="flex flex-col justify-center items-center w-full w-v">
-                    <h2>Mis compras</h2>
+                    <h1>Mis compras</h1>
                     {sales && sales.length > 0 ? (
                         <div className="grid grid-cols-3 gap-2 md:gap-4 xl:gap-7 justify-start">
                             {sales.map((sale) => (
@@ -91,7 +109,6 @@ export function Compras() {
                         ) : (
                         <div className="text-center text-gray-500">
                             <h2>No has realizado ninguna compra</h2>
-                            <p>Vuelve más tarde para ver tus compras aquí.</p>
                         </div>
                     )}
 

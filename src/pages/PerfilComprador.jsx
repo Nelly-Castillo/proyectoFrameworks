@@ -12,10 +12,12 @@ import { Spinner } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import fotoDefault from '../assets/images/person-circle.svg';
 
+
 export function PerfilComprador() {
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState("");
   const [errorPerfil, setErrorPerfil] = useState(null);
+  const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
   const [errorSales, setErrorSales] = useState(null);
   const [edicion, setEdicion] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +36,11 @@ export function PerfilComprador() {
     getValues,
     reset,
   } = useForm();
+
+  function limpiarStorage(){
+    sessionStorage.clear()
+    localStorage.clear()
+  }
 
   const getProfile = async () => {
     try {
@@ -85,9 +92,30 @@ export function PerfilComprador() {
       setLoadSales(false);
     }
   };
+  const getInfo = async () => {
+    try {
+        const response = await fetch("/api/user/perfil", {
+            method: "GET",
+            headers: {
+            token: token,
+            "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error("Error en la solicitud: " + response.statusText);
+        }
+        const data = await response.json();
+        //debugger
+        setProfilePhoto(data.message.photo)
+    } catch (error) {
+    console.error("Error al obtener el perfil:", error);
+    setError(error.message);
+    }
+};
 
   useEffect(() => {
     getProfile();
+    getInfo();
   }, []);
 
   useEffect(() => {
@@ -175,7 +203,7 @@ export function PerfilComprador() {
 
   return (
     <>
-      <NavBar />
+      <NavBar image={profilePhoto} />
       <div className="flex p-2.5 my-8">
         <div className="w-screen">
           <div className="flex flex-row gap-2 items-start">
@@ -245,10 +273,10 @@ export function PerfilComprador() {
               </div>
             </div>
             <div className="flex flex-col justify-center items-center w-full w-v">
-                <h2>Mis compras</h2>
+                <h1>Mis compras</h1>
                 {sales && sales.length > 0 ? (
                         <div className="grid grid-cols-2 gap-2 md:gap-4 xl:gap-7 justify-start">
-                            {sales.slice(0, 6).map((sale) => (
+                            {sales.slice(0, 2).map((sale) => (
                                 <ItemCompras
                                     id_purchase={sale.id_purchase}
                                     title={sale.title}
@@ -262,7 +290,6 @@ export function PerfilComprador() {
                         ) : (
                         <div className="text-center text-gray-500">
                             <h2>No has realizado ninguna compra</h2>
-                            <p>Vuelve más tarde para ver tus compras aquí.</p>
                         </div>
                     )}
                 <div className="flex justify-center">
@@ -279,7 +306,7 @@ export function PerfilComprador() {
         </div>
           <div className="flex justify-center">
             <Link to="/Login">
-              <Button text="Cerrar sesion" onClick={() => sessionStorage.clear()}></Button>
+              <Button text="Cerrar sesion" action={()=>limpiarStorage()}></Button>
             </Link>
           </div>
         </div>
