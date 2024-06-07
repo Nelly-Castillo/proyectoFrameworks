@@ -1,40 +1,102 @@
-import { NavBar } from "../components/navBar";
-import { NavBarNotAuth } from "../components/navBarNotAuth";
+import React, { useState, useEffect } from "react";
+import { NavBar } from '../components/navBar';
 import ItemCompras from "../components/ItemCompras";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "@nextui-org/react";
+import fotoDefault from '../assets/images/person-circle.svg';
 
-function Compras () {
-    const navigate = useNavigate()
+export function Compras() {
+  const navigate = useNavigate();
+  const [errorSales, setErrorSales] = useState(null);
+  const [loadSales, setLoadSales] = useState(true);
+  const [sales, setSales] = useState(null);
+  const token = sessionStorage.getItem("token");
 
-    useEffect(() => {
-        const token = sessionStorage.getItem("token");
-    
-        if(!token) navigate('/login')
-        
-    }, []);
-    
+  useEffect(() => {
+    if (!token) navigate('/login');
+  }, [token, navigate]);
+
+
+  const mySales = async () => {
+    try {
+      const response = await fetch("/api/sales/history-purchases", {
+        method: "GET",
+        headers: {
+          token: token,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          "Error en la solicitud del historial: " + response.statusText
+        );
+      }
+      const data = await response.json();
+      setSales(data.message);
+    } catch (errorSales) {
+      console.error("Error al obtener las compras:", errorSales);
+      setErrorSales(errorSales.message);
+    } finally {
+      setLoadSales(false);
+    }
+  };
+
+  useEffect(() => {
+    mySales();
+  }, []);
+
+  if (loadSales) {
     return (
-        <>
-            {token ? <NavBar/> : <NavBarNotAuth/>}
-            <div className="flex items-center mx-16 justify-start">
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-image-fill" viewBox="0 0 16 16" className="w-10 h-14 fill-Naranja">
-                    <path d="M5.071 1.243a.5.5 0 0 1 .858.514L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 6h1.717zM3.5 10.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0z"/>
-                    </svg>
-                </div>
-                <h1 className="p-1 mx-4 font-bold text-2xl"> 
-                    Mis compras
-                </h1>
-            </div>
-            <div className="grid grid-cols-3 gap-3 mx-10 mb-2.5">
-                <ItemCompras/>
-                <ItemCompras/>
-                <ItemCompras/>
-                <ItemCompras/>
-                <ItemCompras/>
-            </div>
-        </>
+      <div className="w-full h-full flex self-center justify-center text-4xl text-Azul ">
+        <Spinner size="lg" />
+      </div>
     );
-}
+  }
 
-export { Compras }; 
+
+  if (errorSales) {
+    return <div>ErrorSales: {errorSales}</div>;
+  }
+
+  const determineProfilePhoto = () => {
+    if (profileData.message.photo) {
+      return profileData.message.photo;
+    } else {
+      return fotoDefault;
+    }
+  };
+
+
+  return  (
+    <>
+      <NavBar />
+        <div className="flex p-2.5 my-8">
+            <div className="w-screen">
+                <div className="flex flex-col justify-center items-center w-full w-v">
+                    <h1>Mis compras</h1>
+                    {sales && sales.length > 0 ? (
+                        <div className="grid grid-cols-3 gap-2 md:gap-4 xl:gap-7 justify-start">
+                            {sales.map((sale) => (
+                            <ItemCompras
+                                id_purchase={sale.id_purchase}
+                                title={sale.title}
+                                artist={sale.artist}
+                                description={sale.description}
+                                total={sale.total}
+                                foto={sale.mainImageUrl}
+                            />
+                            ))}
+                        </div>
+                        ) : (
+                        <div className="text-center text-gray-500">
+                            <h2>No has realizado ninguna compra</h2>
+                        </div>
+                    )}
+
+                </div>
+            </div>
+        </div>
+    </>
+  );
+} 
