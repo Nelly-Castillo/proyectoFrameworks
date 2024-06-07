@@ -74,7 +74,7 @@ export function Compras() {
         <div className="flex p-2.5 my-8">
             <div className="w-screen">
                 <div className="flex flex-col justify-center items-center w-full w-v">
-                    <h2>Mis compras</h2>
+                    <h1>Mis compras</h1>
                     {sales && sales.length > 0 ? (
                         <div className="grid grid-cols-3 gap-2 md:gap-4 xl:gap-7 justify-start">
                             {sales.map((sale) => (
@@ -91,7 +91,6 @@ export function Compras() {
                         ) : (
                         <div className="text-center text-gray-500">
                             <h2>No has realizado ninguna compra</h2>
-                            <p>Vuelve más tarde para ver tus compras aquí.</p>
                         </div>
                     )}
 

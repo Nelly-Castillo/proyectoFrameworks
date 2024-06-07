@@ -4,6 +4,7 @@ import Home from './pages/Home.jsx';
 import { Login } from './pages/Login.jsx';
 import { SignUp } from './pages/SignUp.jsx';
 import { Obra } from './components/Obra.jsx';
+import { InformeVenta } from './components/InformeVenta.jsx';
 import { Explorar } from "./components/Explorar.jsx";
 import { Chat } from "./pages/Chat.jsx";
 import { Crear } from "./pages/Crear.jsx";
@@ -33,6 +34,7 @@ function App() {
         <Route path="/Crear" element={<Crear></Crear>}/>
         <Route path="/Carrito" element={<Carrito></Carrito>}/>
         <Route path="/Mis-Compras" element={<Compras></Compras>}/>
+        <Route path="/Sales/:id_purchase" element={<InformeVenta></InformeVenta>}/>
         <Route path="/perfilvendedor" element={<PerfilVendedor></PerfilVendedor>}/>
         <Route path="/perfilcomprador" element={<PerfilComprador></PerfilComprador> }/>
         {/* <Route path="/PerfilComprador" element={token ? <PerfilComprador></PerfilComprador> : <Navigate to="/login"/>}/> */}
