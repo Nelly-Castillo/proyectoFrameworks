@@ -8,6 +8,7 @@ import { Crear } from "./pages/Crear.jsx";
 import { Page404 } from "./pages/Page404.jsx";
 import { Carrito } from "./components/Carrito.jsx";
 import { Compras } from "./pages/Compras.jsx";
+import { VentaArtista } from './components/VentaArtista.jsx';
 import {PerfilVendedor} from "./pages/PerfilVendedor.jsx";
 import {VerArtista} from "./pages/VerArtista.jsx";
 import {VerComprador} from "./pages/VerComprador.jsx";
@@ -31,6 +32,7 @@ function App() {
         <Route path="/Crear" element={<Crear></Crear>}/>
         <Route path="/Carrito" element={<Carrito></Carrito>}/>
         <Route path="/Mis-Compras" element={<Compras></Compras>}/>
+        <Route path="/Mis-Ventas" element={<VentaArtista></VentaArtista>}/>
         <Route path="/Sales/:id_purchase" element={<InformeVenta></InformeVenta>}/>
         <Route path="/artist/:user_name" element={<VerArtista></VerArtista>}/>
         <Route path="/comprador/:user_name" element={<VerComprador></VerComprador>}/>
