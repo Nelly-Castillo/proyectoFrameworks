@@ -1,12 +1,9 @@
-import { useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from './pages/Home.jsx';
 import { Login } from './pages/Login.jsx';
 import { SignUp } from './pages/SignUp.jsx';
 import { Obra } from './components/Obra.jsx';
 import { InformeVenta } from './components/InformeVenta.jsx';
-import { Explorar } from "./components/Explorar.jsx";
-import { Chat } from "./pages/Chat.jsx";
 import { Crear } from "./pages/Crear.jsx";
 import { Page404 } from "./pages/Page404.jsx";
 import { Carrito } from "./components/Carrito.jsx";
@@ -31,8 +28,6 @@ function App() {
         <Route path="/Login" element={<Login></Login>} />
         <Route path="/SignUp" element={<SignUp></SignUp>}/>
         <Route path="/Obra/:id_work" element={<Obra></Obra>}/>
-        <Route path="/Explorar" element={<Explorar></Explorar>}/>
-        <Route path="/Chat" element={<Chat></Chat>}/>
         <Route path="/Crear" element={<Crear></Crear>}/>
         <Route path="/Carrito" element={<Carrito></Carrito>}/>
         <Route path="/Mis-Compras" element={<Compras></Compras>}/>
