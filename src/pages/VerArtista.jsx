@@ -185,30 +185,38 @@ export function VerArtista() {
                     </p>
                   </div>
                   <div className="w-full h-1 bg-Naranja opacity-50 py-1 rounded-full"></div>
-                  <div className="p-1 flex flex-row gap-2">
-                    <img className="flex self-center justify-center h-5 w-5" src={ig} />
-                      <p className=" font-medium w-full text-start text-lg p-1">
-                        {profileData.message.social_media_instagram}
-                      </p>
-                  </div>
-                  <div className="p-1 flex flex-row gap-2">
-                    <img className="flex self-center justify-center h-5 w-5" src={mail} />
-                      <p className=" font-medium w-full text-start text-lg p-1">
-                        {profileData.message.correo}
-                      </p>
-                  </div>
-                  <div className="p-1 flex flex-row gap-2">
-                    <img className="flex self-center justify-center h-5 w-5" src={tiktok} />
-                    <p className=" font-medium w-full text-start text-lg p-1">
-                      {profileData.message.social_media_tiktok}
-                    </p>
-                  </div>
-                  <div className="p-1 flex flex-row gap-2">
-                    <img className="flex self-center justify-center h-5 w-5" src={tw} />
-                    <p className=" font-medium w-full text-start text-lg p-1">
-                      {profileData.message.social_media_x}
-                    </p>
-                  </div>
+                    {profileData.message.social_media_instagram && (
+                      <div className="p-1 flex flex-row gap-2">
+                        <img className="flex self-center justify-center h-5 w-5" src={ig} />
+                        <p className="font-medium w-full text-start text-lg p-1">
+                          {profileData.message.social_media_instagram}
+                        </p>
+                      </div>
+                    )}
+                    {profileData.message.correo && (
+                      <div className="p-1 flex flex-row gap-2">
+                      <img className="flex self-center justify-center h-5 w-5" src={mail} />
+                        <p className=" font-medium w-full text-start text-lg p-1">
+                          {profileData.message.correo}
+                        </p>
+                    </div>
+                    )}
+                    {profileData.message.social_media_tiktok &&(
+                      <div className="p-1 flex flex-row gap-2">
+                        <img className="flex self-center justify-center h-5 w-5" src={tiktok} />
+                        <p className=" font-medium w-full text-start text-lg p-1">
+                          {profileData.message.social_media_tiktok}
+                        </p>
+                      </div>
+                    )}
+                    {profileData.message.social_media_x &&(
+                      <div className="p-1 flex flex-row gap-2">
+                        <img className="flex self-center justify-center h-5 w-5" src={tw} />
+                        <p className=" font-medium w-full text-start text-lg p-1">
+                          {profileData.message.social_media_x}
+                        </p>
+                      </div>
+                    )}
                 </div>
               </div>
             </div>
