@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import foto from '../assets/images/esculturas.jpg';
 
-const ItemCompras = () => {
+const ItemCompras = ({ obra, title, artist, description, total, foto, id_purchase }) => {
     const [isCalifying, setIsCalifying] = useState(false);
 
     const handleCalificar = (calificacion) => {
@@ -10,18 +9,22 @@ const ItemCompras = () => {
     };
 
     return (
-        <div className="flex flex-col md:flex-row items-center justify-around p-3 my-2 shadow-2xl rounded-md">
-            <div className="md:w-1/6">
-                <img 
-                src={foto}
-                alt="Nombre obra" 
-                className="rounded-lg w-full"
-                />
+        <div className="md:flex-row justify-around py-4 my-2 shadow-2xl rounded-md w-full md:w-auto flex flex-col justify-center items-center w-full w-v">
+            <div className="md:w-1/2 flex justify-center">
+            <button key={id_purchase}>
+                <a href={`/sales/${id_purchase}`}>
+                    <img 
+                            className="rounded-md md:w-auto lg:w-auto xl:w-64 xl:h-64 bg-cover"
+                            src={foto}
+                            alt={obra} 
+                        />
+                </a>
+            </button>    
             </div>
             <div className="md:w-1/3">
-                <h2 className="text-lg font-bold mb-2">Nombre obra</h2>
+                <h2 className="text-lg font-bold mb-2">{obra}</h2>
                 <div className="flex justify-between items-center mb-4">
-                    <span className="text-sm underline">Autor</span>
+                    <a href={`/artist/${artist}`} className="text-sm underline">{artist}</a>
                     {isCalifying ? (
                         <div className="flex space-x-2">
                             <button 
@@ -47,9 +50,10 @@ const ItemCompras = () => {
                         </button>
                     )}
                 </div>
-                <p className="text-gray-700 mb-4 text-center text-xs">Descripción</p>
+                <h5 className="text-gray-700 mb-4 text-center text-xs">{title}</h5>
+                <p className="text-gray-700 mb-4 text-center text-xs">{description}</p>
                 <div className='border-t-2 border-NaranjaTrans20'>
-                    <p className="text-lg font-semibold text-center m-1">$ Precio</p>
+                    <p className="text-lg font-semibold text-center m-1">${total}</p>
                 </div>
             </div>
         </div>
@@ -57,4 +61,3 @@ const ItemCompras = () => {
 };
 
 export default ItemCompras;
-
