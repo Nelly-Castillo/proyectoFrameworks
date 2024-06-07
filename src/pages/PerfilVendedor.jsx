@@ -6,6 +6,7 @@ import iconNombre from "../assets/images/iconNombre.svg";
 import ig from "../assets/images/instagram.svg";
 import mail from "../assets/images/Mail.jpg";
 import tiktok from "../assets/images/tiktok.svg";
+import paypal from "../assets/images/paypal.svg";
 import tw from "../assets/images/twitter.svg";
 import guardar from "../assets/images/guardar.svg";
 import { Button } from "../components/Button";
@@ -41,6 +42,7 @@ export function PerfilVendedor() {
     handleSubmit,
     formState: { errors },
     getValues,
+    reset,
   } = useForm();
   async function getProfile() {
     try {
@@ -140,6 +142,28 @@ export function PerfilVendedor() {
 
   async function onSubmit(data) {
     const cleanedData = removeEmptyFields(data);
+    //console.log(cleanedData);
+    if (cleanedData.correo) {
+      const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        const isValid = regexEmail.test(cleanedData.correo)
+
+        if (!isValid) {
+          alert("El correo es inválido")
+          return
+        }
+    }
+    if (cleanedData.cuenta_paypal) {
+      const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        const isValid = regexEmail.test(cleanedData.cuenta_paypal)
+
+        if (!isValid) {
+          alert("El correo de PayPal es inválido")
+          return
+        }
+    }
+
     try {
       const response = await fetch("/api/user/perfil-artist", {
         method: "PUT",
@@ -155,6 +179,8 @@ export function PerfilVendedor() {
           "Error en la actualización del perfil: " + response.statusText
         );
       }
+
+      reset();
 
       const result = await response.json();
       console.log("Perfil actualizado:", result);
@@ -260,6 +286,18 @@ export function PerfilVendedor() {
                         />
                       </div>
                     )}
+                    {(profileData?.message?.cuenta_paypal || edicion) && (
+                      <div className="p-2 flex flex-row gap-3">
+                        <img className="flex self-center justify-center h-7 w-7" src={paypal} />
+                        <input
+                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${edicion ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500": "outline-none"}`}
+                          readOnly={!edicion}
+                          placeholder={profileData.message.cuenta_paypal}
+                          name="cuenta_paypal"
+                          {...register("cuenta_paypal")}
+                        />
+                      </div>
+                    )}
                     {(profileData?.message?.social_media_tiktok || edicion) && (
                       <div className="p-2 flex flex-row gap-3">
                         <img className="flex self-center justify-center h-7 w-7" src={tiktok} />
@@ -300,10 +338,10 @@ export function PerfilVendedor() {
                 </div>
               </div>
             </div>
-            <div className="flex justify-center items-center w-full w-v">
+            <div className="flex flex-col justify-center items-center w-full w-v">
               <div className="grid grid-cols-3 gap-2 md:gap-4 xl:gap-7 justify-start">
                 {obrasPublicadas ? (
-                  obrasPublicadas.map(function (obra) {
+                  obrasPublicadas.slice(0, 12).map(function (obra) {
                     return (
                       <button key={obra.id_work}>
                         <img
@@ -316,10 +354,20 @@ export function PerfilVendedor() {
                   })
                 ) : (
                   <div className=" font-thin text-xl">
-                    No hay trabajos publicados aún
+                    No hay obras publicadas aún
                   </div>
                 )}
               </div>
+              <div className="flex justify-center">
+                    <button>
+                        <Link to="/Mis-Obras">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-double-down fill-Azul w-8 h-8" viewBox="0 0 16 16" >
+                                <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                                <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                            </svg>
+                        </Link>
+                    </button>
+                </div>
             </div>
           </div>
           <div className="flex justify-center">
