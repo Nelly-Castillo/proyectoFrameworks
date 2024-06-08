@@ -17,17 +17,17 @@ const ItemCompras = ({ id_work, obra, title, artist, description, total, foto, i
             const body = {
                 id_work: id_work,
                 score: calificacion ? 1 : 0,
-                id_artist: artist,
+                artist_id: artist,
                 id_purchase: id_purchase
             }
 
             console.log("Esto se va a enviar en ale3");
             console.log(body);
-            const response = await fetch('https://proyectoframeworksbackend-production.up.railway.app/sales/raise-scores', {
+            const response = await fetch('http://localhost:3000/sales/raise-scores', {
                 method: 'POST',
                 headers: {
                     token: token,
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(body),
             });
