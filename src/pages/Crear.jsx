@@ -3,7 +3,6 @@ import { NavBar } from "../components/navBar";
 import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import eliminar from "../assets/images/eliminar.svg";
 import { CheckboxGroup, Checkbox } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
@@ -141,11 +140,6 @@ function Crear() {
               <div className="w-96 flex flex-wrap justify-around mb-4">
                 {images.map((file, index) => (
                   <div key={index}>
-                    <img
-                      className="w-10 h-10 -bottom-24"
-                      src={eliminar}
-                      alt="Eliminar"
-                    />
                     <img
                       src={URL.createObjectURL(file)}
                       // alt={Uploaded ${index}}

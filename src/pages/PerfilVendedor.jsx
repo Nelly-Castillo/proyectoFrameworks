@@ -66,6 +66,11 @@ export function PerfilVendedor() {
     }
   }
 
+  function limpiarStorage(){
+    sessionStorage.clear()
+    localStorage.clear()
+  }
+
   async function myWorks() {
     try {
       const response = await fetch("/api/publications/publications-yours", {
@@ -202,8 +207,8 @@ export function PerfilVendedor() {
 
       const result = await response.json();
       console.log("Perfil actualizado:", result);
-      await getProfile();
       setEdicion(false);
+      await getProfile();
     } catch (error) {
       console.error("Error al actualizar el perfil:", error);
     }
@@ -404,7 +409,7 @@ export function PerfilVendedor() {
               </div>
             </div>
             <div className="flex flex-col justify-center items-center w-full w-v">
-              <div className="grid grid-cols-3 gap-2 md:gap-4 xl:gap-7 justify-start">
+              <div className="grid grid-cols-3 gap-2 md:gap-4 xl:gap-7 justify-start ">
                 {obrasPublicadas ? (
                   obrasPublicadas.slice(0, 12).map(function (obra) {
                     return (
@@ -425,23 +430,13 @@ export function PerfilVendedor() {
                   </div>
                 )}
               </div>
-              <div className="flex justify-center">
-                    <button>
-                        <Link to="/Mis-Obras">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-double-down fill-Azul w-8 h-8" viewBox="0 0 16 16" >
-                                <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
-                                <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
-                            </svg>
-                        </Link>
-                    </button>
-                </div>
             </div>
           </div>
           <div className="flex justify-center">
             <Link to="/Login">
               <Button
                 text="Cerrar sesion"
-                onClick={() => sessionStorage.clear()}
+                onClick={() => limpiarStorage()}
               ></Button>
             </Link>
           </div>
