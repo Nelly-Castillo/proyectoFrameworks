@@ -14,6 +14,8 @@ import {VerArtista} from "./pages/VerArtista.jsx";
 import {NextUIProvider} from "@nextui-org/react";
 import './App.css';
 import { PerfilComprador } from "./pages/PerfilComprador.jsx";
+import {ThankYou} from "./components/ThankYou.jsx";
+
 
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
         <Route path="/artist/:user_name" element={<VerArtista></VerArtista>}/>
         <Route path="/perfilvendedor" element={<PerfilVendedor></PerfilVendedor>}/>
         <Route path="/perfilcomprador" element={<PerfilComprador></PerfilComprador> }/>
+        <Route path="/thankyou" element={<ThankYou></ThankYou> }/>
         {/* <Route path="/PerfilComprador" element={token ? <PerfilComprador></PerfilComprador> : <Navigate to="/login"/>}/> */}
       </Routes>
     </NextUIProvider>
