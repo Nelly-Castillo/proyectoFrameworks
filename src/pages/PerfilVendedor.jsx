@@ -12,15 +12,11 @@ import guardar from "../assets/images/guardar.svg";
 import { Button } from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
-
 import { useForm } from "react-hook-form";
-
-import fotoDefault from '../assets/images/person-circle.svg';
+import fotoDefault from "../assets/images/person-circle.svg";
 
 export function PerfilVendedor() {
   const navigate = useNavigate();
-
-
   const [profileData, setProfileData] = useState("");
   const [errorPerfil, setErrorPerfil] = useState(null);
   const [errorWorks, setErrorWorks] = useState(null);
@@ -28,13 +24,12 @@ export function PerfilVendedor() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadWorks, setLoadWorks] = useState(true);
   const [obrasPublicadas, setObrasPublicadas] = useState(null);
+  const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
 
   const token = sessionStorage.getItem("token");
 
   useEffect(() => {
-
-    if(!token) navigate('/login')
-    
+    if (!token) navigate("/login");
   }, [token, navigate]);
 
   const {
@@ -95,7 +90,30 @@ export function PerfilVendedor() {
       setLoadWorks(false);
     }
   }
+  const getInfo = async () => {
+    try {
+        const response = await fetch("/api/user/perfil", {
+            method: "GET",
+            headers: {
+            token: token,
+            "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error("Error en la solicitud: " + response.statusText);
+        }
+        const data = await response.json();
+        //debugger
+        setProfilePhoto(data.message.photo)
+    } catch (error) {
+    console.error("Error al obtener el perfil:", error);
+    setError(error.message);
+    }
+};
 
+  useEffect(()=>{
+    getInfo();
+  })
   useEffect(() => {
     getProfile();
   }, [profileData]);
@@ -191,23 +209,29 @@ export function PerfilVendedor() {
     }
   }
 
-
   const determineProfilePhoto = () => {
     //debugger;
     if (profileData.message.photo) {
-        return profileData.message.photo;
+      return profileData.message.photo;
     } else {
-        return fotoDefault;
+      return fotoDefault;
     }
-};
+  };
 
   function enviarDatos() {
     const rawData = getValues();
     onSubmit(rawData);
   }
+
+  // function obraParaEditar(idWork){
+  //   setIdObra(idWork)
+  //   console.log("idwork:", idWork)
+  // }
+
+
   return (
     <>
-      <NavBar />
+      <NavBar image={profilePhoto}/>
       <div className="flex p-2.5 my-8">
         <div className="w-screen">
           <div className="flex flex-row gap-2 items-start">
@@ -240,9 +264,12 @@ export function PerfilVendedor() {
                 <div className="flex flex-row py-3 place-items-center"></div>
                 <div className="flex flex-col gap-2 w-full">
                   <div className="p-2 flex flex-row gap-3">
-                    <img className="flex self-center justify-center h-7 w-7" src={iconUsuario} />
+                    <img
+                      className="flex self-center justify-center h-7 w-7"
+                      src={iconUsuario}
+                    />
                     <input
-                      className=" font-medium w-full text-start text-lg p-1 placeholder:text-black"    
+                      className=" font-medium w-full text-start text-lg p-1 placeholder:text-black"
                       readOnly
                       placeholder={
                         profileData ? profileData.message.user_name : "..."
@@ -250,7 +277,10 @@ export function PerfilVendedor() {
                     />
                   </div>
                   <div className="p-2 flex flex-row gap-3">
-                    <img className="flex self-center justify-center h-7 w-7" src={iconNombre} />
+                    <img
+                      className="flex self-center justify-center h-7 w-7"
+                      src={iconNombre}
+                    />
                     <input
                       className=" font-medium w-full text-start text-lg p-1 placeholder:text-black"
                       readOnly
@@ -264,11 +294,20 @@ export function PerfilVendedor() {
                     {(profileData?.message?.social_media_instagram ||
                       edicion) && (
                       <div className="p-2 flex flex-row gap-3">
-                        <img className="flex self-center justify-center h-7 w-7" src={ig} />
+                        <img
+                          className="flex self-center justify-center h-7 w-7"
+                          src={ig}
+                        />
                         <input
-                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${edicion ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500": "outline-none"}`}
+                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${
+                            edicion
+                              ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500"
+                              : "outline-none"
+                          }`}
                           readOnly={!edicion}
-                          placeholder={profileData.message.social_media_instagram}
+                          placeholder={
+                            profileData.message.social_media_instagram
+                          }
                           name="social_media_instagram"
                           {...register("social_media_instagram")}
                         />
@@ -276,9 +315,16 @@ export function PerfilVendedor() {
                     )}
                     {(profileData?.message?.correo || edicion) && (
                       <div className="p-2 flex flex-row gap-3">
-                        <img className="flex self-center justify-center h-7 w-7" src={mail} />
+                        <img
+                          className="flex self-center justify-center h-7 w-7"
+                          src={mail}
+                        />
                         <input
-                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${edicion ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500": "outline-none"}`}
+                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${
+                            edicion
+                              ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500"
+                              : "outline-none"
+                          }`}
                           readOnly={!edicion}
                           placeholder={profileData.message.correo}
                           name="correo"
@@ -300,9 +346,16 @@ export function PerfilVendedor() {
                     )}
                     {(profileData?.message?.social_media_tiktok || edicion) && (
                       <div className="p-2 flex flex-row gap-3">
-                        <img className="flex self-center justify-center h-7 w-7" src={tiktok} />
+                        <img
+                          className="flex self-center justify-center h-7 w-7"
+                          src={tiktok}
+                        />
                         <input
-                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${edicion ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500": "outline-none"}`}
+                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${
+                            edicion
+                              ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500"
+                              : "outline-none"
+                          }`}
                           readOnly={!edicion}
                           placeholder={profileData.message.social_media_tiktok}
                           name="social_media_tiktok"
@@ -312,9 +365,16 @@ export function PerfilVendedor() {
                     )}
                     {(profileData?.message?.social_media_x || edicion) && (
                       <div className="p-2 flex flex-row gap-3">
-                        <img className="flex self-center justify-center h-7 w-7" src={tw} />
+                        <img
+                          className="flex self-center justify-center h-7 w-7"
+                          src={tw}
+                        />
                         <input
-                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${edicion ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500": "outline-none"}`}
+                          className={` font-medium w-full text-start text-lg p-1 placeholder:text-black rounded-md ${
+                            edicion
+                              ? "outline outline-2 bg-orange-50 outline-orange-200 focus:outline-Naranja placeholder:text-gray-500"
+                              : "outline-none"
+                          }`}
                           readOnly={!edicion}
                           placeholder={profileData.message.social_media_x}
                           name="social_media_x"
@@ -331,7 +391,7 @@ export function PerfilVendedor() {
                     </Link>
                   </div>
                   <div className="mx-5 h-full w-16">
-                    <Link to="/Crear">
+                    <Link to="/Crear" onClick={()=>ocupoPublicarAlgo}>
                       <Button text="Publicar"></Button>
                     </Link>
                   </div>
@@ -348,13 +408,15 @@ export function PerfilVendedor() {
                 {obrasPublicadas ? (
                   obrasPublicadas.slice(0, 12).map(function (obra) {
                     return (
-                      <button key={obra.id_work}>
-                        <img
-                          className="rounded-md w-20 md:w-36 lg:w-52 xl:w-64 xl:h-64 bg-cover"
-                          src={obra.mainImageUrl}
-                          alt={obra.title}
-                        />
-                      </button>
+                      <a href={`Editar/${obra.id_work}`}>
+                        <button key={obra.id_work}>
+                          <img
+                            className="rounded-md w-20 md:w-36 lg:w-52 xl:w-64 xl:h-64 bg-cover"
+                            src={obra.mainImageUrl}
+                            alt={obra.title}
+                          />
+                        </button>
+                      </a>
                     );
                   })
                 ) : (
@@ -376,10 +438,12 @@ export function PerfilVendedor() {
             </div>
           </div>
           <div className="flex justify-center">
-              <Link to="/Login">
-                  <Button text="Cerrar sesion"
-                  onClick={() => sessionStorage.clear()}></Button>
-              </Link>
+            <Link to="/Login">
+              <Button
+                text="Cerrar sesion"
+                onClick={() => sessionStorage.clear()}
+              ></Button>
+            </Link>
           </div>
         </div>
       </div>
