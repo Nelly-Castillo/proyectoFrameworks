@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { NavBar } from "./navBar";
 import ItemCarrito from "./itemCarrito";
 import { useNavigate, Link } from "react-router-dom";
+import {Spinner} from "@nextui-org/spinner";
+
 import fotoDefault from '../assets/images/person-circle.svg';
-import { Spinner } from "@nextui-org/react";
 
 function Carrito() {
 
+  const [waiting, setwaiting] = useState(false)
   const token = sessionStorage.getItem("token");
   const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
   const navigate = useNavigate();
@@ -26,6 +28,7 @@ function Carrito() {
 
   async function handlePay(e) {
     e.preventDefault();
+    setwaiting(true)
 
     const formatedData = {
       purchases: data.map((product) => (
@@ -58,10 +61,19 @@ function Carrito() {
 
       console.log(body);
 
+      const thankyou = {
+        total: totalCarrito,
+        links: body.message
+      }
+
+      setwaiting(false)
+      sessionStorage.setItem("compra", JSON.stringify(thankyou))
       alert("Compra realizada con exito")
+      navigate('/thankyou')
       
     } catch (error) {
       console.log(error);
+      setwaiting(false)
       alert("Error al realizar la orden")
     }
   }
@@ -164,7 +176,9 @@ function Carrito() {
           <div className="text-3xl font-semibold">${totalCarrito}</div>
         </div>
         <div className="flex self-center">
-          <button onClick={handlePay} className="mt-5 bg-Azul px-10 py-4 text-white text-lg rounded-xl">Pagar</button>
+          <button disabled={waiting} onClick={handlePay} className="mt-5 bg-Azul px-10 py-4 text-white text-lg rounded-xl">
+            {waiting ? <Spinner color="warning" /> : "Pagar"}
+          </button>
         </div>
       </div>
     </div>

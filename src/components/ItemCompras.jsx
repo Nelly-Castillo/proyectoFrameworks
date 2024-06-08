@@ -17,7 +17,7 @@ const ItemCompras = ({ id_work, obra, title, artist, description, total, foto, i
             const body = {
                 id_work: id_work,
                 score: calificacion ? 1 : 0,
-                id_artist: artist,
+                artist_id: artist,
                 id_purchase: id_purchase
             }
 
@@ -27,7 +27,7 @@ const ItemCompras = ({ id_work, obra, title, artist, description, total, foto, i
                 method: 'POST',
                 headers: {
                     token: token,
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(body),
             });

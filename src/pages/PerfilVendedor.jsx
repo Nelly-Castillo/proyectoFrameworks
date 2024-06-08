@@ -409,7 +409,7 @@ export function PerfilVendedor() {
               </div>
             </div>
             <div className="flex flex-col justify-center items-center w-full w-v">
-              <div className="grid grid-cols-3 gap-2 md:gap-4 xl:gap-7 justify-start ">
+              <div className="grid grid-cols-3 gap-2 md:gap-4 xl:gap-7 justify-start gallery-profile-container overflow-y-scroll">
                 {obrasPublicadas ? (
                   obrasPublicadas.slice(0, 12).map(function (obra) {
                     return (
