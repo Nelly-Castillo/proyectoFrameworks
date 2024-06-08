@@ -38,6 +38,7 @@ const ItemCompras = ({ id_work, obra, title, artist, description, total, foto, i
                 console.log('Calificación enviada con éxito');
             } else {
                 console.log(message);
+                alert("Esta obra ya ha sido calificada")
             }
         } catch (error) {
             console.error('Error al enviar la calificación:', error);
