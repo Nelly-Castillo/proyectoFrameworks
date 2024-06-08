@@ -41,7 +41,7 @@ function Carrito() {
     console.log(formatedData);
 
     try {
-      const response = await fetch("http://localhost:3000/sales/purchase", {
+      const response = await fetch("api/sales/purchase", {
         method: "POST",
         headers: {
           token: token,

@@ -35,6 +35,7 @@ export function Compras() {
       }
       const data = await response.json();
       setSales(data.message);
+      console.log(data.message);
     } catch (errorSales) {
       console.error("Error al obtener las compras:", errorSales);
       setErrorSales(errorSales.message);
@@ -77,13 +78,7 @@ export function Compras() {
     return <div>ErrorSales: {errorSales}</div>;
   }
 
-  const determineProfilePhoto = () => {
-    if (profileData.message.photo) {
-      return profileData.message.photo;
-    } else {
-      return fotoDefault;
-    }
-  };
+
 
 
   return  (
@@ -97,6 +92,7 @@ export function Compras() {
                         <div className="grid grid-cols-3 gap-2 md:gap-4 xl:gap-7 justify-start">
                             {sales.map((sale) => (
                             <ItemCompras
+                                id_work={sale.id_work}
                                 id_purchase={sale.id_purchase}
                                 title={sale.title}
                                 artist={sale.artist}
