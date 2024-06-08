@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { obraContext } from "../components/ObraProvider";
 import { NavBar } from "../components/navBar";
-import eliminar from "../assets/images/eliminar.svg";
 import { CheckboxGroup, Checkbox } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
@@ -145,11 +144,6 @@ function Editar() {
               <div className="w-96 flex flex-wrap justify-around mb-4">
                 {images.map((file, index) => (
                   <div key={index}>
-                    <img
-                      src={eliminar}
-                      alt="Eliminar"
-                      className="w-10 h-10 -bottom-24"
-                    />
                     <img
                       src={URL.createObjectURL(file)}
                       alt={`Uploaded ${index}`}
