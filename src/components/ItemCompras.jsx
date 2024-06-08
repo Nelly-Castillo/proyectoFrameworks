@@ -23,7 +23,7 @@ const ItemCompras = ({ id_work, obra, title, artist, description, total, foto, i
 
             console.log("Esto se va a enviar en ale3");
             console.log(body);
-            const response = await fetch('http://localhost:3000/sales/raise-scores', {
+            const response = await fetch('https://proyectoframeworksbackend-production.up.railway.app/sales/raise-scores', {
                 method: 'POST',
                 headers: {
                     token: token,
