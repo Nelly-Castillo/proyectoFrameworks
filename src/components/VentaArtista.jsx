@@ -80,6 +80,9 @@ function VentaArtista() {
                                 <img src={purchase.mainImageUrl} alt={purchase.title} className="w-auto mb-4 rounded-lg text-center" />
                             </a>
                             <h1 className="text-2xl font-bold mb-2">{purchase.title}</h1>
+                            <p className="text-sm mb-2">Comprado por: {purchase.comprador_username}</p>
+                            <p className='text-sm mb-2'>Nombre comprador: {purchase.comprador_fullname}</p>
+                            <p className='text-sm mb-2'>Email : {purchase.comprador_correo}</p>
                             <p className="text-sm mb-2">Descripción: {purchase.description}</p>
                             <p className="text-sm mb-2">Comprado por: <a href={`/buyer/${purchase.comprador}`}>{purchase.comprador}</a></p>
                             <p className="text-sm mb-2">Cantidad: {purchase.quantity}</p>

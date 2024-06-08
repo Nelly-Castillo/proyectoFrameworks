@@ -24,6 +24,7 @@ export function PerfilVendedor() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadWorks, setLoadWorks] = useState(true);
   const [obrasPublicadas, setObrasPublicadas] = useState(null);
+  const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
 
   const token = sessionStorage.getItem("token");
 
@@ -89,7 +90,30 @@ export function PerfilVendedor() {
       setLoadWorks(false);
     }
   }
+  const getInfo = async () => {
+    try {
+        const response = await fetch("/api/user/perfil", {
+            method: "GET",
+            headers: {
+            token: token,
+            "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error("Error en la solicitud: " + response.statusText);
+        }
+        const data = await response.json();
+        //debugger
+        setProfilePhoto(data.message.photo)
+    } catch (error) {
+    console.error("Error al obtener el perfil:", error);
+    setError(error.message);
+    }
+};
 
+  useEffect(()=>{
+    getInfo();
+  })
   useEffect(() => {
     getProfile();
   }, [profileData]);
@@ -207,7 +231,7 @@ export function PerfilVendedor() {
 
   return (
     <>
-      <NavBar />
+      <NavBar image={profilePhoto}/>
       <div className="flex p-2.5 my-8">
         <div className="w-screen">
           <div className="flex flex-row gap-2 items-start">
