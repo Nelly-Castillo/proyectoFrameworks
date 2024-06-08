@@ -28,8 +28,6 @@ function App() {
         <Route path="/SignUp" element={<SignUp></SignUp>}/>
         <Route path="/Arts" element={<Arts></Arts>}/>  
         <Route path="/Obra" element={<Obra></Obra>}/>
-        <Route path="/Explorar" element={<Explorar></Explorar>}/>
-        <Route path="/Chat" element={<Chat></Chat>}/>
         <Route path="/Obra/:id_work" element={<Obra></Obra>}/>
         <Route path="/Crear" element={<Crear></Crear>}/>
         <Route path="/Carrito" element={<Carrito></Carrito>}/>
