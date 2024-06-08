@@ -66,6 +66,11 @@ export function PerfilVendedor() {
     }
   }
 
+  function limpiarStorage(){
+    sessionStorage.clear()
+    localStorage.clear()
+  }
+
   async function myWorks() {
     try {
       const response = await fetch("/api/publications/publications-yours", {
@@ -202,8 +207,8 @@ export function PerfilVendedor() {
 
       const result = await response.json();
       console.log("Perfil actualizado:", result);
-      await getProfile();
       setEdicion(false);
+      await getProfile();
     } catch (error) {
       console.error("Error al actualizar el perfil:", error);
     }
@@ -431,7 +436,7 @@ export function PerfilVendedor() {
             <Link to="/Login">
               <Button
                 text="Cerrar sesion"
-                onClick={() => sessionStorage.clear()}
+                onClick={() => limpiarStorage()}
               ></Button>
             </Link>
           </div>
