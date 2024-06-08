@@ -15,7 +15,6 @@ function Carrito() {
   const [waiting, setwaiting] = useState(false)
   const token = sessionStorage.getItem("token");
   const [profilePhoto, setProfilePhoto] = useState(fotoDefault);
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(() => {
     const savedData = localStorage.getItem("carrito");
